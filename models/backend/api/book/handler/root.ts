@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { searchBooksByFields, getAllBooks, createBook, updateBookById, hasBookById, getBookById } from '../../../../database/model/book/book.repository';
-import { IBook } from '../../../../database/model/schema/bookSchema';
+import { searchBooksByFields, getAllBooks, createBook, updateBookById, hasBookById, getBookById } from '../../../database/model/book/book.repository';
+import { IBook } from '../../../database/model/schema/bookSchema';
 
 
 

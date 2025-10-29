@@ -3,9 +3,9 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import compression from 'compression';
 import morgan from 'morgan';
-import { initDatabase } from './src/backend/init/init.db';
-import ConfigManager from './src/config/config.manager';
-import backendRouter from './src/backend/backend.router';
+import { initDatabase } from './models/backend/init/init.db';
+import ConfigManager from './models/config/config.manager';
+import backendRouter from './models/backend/backend.router';
 
 const app = express();
 // Security & performance middleware

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifySessionToken, isExpired, SessionPayload } from './session';
-import * as userRepo from '../../../database/model/user/user.repository';
+import * as userRepo from '../../database/model/user/user.repository';
 
 function parseCookies(req: Request): Record<string, string> {
   // Use cookie-parser output exclusively when present

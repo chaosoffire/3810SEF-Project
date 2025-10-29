@@ -1,5 +1,5 @@
-import { IUser } from "../../../../database/model/schema/userSchema";
-import * as userRepo from '../../../../database/model/user/user.repository';
+import { IUser } from "../../../database/model/schema/userSchema";
+import * as userRepo from '../../../database/model/user/user.repository';
 
 export async function registerUser(username: string, password: string): Promise<void> {
     const userData: IUser = {

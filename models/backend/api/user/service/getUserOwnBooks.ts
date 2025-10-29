@@ -1,8 +1,8 @@
 // import { Results } from "../../model/constent.ts.bak";
-import { MongoDBManager } from '../../../../database/mongodb.manager';
-import { USER_COLLECTION } from "../../../../database/model/user/user.repository";
-import { userSchema } from '../../../../database/model/schema/userSchema';
-import { orderSchema } from "../../../../database/model/schema/orderSchema";
+import { MongoDBManager } from '../../../database/mongodb.manager';
+import { USER_COLLECTION } from "../../../database/model/user/user.repository";
+import { userSchema } from '../../../database/model/schema/userSchema';
+import { orderSchema } from "../../../database/model/schema/orderSchema";
 
 export async function getUserOwnBooks(username: string): Promise<string[]> {
 

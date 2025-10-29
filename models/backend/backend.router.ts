@@ -1,8 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express';
 import ConfigManager from '../config/config.manager';
-import { userRouter } from './api/modules/user/router';
-import authRouter from './api/modules/auth/router';
-import { bookRouter } from './api/modules/book/router';
+import { userRouter } from './api/user/router';
+import authRouter from './api/auth/router';
+import { bookRouter } from './api/book/router';
 
 // Minimal backend router that composes model-based routers.
 const backendRouter = express.Router({ mergeParams: true });

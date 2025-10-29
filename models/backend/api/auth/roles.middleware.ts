@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import * as userRepo from '../../../database/model/user/user.repository';
+import * as userRepo from '../../database/model/user/user.repository';
 
 // Authorization middleware to ensure the current session user is an admin
 export async function ensureAdmin(req: Request, res: Response, next: NextFunction) {

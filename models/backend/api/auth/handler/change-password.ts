@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import * as userRepo from '../../../../database/model/user/user.repository';
+import * as userRepo from '../../../database/model/user/user.repository';
 import bcrypt from 'bcryptjs';
 export async function changePasswordHandler(req: Request, res: Response) {
   try {

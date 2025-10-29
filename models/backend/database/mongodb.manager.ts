@@ -1,6 +1,5 @@
-import { Connection, FlattenMaps, Mongoose, createConnection, Model } from "mongoose";
-import { userSchema, IUser } from "./schema/userSchema";
-import ConfigManager from "../config/config.manager";
+import { Mongoose, Model } from "mongoose";
+import ConfigManager from "../../config/config.manager";
 import { exit } from "process";
 import { randomInt } from "crypto";
 
@@ -71,7 +70,7 @@ class MongoDBManager {
     }
     /**
      * Return a Model bound to the internal Mongoose instance. This lets
-     * repository modules (e.g. src/database/user) acquire models without
+     * repository modules (e.g. models/database/user) acquire models without
      * re-creating connections or duplicating logic.
      */
     public getModel<T = any>(collectionName: string, schema: any): Model<T> {

@@ -9,10 +9,10 @@ import { changePasswordHandler } from '../auth/handler/change-password';
 import { ordersHandler } from './handler/orders';
 import { ownbooksHandler } from './handler/ownbooks';
 import { get } from 'http';
-import { getUserByUsername } from '../../../database/model/user/user.repository';
+import { getUserByUsername } from '../../database/model/user/user.repository';
 import { FlattenMaps } from 'mongoose';
 import { ensureAdmin } from '../auth/roles.middleware';
-import { deleteOrderById } from '../../../database/model/order/order.repository';
+import { deleteOrderById } from '../../database/model/order/order.repository';
 
 export const userRouter = express.Router({ mergeParams: true });
 

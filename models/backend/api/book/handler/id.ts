@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { getBookById, updateBookById, deleteBookByIds, hasBookById } from '../../../../database/model/book/book.repository';
-import { IBook } from '../../../../database/model/schema/bookSchema';
+import { getBookById, updateBookById, deleteBookByIds, hasBookById } from '../../../database/model/book/book.repository';
+import { IBook } from '../../../database/model/schema/bookSchema';
 
 // Sanitize string to prevent MongoDB injection
 function sanitizeString(input: string): string {

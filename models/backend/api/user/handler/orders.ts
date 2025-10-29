@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { getUserOwnBooks } from '../service/getUserOwnBooks';
 import mongoose from 'mongoose';
-import { createOrder } from '../../../../database/model/order/order.repository';
-import * as userRepo from '../../../../database/model/user/user.repository';
+import { createOrder } from '../../../database/model/order/order.repository';
+import * as userRepo from '../../../database/model/user/user.repository';
 
 interface OrderRequest {
   type: 'buy' | 'refund';

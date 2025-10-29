@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import ConfigManager from '../../../../config/config.manager';
+import ConfigManager from '../../../config/config.manager';
 import { exit } from 'process';
 
 export interface SessionPayload {

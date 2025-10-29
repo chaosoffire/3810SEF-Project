@@ -7,7 +7,7 @@
   "type": "commonjs",
   "main": "main.js",
   "scripts": {
-    "dev": "ts-node src/app.ts",
+    "dev": "ts-node models/app.ts",
     "typecheck": "tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

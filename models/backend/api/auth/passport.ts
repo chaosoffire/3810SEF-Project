@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import bcrypt from 'bcryptjs';
-import * as userRepo from '../../../database/model/user/user.repository';
+import * as userRepo from '../../database/model/user/user.repository';
 
 type DbUserCredential = {
   credential?: {
