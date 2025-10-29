@@ -8,6 +8,8 @@
   "main": "main.js",
   "scripts": {
     "dev": "ts-node models/app.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
     "typecheck": "tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
