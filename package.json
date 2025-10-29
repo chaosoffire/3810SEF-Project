@@ -7,7 +7,7 @@
   "type": "commonjs",
   "main": "main.js",
   "scripts": {
-    "dev": "ts-node models/app.ts",
+    "dev": "ts-node server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
     "typecheck": "tsc -p .",
