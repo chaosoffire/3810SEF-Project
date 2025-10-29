@@ -1,0 +1,83 @@
+import { FlattenMaps } from 'mongoose';
+import { MongoDBManager } from '../../mongodb.manager';
+import { userSchema, IUser } from '../schema/userSchema';
+
+export const USER_COLLECTION = 'users';
+
+export async function createUser(userData: IUser): Promise<true> {
+  const model = MongoDBManager.getInstance().getModel<IUser>(USER_COLLECTION, userSchema);
+  await model.create(userData);
+  return true;
+};
+
+export async function hasUserById(userId: string): Promise<boolean> {
+  const model = MongoDBManager.getInstance().getModel(USER_COLLECTION, userSchema);
+  const user = await model.findById(userId).lean();
+  return !!user;
+};
+
+export async function hasUserByUsername(username: string): Promise<boolean> {
+  const model = MongoDBManager.getInstance().getModel(USER_COLLECTION, userSchema);
+  const user = await model.findOne({ 'credential.username': username }).lean();
+  return !!user;
+};
+
+export async function getAllUsers(): Promise<FlattenMaps<string>[]> {
+  const model = MongoDBManager.getInstance().getModel(USER_COLLECTION, userSchema);
+  const users = await model.find({}).lean();
+  return users.map((u) => JSON.parse(JSON.stringify(u)));
+};
+
+export async function getUserByUsername(username: string): Promise<FlattenMaps<string> | null> {
+  const model = MongoDBManager.getInstance().getModel(USER_COLLECTION, userSchema);
+  const user = await model.findOne({ 'credential.username': username }).lean();
+  return user ? JSON.parse(JSON.stringify(user)) : null;
+};
+
+export async function getUserById(userId: string): Promise<FlattenMaps<string> | null> {
+  const model = MongoDBManager.getInstance().getModel(USER_COLLECTION, userSchema);
+  const user = await model.findById(userId).lean();
+  return user ? JSON.parse(JSON.stringify(user)) : null;
+};
+
+export async function logoutUserById(userId: string): Promise<true> {
+  const model = MongoDBManager.getInstance().getModel(USER_COLLECTION, userSchema);
+  await model.updateOne({ _id: userId }, { $set: { 'session.lastLogoutAt': Date.now() } });
+  return true;
+};
+
+export async function logoutUserByUsername(username: string): Promise<true> {
+  const model = MongoDBManager.getInstance().getModel(USER_COLLECTION, userSchema);
+  await model.updateOne({ 'credential.username': username }, { $set: { 'session.lastLogoutAt': Date.now() } });
+  return true;
+};
+
+export async function deleteAllUsers(): Promise<true> {
+  const model = MongoDBManager.getInstance().getModel(USER_COLLECTION, userSchema);
+  await model.deleteMany({});
+  return true;
+};
+
+export async function deleteUserById(userId: string): Promise<true> {
+  const model = MongoDBManager.getInstance().getModel(USER_COLLECTION, userSchema);
+  await model.deleteOne({ _id: userId });
+  return true;
+};
+
+export async function deleteUserByUsername(username: string): Promise<true> {
+  const model = MongoDBManager.getInstance().getModel(USER_COLLECTION, userSchema);
+  await model.deleteOne({ 'credential.username': username });
+  return true;
+};
+
+export async function updateUserPasswordHashByUsername(username: string, passwordHash: string): Promise<true> {
+  const model = MongoDBManager.getInstance().getModel(USER_COLLECTION, userSchema);
+  await model.updateOne({ 'credential.username': username }, { $set: { 'credential.passwordHash': passwordHash } });
+  return true;
+};
+
+export async function getUserOrdersByUsername(username: string): Promise<string[] | null> {
+  const model = MongoDBManager.getInstance().getModel<IUser>(USER_COLLECTION, userSchema);
+  const user = await model.findOne({ 'credential.username': username }).lean();
+  return user ? JSON.parse(JSON.stringify(user.orders)) : null;
+}
