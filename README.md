@@ -51,7 +51,7 @@ All configuration is provided through environment variables. The application wil
 | `npm run clean` | Delete `dist/` |
 | `npm run build:ts` | Compile TypeScript to `dist/` |
 | `npm run copy:assets` | Copy static assets to `dist/` |
-| `npm run build` | Compile TypeScript to `dist/` |
+| `npm run build` | Run `npm run build:ts` and `npm run copy:assets` |
 | `npm start` | Run the built JavaScript (after `npm run build`) |
 | `npm run typecheck` | TypeScript project validation |
 | `npm test` | Placeholder for future tests |
