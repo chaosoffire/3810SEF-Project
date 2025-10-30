@@ -1,8 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
 import ConfigManager from '../config/config.manager';
 import { userRouter } from './api/user/router';
-import authRouter from './api/auth/router';
+import passport from './api/auth/passport/passport';
 import { bookRouter } from './api/book/router';
+import { testRouter } from './api/test/router';
 
 // Minimal backend router that composes model-based routers.
 const backendRouter = express.Router({ mergeParams: true });
@@ -17,7 +18,7 @@ backendRouter.use((req: Request, res: Response, next: NextFunction) => {
   res.on('finish', () => {
     const duration = Date.now() - start;
     const status = res.statusCode;
-    const username = (req as any)?.runtime?.username || res.locals?.username || '-';
+    const username = (req as any)?.runtime?.username || '-';
     const ip = req.ip || req.socket.remoteAddress || '-';
     // Compact single-line log
     console.log(
@@ -26,6 +27,9 @@ backendRouter.use((req: Request, res: Response, next: NextFunction) => {
   });
   next();
 });
+
+// Initialize passport strategies globally so any route (e.g., /user/login) can use passport
+backendRouter.use(passport.initialize());
 
 // API version gate: ensure :api_version matches config
 backendRouter.use(async (req: Request, res: Response, next: NextFunction) => {
@@ -43,8 +47,18 @@ backendRouter.use(async (req: Request, res: Response, next: NextFunction) => {
 
 // Mount model routers under clearly named paths
 backendRouter.use('/user', userRouter);
-backendRouter.use('/auth', authRouter);
 backendRouter.use('/book', bookRouter);
+
+// Mount test router under dynamic path from config: /test/<TEST_PATH>
+ConfigManager.getConfigManager().get('TEST_PATH')
+  .then((testPath) => {
+    const mount = `/test/${String(testPath)}`;
+    backendRouter.use(mount, testRouter);
+  })
+  .catch(() => {
+    // If config missing, do not mount test router
+    console.warn('TEST_PATH not set; test router not mounted');
+  });
 
 // Lightweight health endpoint
 backendRouter.get('/health', async (_req: Request, res: Response) => {

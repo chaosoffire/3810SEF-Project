@@ -1,5 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
-import * as userRepo from '../../database/model/user/user.repository';
+import { Request, Response, NextFunction, RequestHandler } from 'express';
+import * as userRepo from '../../../database/model/user/user.repository';
+import { authCookieMiddleware } from './cookie.middleware';
 
 // Authorization middleware to ensure the current session user is an admin
 export async function ensureAdmin(req: Request, res: Response, next: NextFunction) {
@@ -23,3 +24,16 @@ export async function ensureAdmin(req: Request, res: Response, next: NextFunctio
     return res.status(401).json({ success: false, error: 'Unauthorized' });
   }
 }
+
+export const requireAdminForAdminCreation: RequestHandler = (req, res, next) => {
+    if (!req.body || req.body.admin !== true) {
+        return next();
+    }
+
+    void authCookieMiddleware(req, res, (authErr?: any) => {
+        if (authErr) {
+            return next(authErr);
+        }
+        void Promise.resolve(ensureAdmin(req, res, next)).catch(next);
+    }).catch(next);
+};

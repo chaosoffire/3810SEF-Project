@@ -1,29 +1,15 @@
 import { Request, Response } from 'express';
-import { getBookById, updateBookById, deleteBookByIds, hasBookById } from '../../../database/model/book/book.repository';
+import { searchBooksByFields, updateBookById, deleteBookByIds, hasBookById, getBookById } from '../../../database/model/book/book.repository';
 import { IBook } from '../../../database/model/schema/bookSchema';
-
-// Sanitize string to prevent MongoDB injection
-function sanitizeString(input: string): string {
-    const sanitized = input
-        .replace(/\$/g, '')
-        .replace(/\{/g, '')
-        .replace(/\}/g, '')
-        .replace(/\[/g, '')
-        .replace(/\]/g, '')
-        .trim();
-    return sanitized;
-}
 
 // GET /api/:api_version/book/:id
 export async function getBookByIdHandler(req: Request, res: Response) {
     try {
         const bookId = req.params.id;
 
-        if (!bookId || bookId.trim().length === 0) {
-            return res.status(400).json({ success: false, error: 'Book ID is required' });
-        }
-
-        const book = await getBookById(bookId);
+        // ID format is validated by router middleware; reuse search logic
+        const books = await searchBooksByFields({ bookid: [bookId], limit: 1 });
+        const book = books && books[0];
 
         if (!book) {
             return res.status(404).json({ success: false, error: 'Book not found' });
@@ -45,10 +31,6 @@ export async function updateBookHandler(req: Request, res: Response) {
     try {
         const bookId = req.params.id;
 
-        if (!bookId || bookId.trim().length === 0) {
-            return res.status(400).json({ success: false, error: 'Book ID is required' });
-        }
-
         const bookExists = await hasBookById(bookId);
         if (!bookExists) {
             return res.status(404).json({ success: false, error: 'Book not found' });
@@ -66,69 +48,14 @@ export async function updateBookHandler(req: Request, res: Response) {
 
         const updateData: Partial<IBook> = {};
 
-        // Validate and sanitize title
-        if (title !== undefined && title !== null) {
-            if (typeof title !== 'string' || title.trim().length === 0) {
-                return res.status(400).json({ success: false, error: 'Title must be a non-empty string' });
-            }
-            const sanitizedTitle = sanitizeString(title.trim());
-            if (sanitizedTitle.length === 0) {
-                return res.status(400).json({ success: false, error: 'Title contains only invalid characters' });
-            }
-            updateData.title = sanitizedTitle;
-        }
-
-        // Validate and sanitize genres
-        if (genres !== undefined && genres !== null) {
-            if (!Array.isArray(genres)) {
-                return res.status(400).json({ success: false, error: 'Genres must be an array of strings' });
-            }
-            updateData.genres = genres
-                .filter(g => typeof g === 'string' && g.trim().length > 0)
-                .map(g => sanitizeString(g.trim()));
-        }
-
-        // Validate and sanitize author
-        if (author !== undefined && author !== null) {
-            if (typeof author !== 'string') {
-                return res.status(400).json({ success: false, error: 'Author must be a string' });
-            }
-            updateData.author = sanitizeString(author.trim());
-        }
-
-        // Validate and sanitize description
-        if (description !== undefined && description !== null) {
-            if (typeof description !== 'string') {
-                return res.status(400).json({ success: false, error: 'Description must be a string' });
-            }
-            updateData.description = sanitizeString(description.trim());
-        }
-
-        // Validate publishedYear
-        if (publishedYear !== undefined && publishedYear !== null) {
-            const yearStr = String(publishedYear);
-            if (!/^\d{4}$/.test(yearStr)) {
-                return res.status(400).json({ success: false, error: 'Published year must be a 4-digit number' });
-            }
-            updateData.publishedYear = yearStr;
-        }
-
-        // Validate price
-        if (price !== undefined && price !== null) {
-            const priceNum = Number(price);
-            if (isNaN(priceNum) || priceNum < 0) {
-                return res.status(400).json({ success: false, error: 'Price must be a valid positive number' });
-            }
-            updateData.price = priceNum;
-        }
-
-        // Validate coverImage
-        if (coverImage !== undefined && coverImage !== null) {
-            if (typeof coverImage !== 'string') {
-                return res.status(400).json({ success: false, error: 'Cover image must be a string' });
-            }
-            updateData.coverImage = coverImage.trim();
-        }
+        // Rely on router validators; assign directly
+        if (title !== undefined) updateData.title = title;
+        if (Array.isArray(genres)) updateData.genres = genres;
+        if (author !== undefined) updateData.author = author;
+        if (description !== undefined) updateData.description = description;
+        if (publishedYear !== undefined) updateData.publishedYear = String(publishedYear);
+        if (price !== undefined) updateData.price = Number(price);
+        if (coverImage !== undefined) updateData.coverImage = String(coverImage);
 
         if (Object.keys(updateData).length === 0) {
             return res.status(400).json({ success: false, error: 'No valid fields provided for update' });
@@ -159,10 +86,6 @@ export async function updateBookHandler(req: Request, res: Response) {
 export async function deleteBookHandler(req: Request, res: Response) {
     try {
         const bookId = req.params.id;
-
-        if (!bookId || bookId.trim().length === 0) {
-            return res.status(400).json({ success: false, error: 'Book ID is required' });
-        }
 
         const bookExists = await hasBookById(bookId);
         if (!bookExists) {

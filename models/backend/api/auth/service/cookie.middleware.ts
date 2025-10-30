@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifySessionToken, isExpired, SessionPayload } from './session';
-import * as userRepo from '../../database/model/user/user.repository';
+import * as userRepo from '../../../database/model/user/user.repository';
 
 function parseCookies(req: Request): Record<string, string> {
   // Use cookie-parser output exclusively when present
@@ -39,7 +39,6 @@ export async function authCookieMiddleware(req: Request, res: Response, next: Ne
     // Attach runtime info for downstream handlers
     const role = user?.role || 'user';
     req.runtime = { username, role };
-    res.locals.username = username;
     return next();
   } catch (err) {
     return res.status(401).json({ success: false, error: 'Unauthorized' });

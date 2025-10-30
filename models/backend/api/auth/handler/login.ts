@@ -1,5 +1,5 @@
 import passport from "passport";
-import { createSessionToken } from "../session";
+import { createSessionToken } from "../service/session";
 import { Request, Response, NextFunction } from "express";
 
 export async function loginHandler(req: Request, res: Response, next: NextFunction) {

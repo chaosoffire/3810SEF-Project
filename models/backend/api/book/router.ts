@@ -1,9 +1,10 @@
 import express from 'express';
 import { query, body, param, validationResult } from 'express-validator';
-import { ensureAdmin } from '../auth/roles.middleware';
-import { authCookieMiddleware } from '../auth/cookie.middleware';
+import { ensureAdmin } from '../auth/service/roles.middleware';
+import { authCookieMiddleware } from '../auth/service/cookie.middleware';
 import { rootHandler } from './handler/root';
 import { getBookByIdHandler, updateBookHandler, deleteBookHandler } from './handler/id';
+import { Types } from 'mongoose';
 
 export const bookRouter = express.Router({ mergeParams: true });
 const handleValidationErrors = (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -22,17 +23,51 @@ bookRouter.get(
 	'/',
 	authCookieMiddleware,
 	// Optional filters
-	query('genres').optional().isString(),
-	query('title').optional().isString(),
-	query('author').optional().isString(),
-	query('description').optional().isString(),
-	query('publishedYear').optional().matches(/^\d{4}$/),
-	query('minPrice').optional().isFloat({ min: 0 }),
-	query('maxPrice').optional().isFloat({ min: 0 }),
+	query('bookid')
+		.optional()
+		.isString()
+		.trim()
+		.customSanitizer(v => String(v)
+			.split(',')
+			.map((s: string) => s.trim())
+			.filter((s: string) => s.length > 0)
+		)
+		.custom((arr: unknown) => {
+			if (!Array.isArray(arr)) return false;
+			return arr.every(id => typeof id === 'string' && Types.ObjectId.isValid(id));
+		})
+		.withMessage('bookid must be a comma-separated list of valid Mongo ObjectIds'),
+	query('genres')
+		.optional()
+		.isString()
+		.trim()
+		.customSanitizer(v => String(v)
+			.split(',')
+			.map((s: string) => s.trim())
+			.filter((s: string) => s.length > 0)
+		)
+		.custom((arr: unknown) => Array.isArray(arr) && arr.every(s => typeof s === 'string')),
+	query('title').optional().isString().trim().blacklist('$[]{}'),
+	query('author').optional().isString().trim().blacklist('$[]{}'),
+	query('description').optional().isString().trim().blacklist('$[]{}'),
+	query('publishedYear').optional().trim().matches(/^\d{4}$/),
+	query('minPrice').optional().isFloat({ min: 0 }).toFloat(),
+	query('maxPrice')
+		.optional()
+		.isFloat({ min: 0 })
+		.toFloat()
+		.custom((max, { req }) => {
+			const minRaw = (req.query as any).minPrice;
+			if (minRaw === undefined || minRaw === null || String(minRaw).trim() === '') return true;
+			const min = Number(minRaw);
+			if (Number.isNaN(min)) return true; // min handled by its own validator
+			return max >= min;
+		})
+		.withMessage('maxPrice must be greater than or equal to minPrice'),
 	// Pagination & sorting (optional)
-	query('page').optional().isInt({ min: 1 }),
-	query('limit').optional().isInt({ min: 1, max: 100 }),
-	query('sortBy').optional().isIn(['title', 'author', 'price', 'publishedYear']),
+	query('start').optional().isInt({ min: 0 }).toInt(),
+	query('limit').optional().isInt({ min: 0, max: 100 }).toInt(),
+	query('sortBy').optional().isIn(['title', 'price', 'publishedYear']),
 	query('sortOrder').optional().isIn(['asc', 'desc']),
 	handleValidationErrors,
 	rootHandler
@@ -44,14 +79,28 @@ bookRouter.post(
 	'/',
 	authCookieMiddleware,
 	ensureAdmin,
-	body('title').isString().notEmpty(),
-	body('genres').optional().isArray(),
-	body('genres.*').optional().isString(),
-	body('author').optional().isString(),
-	body('description').optional().isString(),
-	body('publishedYear').optional().matches(/^\d{4}$/),
-	body('price').optional().isFloat({ min: 0 }),
-	body('coverImage').optional().isString(),
+	// Required title
+	body('title').isString().trim().notEmpty().blacklist('$[]{}'),
+	// Optional genres as array of non-empty strings
+	body('genres')
+		.optional()
+		.isArray()
+		.customSanitizer((arr) => Array.isArray(arr)
+			? arr
+				.map((g: any) => String(g))
+				.map((s: string) => s.trim())
+				.filter((s: string) => s.length > 0)
+			: arr
+		),
+	body('genres.*').optional().isString().trim().blacklist('$[]{}'),
+	// Optional text fields
+	body('author').optional().isString().trim().blacklist('$[]{}'),
+	body('description').optional().isString().trim().blacklist('$[]{}'),
+	// Optional year and price
+	body('publishedYear').optional().trim().matches(/^\d{4}$/),
+	body('price').optional().isFloat({ min: 0 }).toFloat(),
+	// Optional cover image string
+	body('coverImage').optional().isString().trim(),
 	handleValidationErrors,
 	rootHandler
 );
@@ -61,7 +110,7 @@ bookRouter.post(
 bookRouter.get(
 	'/:id',
 	authCookieMiddleware,
-	param('id').isString().notEmpty(),
+	param('id').isMongoId(),
 	handleValidationErrors,
 	getBookByIdHandler
 );
@@ -72,16 +121,25 @@ bookRouter.put(
 	'/:id',
 	authCookieMiddleware,
 	ensureAdmin,
-	param('id').isString().notEmpty(),
+	param('id').isMongoId(),
 	// Same validations as POST but optional
-	body('title').optional().isString().notEmpty(),
-	body('genres').optional().isArray(),
-	body('genres.*').optional().isString(),
-	body('author').optional().isString(),
-	body('description').optional().isString(),
-	body('publishedYear').optional().matches(/^\d{4}$/),
-	body('price').optional().isFloat({ min: 0 }),
-	body('coverImage').optional().isString(),
+	body('title').optional().isString().trim().notEmpty().blacklist('$[]{}'),
+	body('genres')
+		.optional()
+		.isArray()
+		.customSanitizer((arr) => Array.isArray(arr)
+			? arr
+				.map((g: any) => String(g))
+				.map((s: string) => s.trim())
+				.filter((s: string) => s.length > 0)
+			: arr
+		),
+	body('genres.*').optional().isString().trim().blacklist('$[]{}'),
+	body('author').optional().isString().trim().blacklist('$[]{}'),
+	body('description').optional().isString().trim().blacklist('$[]{}'),
+	body('publishedYear').optional().trim().matches(/^\d{4}$/),
+	body('price').optional().isFloat({ min: 0 }).toFloat(),
+	body('coverImage').optional().isString().trim(),
 	handleValidationErrors,
 	updateBookHandler
 );

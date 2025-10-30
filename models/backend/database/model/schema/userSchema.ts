@@ -56,9 +56,12 @@ userSchema.pre('save', async function(next) {
     }
 });
 
+/*
+ * DEPRECATED: comparePassword relied on direct model usage; repositories now handle password verification explicitly.
 userSchema.methods.comparePassword = async function(candidatePassword: string): Promise<boolean> {
     return bcrypt.compare(candidatePassword, this.credential.passwordHash);
 };
+*/
 
 // Strong input type for creating a user (aligns with schema)
 export type Role = 'admin' | 'user' | 'test';

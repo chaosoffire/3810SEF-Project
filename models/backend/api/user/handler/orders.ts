@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { getUserOwnBooks } from '../service/getUserOwnBooks';
 import mongoose from 'mongoose';
-import { createOrder } from '../../../database/model/order/order.repository';
+import { createOrder, getOrderById } from '../../../database/model/order/order.repository';
 import * as userRepo from '../../../database/model/user/user.repository';
 
 interface OrderRequest {
@@ -17,6 +17,44 @@ export async function ordersHandler(req: Request, res: Response) {
     return POSTordersHandler(req, res);
   }
   return res.status(405).json({ success: false, error: 'Method Not Allowed' });
+}
+
+export async function orderDetailHandler(req: Request, res: Response) {
+  const username = req.runtime?.username as string | undefined;
+  const role = req.runtime?.role;
+  const orderId = req.params.id;
+
+  if (!username) {
+    return res.status(401).json({ success: false, error: 'Unauthorized' });
+  }
+
+  try {
+    if (role !== 'admin') {
+      const orders = await userRepo.getUserOrdersByUsername(username);
+      const ownsOrder = Array.isArray(orders) && orders.some((id) => String(id) === orderId);
+      if (!ownsOrder) {
+        return res.status(404).json({ success: false, error: 'Order not found' });
+      }
+    }
+
+    const order = await getOrderById(orderId);
+    if (!order) {
+      return res.status(404).json({ success: false, error: 'Order not found' });
+    }
+
+    const orderResponse = {
+      id: String(order._id),
+      type: order.type,
+      books: Array.isArray(order.books) ? order.books.map((book) => String(book)) : [],
+      createdAt: (order as any).createdAt ?? null,
+      updatedAt: (order as any).updatedAt ?? null,
+    };
+
+    return res.status(200).json({ success: true, order: orderResponse });
+  } catch (err: any) {
+    console.error('orderDetailHandler error:', err?.message || err);
+    return res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
 }
 
 async function GETordersHandler(req: Request, res: Response) {

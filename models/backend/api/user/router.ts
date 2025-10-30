@@ -1,29 +1,21 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
-import { body, param, validationResult } from 'express-validator';
-import { authCookieMiddleware } from '../auth/cookie.middleware';
+import { body, param } from 'express-validator';
+import { authCookieMiddleware } from '../auth/service/cookie.middleware';
 import { registerHandler } from '../auth/handler/register';
 import { loginHandler } from '../auth/handler/login';
 import { logoutHandler } from '../auth/handler/logout';
 import { changePasswordHandler } from '../auth/handler/change-password';
-import { ordersHandler } from './handler/orders';
+import { ordersHandler, orderDetailHandler } from './handler/orders';
 import { ownbooksHandler } from './handler/ownbooks';
-import { get } from 'http';
 import { getUserByUsername } from '../../database/model/user/user.repository';
-import { FlattenMaps } from 'mongoose';
-import { ensureAdmin } from '../auth/roles.middleware';
+import { ensureAdmin } from '../auth/service/roles.middleware';
 import { deleteOrderById } from '../../database/model/order/order.repository';
+import { refreshCookieHandler } from '../auth/handler/refresh';
+import { handleValidationErrors } from '../auth/service/handle.validation.error';
+import { requireAdminForAdminCreation } from '../auth/service/roles.middleware';
 
 export const userRouter = express.Router({ mergeParams: true });
-
-// Helpers
-const handleValidationErrors = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ success: false, error: 'Validation failed', details: errors.array() });
-    }
-    next();
-};
 
 // Rate limiter for auth endpoints
 const authLimiter = rateLimit({
@@ -40,7 +32,9 @@ userRouter.post(
     authLimiter,
     body('username').isString().isLength({ min: 8, max: 32 }),
     body('password').isString().isLength({ min: 12, max: 64 }),
+    body('admin').optional().isBoolean().toBoolean(),
     handleValidationErrors,
+    requireAdminForAdminCreation,
     registerHandler
 );
 
@@ -65,6 +59,12 @@ userRouter.put(
     body('newPassword').isString().isLength({ min: 12, max: 64 }),
     handleValidationErrors,
     changePasswordHandler
+);
+
+userRouter.post(
+    '/refresh-cookie',
+    authCookieMiddleware,
+    refreshCookieHandler
 );
 
 // GET /api/:api_version/user/isAdmin
@@ -100,6 +100,15 @@ userRouter.get('/ownbooks', authCookieMiddleware, ownbooksHandler);
 // return all orders of the user
 // GET /api/:api_version/user/orders
 userRouter.get('/orders', authCookieMiddleware, ordersHandler);
+
+// return a specific order for the user
+// GET /api/:api_version/user/orders/:id
+userRouter.get(
+    '/orders/:id',
+    authCookieMiddleware,
+    param('id').isString().notEmpty(),
+    handleValidationErrors,
+    orderDetailHandler);
 
 // Create a new order for the user
 // POST /api/:api_version/user/orders

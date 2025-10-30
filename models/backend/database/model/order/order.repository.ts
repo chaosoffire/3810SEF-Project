@@ -25,10 +25,14 @@ export async function createOrder(
   );
 }
 
-export async function getOrderById(orderId: string): Promise<IOrder | null> {
+export async function getOrderById(orderId: string): Promise<IOrder & { _id: string } | null> {
   const model = MongoDBManager.getInstance().getModel<IOrder>(ORDER_COLLECTION, orderSchema);
   const order = await model.findById(orderId).lean();
-  return order ? JSON.parse(JSON.stringify(order)) : null;
+  if (!order) {
+    return null;
+  }
+  const plain = JSON.parse(JSON.stringify(order)) as IOrder & { _id: string };
+  return plain;
 }
 
 export async function deleteOrderById(orderId: string): Promise<true> {

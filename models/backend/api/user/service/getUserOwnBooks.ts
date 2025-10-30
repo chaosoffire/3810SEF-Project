@@ -35,7 +35,7 @@ export async function getUserOwnBooks(username: string): Promise<string[]> {
         {
             $project: {
                 _id: 0,
-                itemId: "$books", // The Book Object ID
+                bookId: "$books", // The Book Object ID
                 // If type is "buy", value is 1. If type is "refund", value is -1 [1].
                 contribution: {
                     $cond: {
@@ -50,7 +50,7 @@ export async function getUserOwnBooks(username: string): Promise<string[]> {
         // D. Group: Group by the Book ID and sum the contributions
         {
             $group: {
-                _id: "$itemId", // Grouping key is the Book ID (matches projected field)
+                _id: "$bookId", // Grouping key is the Book ID (matches projected field)
                 netCount: { $sum: "$contribution" }
             }
         },
@@ -67,6 +67,11 @@ export async function getUserOwnBooks(username: string): Promise<string[]> {
             $project: {
                 _id: "$_id"
             }
+        },
+
+        // G. Sorting bookId by ascending order
+        {
+            $sort: { _id: 1 }
         }
     ]);
 

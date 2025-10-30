@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { userExists } from "../../user/service/service";
-import { registerUser } from "../service/service";
+import { registerUser } from "../service/register";
 export async function registerHandler(req: Request, res: Response) {
-    const { username, password } = req.body || {};
+    const { username, password, admin } = req.body || {};
 
     if (!username || typeof username !== 'string' || !password || typeof password !== 'string') {
         return res.status(400).json({ success: false, error: 'username and password are required' });
@@ -23,8 +23,13 @@ export async function registerHandler(req: Request, res: Response) {
         if (await userExists(username)) {
             return res.status(409).json({ success: false, error: 'Username already exists' });
         }
+        const wantsAdmin = admin === true;
+        if (wantsAdmin && req.runtime?.role !== 'admin') {
+            return res.status(403).json({ success: false, error: 'Only admins can create admin accounts' });
+        }
 
-        await registerUser(username, password);
+        const role = wantsAdmin ? 'admin' : 'user';
+        await registerUser(username, password, role);
         return res.status(201).json({ success: true });
     } catch (err: any) {
         console.error('register error:', err?.message || err);
