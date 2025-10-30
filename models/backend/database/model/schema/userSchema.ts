@@ -40,9 +40,6 @@ export const userSchema = new Schema({
     }
 });
 
-// Add index for better query performance
-userSchema.index({ 'credential.username': 1 });
-
 userSchema.pre('save', async function(next) {
     if (!this.credential || !this.isModified('credential.passwordHash')) {
         return next();

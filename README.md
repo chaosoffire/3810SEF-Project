@@ -18,7 +18,7 @@ git checkout bookstore-api-backend
 npm install
 cp .env.example .env
 # populate the required secrets and admin bootstrap credentials
-npm build
+npm run build
 npm start
 ```
 
@@ -48,6 +48,9 @@ All configuration is provided through environment variables. The application wil
 | Command | Purpose |
 | --- | --- |
 | `npm run dev` | Start the server with ts-node in development mode |
+| `npm run clean` | Delete `dist/` |
+| `npm run build:ts` | Compile TypeScript to `dist/` |
+| `npm run copy:assets` | Copy static assets to `dist/` |
 | `npm run build` | Compile TypeScript to `dist/` |
 | `npm start` | Run the built JavaScript (after `npm run build`) |
 | `npm run typecheck` | TypeScript project validation |

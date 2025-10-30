@@ -48,7 +48,6 @@ export const bookSchema = new Schema({
 });
 
 // Add indexes for better query performance
-bookSchema.index({ title: 1 });
 bookSchema.index({ author: 1 });
 bookSchema.index({ genres: 1 });
 bookSchema.index({ price: 1 });

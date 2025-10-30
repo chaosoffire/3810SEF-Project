@@ -9,7 +9,11 @@
     "strict": true,
     "allowJs": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "typeRoots": [
+      "./models/types",
+      "./node_modules/@types"
+    ]
   },
   "include": [
     "models/**/*",

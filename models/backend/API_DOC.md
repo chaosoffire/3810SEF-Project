@@ -287,7 +287,7 @@ When `TEST_PATH` is set (for example `test/dev`), test helpers are mounted at `/
 - **URL**: `GET /api/<API_VERSION_NO>/health`
 - **Auth**: none
 - **Response**
-
+`200 OK`
 ```json
 {
 	"ok": true,

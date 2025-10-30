@@ -64,9 +64,9 @@ ConfigManager.getConfigManager().get('TEST_PATH')
 backendRouter.get('/health', async (_req: Request, res: Response) => {
   try {
     const version = await ConfigManager.getConfigManager().get('API_VERSION_NO');
-    return res.json({ ok: true, version });
+    return res.status(200).json({ ok: true, version });
   } catch {
-    return res.json({ ok: true });
+    return res.status(500).json({ ok: false });
   }
 });
 
