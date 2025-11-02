@@ -1,0 +1,110 @@
+:root{
+    font-family:'Lora','Roboto';
+    --color--main:#f0ffff;
+    --color--black:#000000;
+    --color--white:#ffffff;
+    --color--darkgreen: #013030;
+    --color--lightred:#ef5454;
+    --light--grey:#f5f5f5;
+}
+
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+#search-section{
+    height: 200px;
+    width: 100%;
+    background-color: var(--color--darkgreen);
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+#search-section #search-category{
+    width: object-fit;
+    min-width: 400px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#search-section #search-container{
+    height: 40px;
+    /* width: 80%; */
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#search-section #search-container #search-input{
+    width: 200px;
+    height: 100%;
+    border-radius: 5px;
+    border: none;
+    padding: 0px 20px;
+    font-size: 16px;
+    outline: none;
+}
+
+#search-section #search-container #search-btn{
+    width: 100px;
+    background-color: var(--color--lightred);
+    color: var(--color--white);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.2s linear;
+    cursor: pointer;
+}
+
+#search-section #search-container #search-btn:hover{
+    background-color: var(--color--white);
+    color: var(--color--darkgreen);
+}
+
+#search-section #search-category .filter{
+    width: 150px;
+    height: 100%;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+    outline: none;
+}
+
+#search-section #search-category #sort-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 120px;
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    background-color: var(--color--white);
+    border-radius: 5px;
+    gap: 5px;
+}
+
+#search-section #search-category #sort-container #sort{
+    height: 100%;
+    width: 50px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}

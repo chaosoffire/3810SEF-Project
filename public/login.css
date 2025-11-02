@@ -1,0 +1,236 @@
+*{
+    /* font-family: "Oswald", sans-serif; */
+    font-family: 'Lora','Roboto';
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+
+
+.sign-in,.sign-up{
+    margin: 20px;
+    padding: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    border: 2px solid black;
+}
+
+#sign-in input,#sign-up input{
+    width: 100%;
+    height: 40px;
+    /* border-radius: 8px; */
+    font-size: 1.5em;
+    margin-left: 5px;
+    background-color: transparent;
+    border: transparent;
+}
+
+#sign-in input:focus,#sign-up input:focus{
+    outline: none;
+    /* box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2); */
+}
+
+.icon-container{
+    margin:10px 20px;
+    text-align: center;
+}
+.icon-container a{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    color: black;
+    border: 2px solid black;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease-in;
+}
+
+.icon-container a:hover{
+    color: #f5f5f5;
+    background-color: black;
+    border: 2px solid #f5f5f5;
+}
+
+.btnDiv{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+button{
+    width: 130px;
+    height: 40px;
+    font-size: 1.5em;
+    border-radius: 20px;
+    border:2px solid black;
+    cursor: pointer;
+    transition: all 0.1s ease-in;
+}
+
+button:hover{
+    color: #f5f5f5;
+    background-color: black;
+    border: #f5f5f5;
+}
+
+
+#fgpw{
+    text-decoration: none;
+    color: black;
+    transition: all 0.3s ease-in;
+    border-bottom: 2px solid transparent;
+}
+#fgpw:hover{
+    border-bottom: 2px solid black;
+}
+
+.Container{
+    height: 100%;
+    width: 100%;
+    background-color: azure;
+    overflow: hidden;
+}
+
+.formContainer{
+    height: 100%;
+    width: 60%;
+    text-align: center;
+    display: grid;
+    grid-template-columns:1fr;
+    grid-template-rows: 1fr;
+    background-color: azure;
+    position: relative;
+    transition: all 0.6s ease-out;
+}
+
+
+
+#sign-in,#sign-up{
+    height: 100%;
+    width: 60%;
+    display: flex;
+    background-color: azure;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    grid-row: 1/2;
+    grid-column: 1/2;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#sign-in,.overlayRight{
+    z-index: 2;
+    opacity: 1;
+    transition: all 0.4s linear;
+}
+#sign-up,.overlayLeft{
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.4s linear;
+}
+
+.switchContainer{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: -1%;
+    top: 0%;
+    z-index: 10;
+    border-radius: 15px;
+    color: white;
+    background: linear-gradient(to right,rgb(74, 77, 77) 10%,black 90%);
+    transition: all 0.5s ease-out;
+}
+
+.overlay-container{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+
+.overlayLeft,.overlayRight{
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    text-align: center;
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+.overlayLeft *,.overlayRight *{
+    margin-top: 10px;
+}
+
+#left{
+    transform: translateX(-80%);
+}
+
+
+.switchContainer.changed{
+    transform: translateX(-155%);
+    background: linear-gradient(to left,rgb(74, 77, 77) 10%,black 90%);
+}
+
+.changed #right{
+    transform: translateX(80%);
+    opacity: 0;
+}
+
+.changed #left{
+    transform: translateX(0%);
+    z-index: 3;
+    opacity: 1;
+}
+
+.formContainer.changed{
+    transform: translateX(65%);
+}
+
+.changed #sign-in{
+    opacity: 0;
+}
+
+.changed #sign-up{
+    opacity: 1;
+    z-index: 3;
+    animation: show 0.6s;
+}
+
+@keyframes show{
+    0%,50%{
+        z-index: 1;
+        opacity: 0;
+    }
+    50.1%,100%{
+        z-index: 3;
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,108 @@
+:root{
+    font-family:'Lora','Roboto';
+    --color--main:#f0ffff;
+    --color--black:#000000;
+    --color--white:#ffffff;
+    --color--darkgreen: #013030;
+    --color--lightred:#ef5454;
+    --light--grey:#f5f5f5;
+}
+
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: var(--color--main);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+nav{
+    width: 100%;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    background-color: var(--color--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0px 20px;
+    border-bottom: 2px solid var(--light--grey);
+    z-index: 1000;
+}
+
+#nav-left{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    
+}
+
+#nav-left #logo{
+    font-family: 'Lora', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color--darkgreen);
+    text-decoration: none;
+}
+
+#nav-left #nav-choices{
+    height: 100%;
+    align-items: center;
+    display: flex;
+}
+
+#nav-left #nav-choices li{
+    height: 100%;
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style-type: none;
+    font-family: 'Roboto', sans-serif;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s linear;
+}
+
+#nav-left #nav-choices li:hover{
+    border-bottom: 3px solid var(--color--darkgreen);
+    cursor: pointer;
+}
+
+#nav-left #nav-choices li a{
+    text-decoration: none;
+    color: var(--color--black);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+#nav-right{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#nav-right #sign-out{
+    height: 100%;
+    border: 3px solid transparent;
+    background-color: transparent;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.2s linear;
+}
+
+#nav-right #sign-out:hover{
+    cursor: pointer;
+    border-bottom: 3px solid var(--color--darkgreen);
+}
+
+
+
+
