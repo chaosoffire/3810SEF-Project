@@ -1,0 +1,18 @@
+<!-- partials/mybook/mybook-content -->
+
+<div id="mybook-container">
+    <div id="mybook-content">
+        <h2 id="mybook-page-title">My Books</h2>
+        <div id="divider-line"></div>
+        <div id="mybook-list-container">
+            <!-- if own book count is 0 generate message -->
+             <%#if(items.length == 0)%>
+                <!-- <h2>There are no books here.</h2> -->
+            <%#} else{%>
+                <ul id="mybook-list">
+                    <%- include('mybook-book') %>
+                </ul>
+            <%#}%>
+        </div>
+    </div>
+</div>

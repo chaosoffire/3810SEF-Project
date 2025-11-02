@@ -1,0 +1,173 @@
+:root{
+    font-family:'Lora','Roboto';
+    --color--main:#f0ffff;
+    --color--black:#000000;
+    --color--white:#ffffff;
+    --color--darkgreen: #013030;
+    --color--lightred:#ef5454;
+    --light--grey:#f5f5f5;
+}
+
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+
+#main-content #book-container #book-list{
+    width: 100%;
+    min-height: 200px;
+    list-style-type: none;
+    padding: 30px 0px;
+}
+
+#main-content #book-container #book-list .book{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    padding: 20px;
+    border-radius: 20px;
+    border: 2px solid var(--light--grey);
+    background-color: var(--color--white);
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: all 0.4 ease-out;
+}
+
+#main-content #book-container #book-list .book:hover{
+    border: 2px solid var(--color--darkgreen);
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+}
+
+
+#main-content #book-container #book-list .book .cover{
+    width: 20%;
+    min-width: 180px;
+    height: 100%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+#main-content #book-container #book-list .book .cover .book-cover{
+    border-radius: 10px;
+    width: 80%;
+    height: 80%;
+    max-width: 200px;
+    max-height: 371px;
+    object-fit:fill;
+    object-position: center;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+}
+
+#main-content #book-container #book-list .book .details{
+    min-width: 110px;
+    width: 80%;
+    height: 100%;
+    padding:10px 0px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+}
+
+#main-content #book-container #book-list .book .details .book-title{
+    font-size: 28px;
+    width: 80%;
+    min-width: 110px;
+    font-weight: bold;
+    font-family: "Lora", serif;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+}
+
+#main-content #book-container #book-list .book .details .book-author{
+    font-size: 14;
+    min-width: 110px;
+    width: 80%;
+    font-family: "Roboto", serif;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 2%;
+}
+
+#main-content #book-container #book-list .book .details .description{
+    font-size: 16px;
+    width: 80%;
+    min-width: 110px;
+    height: 9em;
+    max-height: 9em;
+    line-height: 1.5em;
+    margin-bottom: 5px;
+    font-family: "Roboto", serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* background: #000; */
+}
+
+#main-content #book-container #book-list .book .details .type{
+    font-size: 16px;
+    width: 90%;
+    font-family: "Roboto", serif;
+    /* overflow: hidden; */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    bottom: 90px;
+}
+
+#main-content #book-container #book-list .book .details .price{
+    font-size: 28px;
+    font-weight: bold;  
+    width: 10%;
+    bottom: 50px;
+    color: var(--color--lightred);
+    font-family: "Roboto", serif;
+}
+
+/* -------------------------------------- */
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    background-color: transparent;
+}
+
+.pagination-container .pagination {
+    list-style-type: none;
+    display: flex;
+    gap: 8px;
+    padding: 0;
+}
+   
+.pagination-container .page-item .page-link {
+    display: block;
+    padding: 8px 16px;
+    color: var(--color--darkgreen);
+    text-decoration: none;
+    border: 1px solid var(--light--grey);
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+   
+.pagination-container .page-item .page-link:hover {
+        background-color: var(--light--grey);
+        color: var(--color--black);
+}
+   
+.pagination-container .page-item.active .page-link {
+    background-color: var(--color--darkgreen);
+    color: var(--color--white);
+    border-color: var(--color--darkgreen);
+    font-weight: bold;
+}
