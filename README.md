@@ -47,11 +47,12 @@ All configuration is provided through environment variables. The application wil
 
 | Command | Purpose |
 | --- | --- |
-| `npm run dev` | Start the server with ts-node in development mode |
 | `npm run clean` | Delete `dist/` |
+| `npm run build:client` | Compile client scripts to `dist/public/client-script/` |
+| `npm run watch:client` | Compile client scripts to `dist/public/client-script/` and watch for changes |
 | `npm run build:ts` | Compile TypeScript to `dist/` |
 | `npm run copy:assets` | Copy static assets to `dist/` |
-| `npm run build` | Run `npm run build:ts` and `npm run copy:assets` |
+| `npm run build` | Run `npm run build:ts`, `npm run copy:assets` and `npm run build:client` |
 | `npm start` | Run the built JavaScript (after `npm run build`) |
 | `npm run typecheck` | TypeScript project validation |
 | `npm test` | Placeholder for future tests |

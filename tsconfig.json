@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "es2020",
+    "target": "ES2022",
+    "module": "commonjs",
     "rootDir": "",
     "outDir": "dist",
     "esModuleInterop": true,
@@ -9,7 +9,6 @@
     "strict": true,
     "allowJs": true,
     "skipLibCheck": true,
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "typeRoots": [
       "./models/types",
@@ -18,7 +17,6 @@
   },
   "include": [
     "models/**/*",
-    "server.ts",
-    "src/**/*"
+    "server.ts"
   ]
 }

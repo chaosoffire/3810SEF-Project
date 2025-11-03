@@ -22,11 +22,10 @@ app.use(cookieParser());
 
 // set view engine
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '../views'));
 
-//set static folder
-app.use(express.static(path.join(__dirname, '../public')));
-app.use(express.static(path.join(__dirname,'/src')));
+app.set('views', path.join(__dirname, 'views'));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Config manager initialization
 const Config: ConfigManager = ConfigManager.getConfigManager();
@@ -34,10 +33,6 @@ const Config: ConfigManager = ConfigManager.getConfigManager();
 // Mount model-based routers
 app.use('/api/:api_version/', backendRouter);
 app.use('/page',pageRouter);
-// Health
-// app.get('/health', (_req: Request, res: Response) => {
-// 	res.json({ ok: true });
-// });
 
 app.get('/', (_req: Request, res: Response) => {
 	res.redirect('/page/credential');
