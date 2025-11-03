@@ -36,7 +36,7 @@
     box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
 } 
 
-#mybook-container #mybook-content #page-title {
+#mybook-container #mybook-content #mybook-page-title {
     font-family: 'Lora', serif;
     font-size: 32px;
     color: var(--color--black);

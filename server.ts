@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import { initDatabase } from './models/backend/init/init.db';
 import ConfigManager from './models/config/config.manager';
 import backendRouter from './models/backend/backend.router';
-import { pageRouter } from './models/frontend/page/router';
+import { pageRouter } from './public/frontend/router';
 import path from 'path';
 
 const app = express();
@@ -44,7 +44,7 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
 	res.status(500).json({ error: 'Internal Server Error' });
 });
 
-let PORT = 3000;
+let PORT = process.env.PORT || 3000;
 
 async function start(): Promise<void> {
 	// Read PORT from config (Config.has may be async)

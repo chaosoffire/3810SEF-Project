@@ -90,7 +90,7 @@
 }
 
 #main-content #book-container #book-list .book .details .book-author{
-    font-size: 14;
+    font-size: 14px;
     min-width: 110px;
     width: 80%;
     font-family: "Roboto", serif;
