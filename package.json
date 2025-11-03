@@ -8,10 +8,11 @@
   "main": "server.ts",
   "scripts": {
     "clean": "rimraf dist",
-    "dev": "ts-node server.ts",
+    "build:client": "esbuild public/client-script/*.ts --bundle --outdir=dist/public/client-script --format=esm --target=es2022 --platform=browser",
+    "watch:client": "esbuild public/client-script/*.ts --bundle --outdir=dist/public/client-script --format=esm --target=es2022 --platform=browser --watch",
     "build:ts": "tsc",
-    "copy:assets": "copyfiles -u 1 views/**/*.ejs dist/views && copyfiles -u 1 pulic/**/* dist/pulic",
-    "build": "npm run clean && npm run build:ts && npm run copy:assets",
+    "copy:assets": "copyfiles -u 1 \"views/**/*.ejs\" dist/views && copyfiles -u 1 -e \"public/**/*.ts\" \"public/**/*\" dist/public",
+    "build": "npm run clean && npm run build:ts && npm run build:client && npm run copy:assets",
     "start": "node dist/server.js",
     "typecheck": "tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -44,6 +45,7 @@
     "copyfiles": "^2.4.1",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "esbuild": "^0.25.12"
   }
 }
