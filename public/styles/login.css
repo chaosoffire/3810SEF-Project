@@ -213,6 +213,12 @@ button:hover{
     animation: show 0.6s;
 }
 
+#sign-in-status{
+    font-family: 'Roboto';
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
 @keyframes show{
     0%,50%{
         z-index: 1;
