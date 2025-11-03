@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "es2020",
+    "target": "ES2022",
+    "module": "node16",
     "rootDir": "",
     "outDir": "dist",
     "esModuleInterop": true,
@@ -9,8 +9,7 @@
     "strict": true,
     "allowJs": true,
     "skipLibCheck": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "moduleResolution": "node16",
     "typeRoots": [
       "./models/types",
       "./node_modules/@types"
@@ -19,6 +18,5 @@
   "include": [
     "models/**/*",
     "server.ts",
-    "src/**/*"
-  ]
+    "public/frontend/**/*"]
 }

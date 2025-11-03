@@ -6,7 +6,8 @@ import morgan from 'morgan';
 import { initDatabase } from './models/backend/init/init.db';
 import ConfigManager from './models/config/config.manager';
 import backendRouter from './models/backend/backend.router';
-import { pageRouter } from './models/frontend/page/router';
+import { pageRouter } from './public/frontend/router';
+import * as dotenv from "dotenv";
 import path from 'path';
 
 const app = express();
@@ -22,18 +23,18 @@ app.use(cookieParser());
 
 // set view engine
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', path.join(__dirname, 'views'));
 
 //set static folder
-app.use(express.static(path.join(__dirname, '../public')));
-app.use(express.static(path.join(__dirname,'/src')));
+app.use(express.static(path.join(__dirname, '/public/styles')));
+app.use(express.static(path.join(__dirname,'/public/client')));
 
 // Config manager initialization
 const Config: ConfigManager = ConfigManager.getConfigManager();
 
 // Mount model-based routers
 app.use('/api/:api_version/', backendRouter);
-app.use('/page',pageRouter);
+app.use('/page', pageRouter);
 // Health
 // app.get('/health', (_req: Request, res: Response) => {
 // 	res.json({ ok: true });
@@ -49,7 +50,7 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
 	res.status(500).json({ error: 'Internal Server Error' });
 });
 
-let PORT = 3000;
+let PORT = process.env.PORT || 3000;
 
 async function start(): Promise<void> {
 	// Read PORT from config (Config.has may be async)

@@ -19,27 +19,23 @@
 <body>
     <div class="Container">
         <div class="formContainer" id="sign-in-up">
-                <form class="" id="sign-in" action="#">
-                    
-                    <h1>Sign in</h1>
-                    
-                    <div class="sign-in" id="user-id">
-                        <i class="fa-solid fa-user fa-xl"></i>
-                        <input type="text" placeholder="UserID">
-                    </div>
-
-                    <div class="sign-in" id="password">
-                        <i class="fa-solid fa-lock fa-xl"></i>
-                        <input type="text" placeholder="Password">
-                    </div>
+            <form class="" id="sign-in" method="POST" action="#">
                 
-                    <!-- <div class="icon-container">
-                        <a href="#"  class="fa-brands fa-twitter fa-xl"></a>
-                        <a href="#" class="fa-brands fa-discord fa-xl"></a>
-                        <a href="#" class="fa-brands fa-instagram fa-xl"></i></a>
-                        <a href="#" class="fa-brands fa-facebook fa-xl"></a>
-                    </div> -->
-                    <div class="btnDiv">
+                <h1>Sign in</h1>
+                
+                <div class="sign-in" id="user-id">
+                    <i class="fa-solid fa-user fa-xl"></i>
+                    <input type="text" placeholder="UserID" name="id" id="sign-in-id">
+                </div>
+                
+                <div class="sign-in" id="password">
+                    <i class="fa-solid fa-lock fa-xl"></i>
+                    <input type="text" placeholder="Password" name="password" id="sign-in-password">
+                </div>
+
+                <h3 id="sign-in-status"></h3>
+                
+                <div class="btnDiv">
                         <button class="Submit" id="sign-inBtn">Sign In</button>
                     </div>
                     <br>
@@ -50,50 +46,49 @@
                 </form>
 
 
-                <form class="" id="sign-up" action="#">
+                <form class="" id="sign-up" method="POST" action="/page/signup">
                     <h1>Sign up</h1>
                     <div class="sign-up" id="user-id">
                         <i class="fa-solid fa-user fa-xl"></i>
-                        <input type="text" placeholder="UserID">
+                        <input type="text" placeholder="UserID" name="id" id="sign-up-id">
                     </div>
                     <div class="sign-up" id="password">
                         <i class="fa-solid fa-lock fa-xl"></i>
-                        <input type="text" placeholder="Password">
+                        <input type="text" placeholder="Password" name="password" id="sign-up-password">
                     </div>
-                    <!-- <div class="icon-container">
-                        <a href="#"  class="fa-brands fa-twitter fa-xl"></a>
-                        <a href="#" class="fa-brands fa-discord fa-xl"></a>
-                        <a href="#" class="fa-brands fa-instagram fa-xl"></i></a>
-                        <a href="#" class="fa-brands fa-facebook fa-xl"></a>
-                    </div> -->
+
+                    <h3 id="sign-up-status"></h3>
+
                     <div class="btnDiv">
                         <button class="Submit" id="sign-upBtn">Sign Up</button>
                     </div>
                 </form>
-        </div>
-
-        <div class="switchContainer">
-            <div class="overlay-container">
-                <div class="overlayLeft" id="left">
-                    <h1>Welcome back !</h1>
-                    <p>login to your account to browse all the books you like</p>
-
-                    <div id="btnDiv">
-                        <button id="sign-in-btn">Sign in</button>
+            </div>
+            
+            <div class="switchContainer">
+                <div class="overlay-container">
+                    <div class="overlayLeft" id="left">
+                        <h1>Welcome back !</h1>
+                        <p>login to your account to browse all the books you like</p>
+                        
+                        <div id="btnDiv">
+                            <button id="sign-in-btn">Sign in</button>
+                        </div>
                     </div>
-                </div>
-
-                <div class="overlayRight" id="right">
-                    <h1>Don't have an account?</h1>
-                    <p>create one to browse all the books you like</p>
-                    <div id="btnDiv">
-                        <button id="sign-up-btn">Sign Up</button>
+                    
+                    <div class="overlayRight" id="right">
+                        <h1>Don't have an account?</h1>
+                        <p>create one to browse all the books you like</p>
+                        <div id="btnDiv">
+                            <button id="sign-up-btn">Sign Up</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <script src="/login-script.js"></script>
-</body>
-</html>
+        
+        <script src="/login-script.js" type="module"></script>
+        <script src="/sign-up-respond.js" type="module"></script>
+        <script src="/input-validation.js" type="module"></script>
+    </body>
+    </html>

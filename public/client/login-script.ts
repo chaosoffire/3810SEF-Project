@@ -16,13 +16,15 @@ var overlayLeftEl = document.querySelector(".overlayLeft") as HTMLElement | null
 var overlayRightEl = document.querySelector(".overlayRight") as HTMLElement | null;
 
 // buttons
-var signInBtnEl = document.querySelector("#sign-in-btn") as HTMLElement | null;
-var signUpBtnEl = document.querySelector("#sign-up-btn") as HTMLElement | null;
+var signInSwitchBtnEl = document.querySelector("#sign-in-btn") as HTMLButtonElement | null;
+var signUpSwitchBtnEl = document.querySelector("#sign-up-btn") as HTMLButtonElement | null;
 
-signInBtnEl?.addEventListener("click", alt);
-signUpBtnEl?.addEventListener("click", alt);
 
-function alt(): void{
+signInSwitchBtnEl?.addEventListener("click", alt);
+signUpSwitchBtnEl?.addEventListener("click", alt);
+
+
+export function alt(): void{
     formConEl?.classList.toggle("changed");
     switchConEl?.classList.toggle("changed");
     signInEl?.classList.toggle("changed");
@@ -31,12 +33,15 @@ function alt(): void{
     overlayLeftEl?.classList.toggle("changed");
     overlayRightEl?.classList.toggle("changed");
 
-    signInEl?.classList.contains("changed")? signInEl.style.pointerEvents = "null":signInEl!.style.pointerEvents = "auto";
+    signInEl?.classList.contains("changed")? signInEl.style.pointerEvents = "none":signInEl!.style.pointerEvents = "auto";
     signUpEl?.classList.contains("changed")? signUpEl.style.pointerEvents = "auto":signUpEl!.style.pointerEvents = "none";
     
     overlayLeftEl?.classList.contains("changed") ? overlayLeftEl.style.pointerEvents = "auto" : overlayLeftEl!.style.pointerEvents = "none";
     overlayRightEl?.classList.contains("changed") ? overlayRightEl.style.pointerEvents = "none" : overlayRightEl!.style.pointerEvents = "auto";
 }
+
+
+
 
 
 
