@@ -220,11 +220,11 @@ button:hover{
 }
 
 @keyframes show{
-    0%,20%{
+    0%,50%{
         z-index: 1;
         opacity: 0;
     }
-    20.1%,100%{
+    50.1%,100%{
         z-index: 3;
         opacity: 1;
     }

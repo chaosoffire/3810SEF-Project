@@ -11,12 +11,15 @@ export async function registerHandler(req: Request, res: Response) {
     if (username.length < 8 || username.length > 32) {
         return res.status(400).json({ success: false, error: 'Invalid username format, username must be 8-32 characters long, the first character must be a letter, and can only contain letters, numbers, and underscores' });
     }
-    if (!username.match(/[A-Za-z]{1}[_A-Za-z1-9]{7,31}/)) {
-        return res.status(400).json({ success: false, error: 'Invalid username format, username must be 8-32 characters long, the first character must be a letter, and can only contain letters, numbers, and underscores' });
-    }
-
     if (password.length < 12 || password.length > 64) {
         return res.status(400).json({ success: false, error: 'Invalid password format, password must be 12-64 characters long' });
+    }
+    if (!username.match(/^[A-Za-z]{1}[_A-Za-z0-9]{7,31}$/)) {
+        return res.status(400).json({ success: false, error: 'Invalid username format, first character must be a letter, and can only contain letters, numbers, and underscores' });
+    }
+
+    if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[_!@#$%&*]).{12,64}$/)) {
+        return res.status(400).json({ success: false, error: 'Invalid password format, password must be include at least one lowercase letter, one uppercase letter, one number, and one special character' });
     }
 
     try {
