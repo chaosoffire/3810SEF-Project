@@ -22,17 +22,18 @@ app.use(cookieParser());
 
 // set view engine
 app.set('view engine', 'ejs');
-
 app.set('views', path.join(__dirname, 'views'));
 
-app.use(express.static(path.join(__dirname, 'public')));
+//set static folder
+app.use(express.static(path.join(__dirname, '/public/styles')));
+app.use(express.static(path.join(__dirname,'/public/client')));
 
 // Config manager initialization
 const Config: ConfigManager = ConfigManager.getConfigManager();
 
 // Mount model-based routers
 app.use('/api/:api_version/', backendRouter);
-app.use('/page',pageRouter);
+app.use('/page', pageRouter);
 
 app.get('/', (_req: Request, res: Response) => {
 	res.redirect('/page/credential');
