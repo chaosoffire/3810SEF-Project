@@ -14,7 +14,7 @@ export async function registerHandler(req: Request, res: Response) {
     if (password.length < 12 || password.length > 64) {
         return res.status(400).json({ success: false, error: 'Invalid password format, password must be 12-64 characters long' });
     }
-    if (!username.match(/^[A-Za-z]{1}[_A-Za-z0-9]{7,31}$/)) {
+    if (!username.match(/^[A-Za-z][_A-Za-z0-9]{7,31}$/)) {
         return res.status(400).json({ success: false, error: 'Invalid username format, first character must be a letter, and can only contain letters, numbers, and underscores' });
     }
 
