@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-//set static folder
+// set static folder
 app.use(express.static(path.join(__dirname, '/public/styles')));
 app.use(express.static(path.join(__dirname,'/public/client')));
 
