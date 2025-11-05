@@ -48,7 +48,7 @@ pageRouter.post("/signup", async (req: express.Request, res: express.Response) =
         }else if(error.status === 409){
             message = "User ID already existed, please choose another one.";
         }else{
-            message = `Something wrong happended when signing up, please try again: code ${error.status}`;
+            message = `Something wrong happened when signing up, please try again: code ${error.status}`;
         }
         res.redirect(`/page/credential?signUpSuccess=false&message=${message}`);
     }
