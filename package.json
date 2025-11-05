@@ -8,8 +8,8 @@
   "main": "server.ts",
   "scripts": {
     "clean": "rimraf dist",
-    "build:client": "esbuild public/client-script/*.ts --bundle --outdir=dist/public/client-script --format=esm --target=es2022 --platform=browser",
-    "watch:client": "esbuild public/client-script/*.ts --bundle --outdir=dist/public/client-script --format=esm --target=es2022 --platform=browser --watch",
+    "build:client": "esbuild public/client/*.ts --bundle --outdir=dist/public/client --format=esm --target=es2022 --platform=browser",
+    "watch:client": "esbuild public/client/*.ts --bundle --outdir=dist/public/client --format=esm --target=es2022 --platform=browser --watch",
     "build:ts": "tsc",
     "copy:assets": "copyfiles -u 1 \"views/**/*.ejs\" dist/views && copyfiles -u 1 -e \"public/**/*.ts\" \"public/**/*\" dist/public",
     "build": "npm run clean && npm run build:ts && npm run build:client && npm run copy:assets",

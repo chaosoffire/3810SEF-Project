@@ -20,7 +20,10 @@ Authentication is handled through the `x-session` HTTP-only cookie set by the lo
 }
 ```
 
-- **Notes**: `admin` defaults to `false`. When set to `true`, the caller must already be authenticated as an admin.
+- **Notes**:  
+1. `admin` defaults to `false`. When set to `true`, the caller must already be authenticated as an admin.
+2. username must be 8-32 characters long, the first character must be a letter, and can only contain letters, numbers, and underscores.
+3. password must be 12-64 characters long and include at least one lowercase letter, one uppercase letter, one number, and one special character
 - **Responses**
 	- `201 Created` `{ "success": true }`
 	- `403 Forbidden` when a non-admin attempts to create an admin
