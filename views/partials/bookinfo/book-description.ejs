@@ -1,0 +1,137 @@
+<!-- partials/bookinfo/book-description -->
+
+ 
+<div id="main-content">
+    <div id="outer-container">
+
+        <% const currentBook = (typeof book !== "undefined")? book:{
+            title: "",
+            author: "",
+            description: "",
+            genres: [],
+            publishedYear: "2025",
+            price: 0,
+            coverImage: ""} 
+        %>
+
+
+        <!-- Only admin can edit or add, user can see book description -->
+        <% if (typeof role !== "undefined" && role === "admin") { %>
+            <!-- Form action depends on whether there is book._id -->
+            <% if (currentBook._id) { %>
+                <form id="update-form" action="<%= '/page/update/' + currentBook._id %>" method="PUT" enctype="multipart/form-data">
+            <% } else { %>
+                <form id="add-form" action="/page/add" method="POST" enctype="multipart/form-data">
+            <% } %>
+                    <div id="upper-container">
+                        <!-- Book Cover -->
+                        <div id="book-cover-container">
+                            <label for="book-cover-upload" id="cover-upload-btn">
+                                <img src="/img/upload_icon.png" alt="Upload Icon" id="upload-icon">
+                            </label>
+                            <input type="file" id="book-cover-upload" name="book-cover-upload" accept="image/*">
+                            <img id="book-cover" src="data:image/jpeg;base64,<%= currentBook.coverImage %>" alt="Book Cover" hidden>
+                        </div>
+
+                        <div id="desc-container">
+                            <!-- Book details -->
+                            <label>Title</label>
+                            <input type="text" name="title" id="title" value="<%= currentBook.title %>" />
+                            <label>Author</label>
+                            <input type="text" name="author" id="author" value="<%= currentBook.author %>" />
+                            <label>Description</label>
+                            <textarea name="description" id="description"><%= currentBook.description %></textarea>
+                            <label>Published Year</label>
+                            <input type="text" name="publishedYear" id="publishedYear" value="<%= currentBook.publishedYear || '2025' %>" />
+                            <label>Categories</label>
+                            <div id="categories-container">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="bestsellers" name="categories" value="bestsellers" <%= (currentBook.genres && currentBook.genres.includes('bestsellers')) ? 'checked' : '' %>>
+                                    <label for="bestsellers">Bestsellers</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="fiction" name="categories" value="fiction" <%= (currentBook.genres && currentBook.genres.includes('fiction')) ? 'checked' : '' %>>
+                                    <label for="fiction">Fiction</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="non-fiction" name="categories" value="non-fiction" <%= (currentBook.genres && currentBook.genres.includes('non-fiction')) ? 'checked' : '' %>>
+                                    <label for="non-fiction">Non Fiction</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="classics" name="categories" value="classics" <%= (currentBook.genres && currentBook.genres.includes('classics')) ? 'checked' : '' %>>
+                                    <label for="classics">Classics</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="young-adult" name="categories" value="young-adult" <%= (currentBook.genres && currentBook.genres.includes('young-adult')) ? 'checked' : '' %>>
+                                    <label for="young-adult">Young Adult</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="children" name="categories" value="children" <%= (currentBook.genres && currentBook.genres.includes('children')) ? 'checked' : '' %>>
+                                    <label for="children">Children's</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="line"></div>
+
+                    <!-- Price Section -->
+                    <div id="lower-container">
+                        <span id="price-label">Price</span>
+                        <input type="number" name="price" id="price" value="<%= currentBook.price %>" step="0.01" min="0"/>
+                        <button id="save-btn" type="submit">Save Changes</button>
+                    </div>
+                </form>
+        <% } else { %>
+                    <div id="upper-container">
+                        <!-- Book Cover -->
+                        <img id="book-cover" src="data:image/jpeg;base64,<%= currentBook.coverImage %>" alt="Book Cover">
+
+                        <div id="desc-container">
+                            <!-- Book details -->
+                            <h1 id="title"><%= currentBook.title %></h1>
+                            <span id="author">by <%= currentBook.author %> (Author)</span>
+                            <p><%= currentBook.description %></p>
+                            <span id="categories">
+                                <% if (currentBook.genres && currentBook.genres.length > 0) { %>
+                                    <%= currentBook.genres.join(', ') %>
+                                <% } else { %>
+                                    <p>Categories: N/A</p>
+                                <% } %>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="line"></div>
+
+                    <!-- Price Section -->
+                    <div id="lower-container">
+                        <span id="price-label">Price</span>
+                        <span id="price"><%= currentBook.price %></span>
+                        <button id="add-btn" currentBook-id="<%= currentBook._id %>">Add to Cart</button>
+                    </div>
+        <% } %>
+
+        <!-- Message Popup -->
+        <div id="popup-container">
+            <div id="inner-container">
+                <div id="upper-banner">
+                    <h2 id="message-title">Notice</h2>
+                    <button id="close-btn">X</button>
+                </div>
+                <div class="line"></div>
+                <div id="message-container">
+                    <img src="/img/tick_icon.png" id="tick_icon">
+                    <p id="message">Added to Cart</p>
+                </div>
+                <div id="btn-container">
+                    <a href="/cart" id="go-to-cart-link">
+                        <button id="go-to-cart">Go to Cart</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

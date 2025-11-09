@@ -13,13 +13,13 @@
     box-sizing: border-box;
 }
 
-#main-content{
+#home-content{
     padding: 20px;
     width: 80%;
     min-height: 500px;
 }
 
-#main-content #main-header{
+#home-content #home-header{
     width: 100%;
     display: flex;
     flex-direction: column;

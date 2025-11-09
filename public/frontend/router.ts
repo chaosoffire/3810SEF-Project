@@ -1,10 +1,18 @@
 import express from "express";
 import 'dotenv/config';
+
+import { upload } from "./multer";
+import { signUp } from "./api/auth/sign-up";
+import { signIn } from "./api/auth/sign-in";
+import {signOut} from "./api/auth/sign-out";
+import { addBook } from "./api/admin/add-book";
+
+import { validateSession } from "./middleware/validate-session";
+import { checkRole } from "./middleware/check-role";
+import { checkAdmin } from "./middleware/check-admin";
 export const pageRouter = express.Router({ mergeParams: true });
 // 
-const apiVersion = process.env.API_VERSION_NO;
-const host = process.env.HOST;
-const port = process.env.PORT;
+const apiVersion = process.env.API_VERSION_NO as string|null;
 
 pageRouter.get("/", async (req: express.Request, res: express.Response) => {
     console.log("Page router accessed");
@@ -17,40 +25,16 @@ pageRouter.get("/credential", async (req: express.Request, res: express.Response
     res.status(200).render("login");
 });
 
-
-// code correct but validation needs to adjust in input validation
-
-// onclick input validate -> ok -> send reqest to sign up to check user id duplication -> ok -> redirect to page with success message
-pageRouter.post("/signup", async (req: express.Request, res: express.Response) => {
-    try{
-
-        const payload: Object = {
-            username:req.body.id,
-            password:req.body.password,
-            admin:false
-        }
-
-        const response = await fetch(`http://${host}:${port}/api/${apiVersion}/user/register`,{
-            method:"POST",
-            headers: {'Content-Type': 'application/json'},
-            body:JSON.stringify(payload)
-        });
-
-        if(response.status === 201){
-            res.redirect("/page/credential?signUpSuccess=true");
-        }else{
-            throw {status:response.status};
-        }
-    }catch(error:any){
-        let message:String;
-        if(error.status === 403){
-            message = "You have no access to admin account creation.";
-        }else if(error.status === 409){
-            message = "User ID already existed, please choose another one.";
-        }else{
-            message = `Something wrong happended when signing up, please try again: code ${error.status}`;
-        }
-        res.redirect(`/page/credential?signUpSuccess=false&message=${message}`);
-    }
-
+pageRouter.get("/content", validateSession, checkRole, async (req: express.Request, res: express.Response) => {
+    console.log("Rendering login page");
+    console.log("role", req.role);
+    res.status(200).render("menu",{state:req.query.state,role:req.role});
 });
+
+pageRouter.post("/signup", validateSession, signUp);
+
+pageRouter.post("/signin", signIn);
+
+pageRouter.post("/signout", validateSession, signOut);
+
+pageRouter.post("/add", validateSession, checkAdmin, upload.single('book-cover-upload'), addBook);

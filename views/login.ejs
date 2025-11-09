@@ -5,27 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sign In</title>
     <link rel="stylesheet" href="/login.css">
-
-
+    
+    
     <!-- <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"> -->
     <!-- <link rel="stylesheet" href=""> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <script src="/loginPage/login-script.js" type="module" defer></script>
+    <script src="/loginPage/sign-up-respond.js" type="module" defer></script>
+    <script src="/loginPage/input-validation.js" type="module" defer></script>
+    <script src="/loginPage/login-respond.js" type="module" defer></script>
 </head>
 <body>
     <div class="Container">
         <div class="formContainer" id="sign-in-up">
-            <form class="" id="sign-in" method="POST" action="#">
+            <form class="" id="sign-in" method="POST" action="/page/signin">
                 
                 <h1>Sign in</h1>
                 
                 <div class="sign-in" id="user-id">
                     <i class="fa-solid fa-user fa-xl"></i>
-                    <input type="text" placeholder="UserID" name="id" id="sign-in-id">
+                    <input type="text" placeholder="UserID" name="username" id="sign-in-id">
                 </div>
                 
                 <div class="sign-in" id="password">
@@ -50,11 +55,22 @@
                     <h1>Sign up</h1>
                     <div class="sign-up" id="user-id">
                         <i class="fa-solid fa-user fa-xl"></i>
-                        <input type="text" placeholder="UserID" name="id" id="sign-up-id">
+                        <input type="text" placeholder="UserID" name="username" id="sign-up-id">
                     </div>
+                    
+                    <div id="id-criteria">
+                        <p class="criteria">length within 8-32</p>
+                        <p class="criteria">start with letter, include only letter, number and underscore</p>
+                    </div>
+
                     <div class="sign-up" id="password">
                         <i class="fa-solid fa-lock fa-xl"></i>
                         <input type="text" placeholder="Password" name="password" id="sign-up-password">
+                    </div>
+                    
+                    <div id="pw-criteria">
+                        <p class="criteria">length within 12-64</p>
+                        <p class="criteria">At least 1 uppercase, 1 lowercase and 1 number</p>
                     </div>
 
                     <h3 id="sign-up-status"></h3>
@@ -87,8 +103,5 @@
             </div>
         </div>
         
-        <script src="/login-script.js" type="module"></script>
-        <script src="/sign-up-respond.js" type="module"></script>
-        <script src="/input-validation.js" type="module"></script>
     </body>
     </html>

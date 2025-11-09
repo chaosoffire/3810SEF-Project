@@ -1,5 +1,3 @@
-import { sign } from "node:crypto";
-
 // container of 2 forms
 var formConEl = document.querySelector(".formContainer") as HTMLElement | null;
 // container of 2 switch panels

@@ -1,15 +1,13 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "node16",
+    "module": "commonjs",
     "rootDir": "",
     "outDir": "dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": false,
     "strict": true,
-    "allowJs": true,
     "skipLibCheck": true,
-    "moduleResolution": "node16",
     "typeRoots": [
       "./models/types",
       "./node_modules/@types"
@@ -18,5 +16,6 @@
   "include": [
     "models/**/*",
     "server.ts",
-    "public/frontend/**/*"]
+    "public/frontend/**/*"
+  ]
 }

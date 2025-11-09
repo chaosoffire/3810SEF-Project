@@ -11,6 +11,10 @@ import * as dotenv from "dotenv";
 import path from 'path';
 
 const app = express();
+
+
+app.set('trust proxy',true);
+
 // Security & performance middleware
 app.use(helmet());
 app.use(compression());
@@ -20,6 +24,7 @@ app.use(morgan('combined'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+
 
 // set view engine
 app.set('view engine', 'ejs');

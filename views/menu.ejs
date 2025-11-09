@@ -5,41 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="/not-found.css" type="text/css">
+    
     <link rel="stylesheet" href="/navbar.css" type="text/css">
     <link rel="stylesheet" href="/footer.css" type="text/css">
+
     <link rel="stylesheet" href="/home/home-search.css" type="text/css">
     <link rel="stylesheet" href="/home/home-header.css" type="text/css">
     <link rel="stylesheet" href="/home/home-body.css" type="text/css">
+
     <link rel="stylesheet" href="/mybook/mybook-content.css" type="text/css">
+
+    <link rel="stylesheet" href="/bookdesc/bookdesc.css" type="text/css">
+    <link rel="stylesheet" href="/bookdesc/popup.css" type="text/css">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <script src="/menuPage/add-admin.js" type="module" defer></script>
+    
+    <!--use when content is addbook -->
+
+    <script src="/descriptionPage/image-preview.js" type="module" defer></script>
+    <script src="/descriptionPage/update-book.js" type="module" defer></script>
+
 </head>
+
 <body>
     <nav id="nav-bar">
         <div id="nav-left">
             <h2 id="logo">BestRead</h2>
             <ul id="nav-choices">
-                <li><a href="/">Home</a></li>
-                <li><a href="/cart">Cart</a></li>
-                <% if(role == 'user' || role == 'test') {%>
-                <li><a href="/mybooks">My Books</a></li>
-                <%}else if(role == 'admin'){  %>
-                <li><a href="/newbook">Add Book</a></li>
-                <%} %>
-
+                <li class="<%= state === 'home'? 'active':''%>"><a href="/page/content?state=home">Home</a></li>
+                <%if(role === 'user'){%>
+                    <li class="<%= state === 'cart'? 'active':'' %>"><a href="/page/content?state=cart">Cart</a></li>
+                    <li class="<%= state === 'mybooks'? 'active':''%>"><a href="/page/content?state=mybooks">My Books</a></li>
+                <%}else if(role === 'admin'){%>
+                    <li class="<%= state === 'addbook'? 'active':''%>"><a href="/page/content?state=addbook">Add Book</a></li>
+                    <li><a id="add-admin-tag" href="#">Add Admin</a></li>
+                    <li class="<%= state === 'order'? 'active':''%>"><a href="/page/content?state=order">Order</a></li>
+                <%}%>
             </ul>
         </div>
         <div id="nav-right">
-            <input id="sign-out" type="button" value="Sign out">
+            <form id="sign-out-form" action="/page/signout" method="post">
+                <input id="sign-out" type="submit" value="Sign out">
+            </form>
         </div>
     </nav>
 
-    <%- include('partials/mybook/mybook-content') %>
+
+    <%if(state === 'home'){%>
+        <%- include('partials/home/home-content',{role:role}) %>
+    <% }else if(state === 'cart' && role === 'user') {%>
+    <!-- cart -->
+    <% }else if(state === 'mybooks' && role === 'user') {%>
+        <%- include('partials/mybook/mybook-content') %>
+    <% } else if(state === 'addbook' && role === 'admin') {%>
+        <%- include('partials/bookinfo/book-description',{role:role}) %>
+    <% } else if(state === 'order' && role === 'admin') {%>
+    <!-- order page -->
+    <% } else {%>
+        <%- include('partials/not-found') %>
+    <% } %>   
 
 
+    
     <footer id="footer">
         <h2 id="footer-logo">BestRead</h2>
     </footer>
