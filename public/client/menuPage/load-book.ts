@@ -44,18 +44,7 @@ searchFormEl?.addEventListener('submit',async(e:SubmitEvent)=>{
     // set a frontend api to get book with completed url with query in req
     const query:string = `sortBy.${sortBy}${keywordString}${categoryString}${priceRangestring}|sortOrder.asc`;
     try{
-
-        const response:Response = await fetch(`/page/book?requestQuery=${query}`,{
-            method:"GET"
-        });
-        
-        if(response.ok){
-            const result = await response.json() as bookResult;
-            localStorage.set("result",result);
-            // window.location.href = `/page/content?state=home&bookData=${result}`;
-        }else{
-            throw{status:response.status};
-        }
+        window.location.href = `/page/content?state=home&requestQuery=${query}`;
     }catch(e:any){
         console.log(e.status);
     }

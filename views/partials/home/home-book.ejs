@@ -8,7 +8,7 @@
         <h2 class="book-title"><%=bookData.title? bookData.title:"no title details"%></h2>
         <p class="book-author"><%=bookData.author? bookData.author:"no author details"%></p>
         <p class="description"><%=bookData.description? bookData.description:"no description given"%></p>
-        <p class="type"><%=(bookData.genres).join(",")%></p>
+        <p class="type"><%=(bookData.genres).join(", ")%></p>
         <h4 class="price"><%=bookData.price%></h4>
     </div>
 </li>
