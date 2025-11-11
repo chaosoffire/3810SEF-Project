@@ -62,3 +62,8 @@ export interface IBook {
     price?: number;
     coverImage?: string;
 }
+
+export interface BookSearchResult {
+    data:IBook[];
+    count:number;
+}

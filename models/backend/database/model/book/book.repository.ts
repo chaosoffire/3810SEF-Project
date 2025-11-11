@@ -1,5 +1,5 @@
 import { MongoDBManager } from "../../mongodb.manager";
-import { IBook } from "../schema/bookSchema";
+import { IBook,BookSearchResult } from "../schema/bookSchema";
 import { bookSchema } from "../schema/bookSchema";
 
 export const BOOK_COLLECTION = 'books';
@@ -64,31 +64,34 @@ export async function searchBooksByFields(searchCriteria: {
   limit?: number; // 0 or undefined means unlimited
   sortBy?: keyof IBook;
   sortOrder?: SortOrder;
-}): Promise<IBook[] | null> {
+}): Promise<BookSearchResult | null> {
   const model = MongoDBManager.getInstance().getModel<IBook>(BOOK_COLLECTION, bookSchema);
   
   const query: any = {};
-  
+  const textQuery: any[] = [];
+  const condition: any[] = [];
   // Add regex search for text fields
   if (searchCriteria.title) {
-    query.title = { $regex: searchCriteria.title.trim(), $options: 'i' };
+    textQuery.push({title:{ $regex: searchCriteria.title.trim(), $options: 'i' }});
   }
   
   if (searchCriteria.author) {
-    query.author = { $regex: searchCriteria.author.trim(), $options: 'i' };
+    textQuery.push({author:{ $regex: searchCriteria.author.trim(), $options: 'i' }});
   }
   
   if (searchCriteria.description) {
-    query.description = { $regex: searchCriteria.description.trim(), $options: 'i' };
+    textQuery.push({description:{ $regex: searchCriteria.description.trim(), $options: 'i' }});
   }
   
+  query.$or = textQuery;
+
   // Search for genres (books must have ALL specified genres)
   if (searchCriteria.genres && searchCriteria.genres.length > 0) {
     var newArray: string[] = [];
     for (const genre of searchCriteria.genres) {
         newArray.push(genre.trim());
     }
-    query.genres = { $all: newArray };
+    condition.push({genres:{ $all: newArray }});
   }
 
   // Search by book IDs
@@ -97,26 +100,29 @@ export async function searchBooksByFields(searchCriteria: {
     for (const id of searchCriteria.bookid) {
         idArray.push(id.trim());
     }
-    query._id = { $in: idArray };
+    condition.push({_id:{ $in: idArray }});
   }
   
   // Exact match for published year
   if (searchCriteria.publishedYear) {
-    query.publishedYear = searchCriteria.publishedYear.trim();
+    condition.push({publishedYear:searchCriteria.publishedYear.trim()});
   }
   
   // Price range search
   if (searchCriteria.minPrice !== undefined || searchCriteria.maxPrice !== undefined) {
-    query.price = {};
+    const priceQuery: any = {};
     if (searchCriteria.minPrice !== undefined) {
-      query.price.$gte = searchCriteria.minPrice;
+      priceQuery.$gte = searchCriteria.minPrice;
     }
     if (searchCriteria.maxPrice !== undefined) {
-      query.price.$lte = searchCriteria.maxPrice;
+      priceQuery.$lte = searchCriteria.maxPrice;
     }
+    condition.push({price:priceQuery});
   }
   
+  query.$and = condition;
   // Build base query
+  const totalDoc = await model.countDocuments(query);
   let mongooseQuery = model.find(query);
 
   // Sorting
@@ -129,9 +135,10 @@ export async function searchBooksByFields(searchCriteria: {
   const limit = typeof searchCriteria.limit === 'number' && searchCriteria.limit > 0 ? searchCriteria.limit : 0;
   if (start > 0) mongooseQuery = mongooseQuery.skip(start);
   if (limit > 0) mongooseQuery = mongooseQuery.limit(limit);
+  
 
   const books = await mongooseQuery.lean();
-  return books ? JSON.parse(JSON.stringify(books)) : null;
+  return books ? JSON.parse(JSON.stringify({data:books,count:totalDoc})) : null;
 }
 
 export async function getBookById(bookId: string): Promise<IBook | null> {

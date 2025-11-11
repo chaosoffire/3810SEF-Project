@@ -37,9 +37,24 @@ export type signInResult = signInSuccess | signInFailed;
 // role
 
 export interface getRoleResult{
-    success: true,
-    isAdmin: true
+    success: boolean,
+    isAdmin: boolean
 }
 
+// book result
+
+export interface book{
+    _id: string,
+    title: string,
+    author: string,
+    price: number,
+    genres: string[],
+    publishedYear: string
+}
+
+export interface bookResult{
+    success: boolean,
+    data: book[]
+}
 
 

@@ -10,8 +10,8 @@ export const addBook = async(req:express.Request,res:express.Response) => {
     if (req.file) {
         // Validate image dimensions
         const dimensions = sizeOf(req.file.buffer);
-        if (dimensions.width > 1000 || dimensions.height > 1000) {
-            return res.status(400).json({ success: false, message: "Image dimensions should not exceed 1000x1000 pixels." });
+        if (dimensions.width > 1000 || dimensions.height > 1600) {
+            return res.status(400).json({ success: false, message: "Image dimensions should not exceed 1000x1600 pixels." });
         }
         const aspectRatio = dimensions.width / dimensions.height;
         if (aspectRatio < 0.6 || aspectRatio > 0.7) { // 2:3 aspect ratio
@@ -61,7 +61,7 @@ export const addBook = async(req:express.Request,res:express.Response) => {
     } catch (e:any) {
         console.log("failed to add book");
 
-        return res.status(e.status).json({ success: false, message: e.message || "Internal Server Error" });
+        return res.status(e.status).json({ success: false, message: e.message || "Something went wrong, try a smaller image." });
 
     }
 }

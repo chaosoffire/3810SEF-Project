@@ -9,7 +9,7 @@ export async function getBookByIdHandler(req: Request, res: Response) {
 
         // ID format is validated by router middleware; reuse search logic
         const books = await searchBooksByFields({ bookid: [bookId], limit: 1 });
-        const book = books && books[0];
+        const book = books?.data && books.data[0];
 
         if (!book) {
             return res.status(404).json({ success: false, error: 'Book not found' });

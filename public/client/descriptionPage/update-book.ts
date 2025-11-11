@@ -33,12 +33,12 @@ if (form) {
             });
 
             const data: { success: boolean; message?: string; book?: { _id: string; coverImage?: string; }; } = await response.json();
-
+            console.log("after add",data);
             if (response.ok && data.success) {
                 const successMessage = isAdding ? "Book created successfully!" : "Book updated successfully!";
                 alert(successMessage);
 
-                if (isAdding && data.book && data.book._id) {
+                if (isAdding && data.book) {
                     // Redirect to the book"s page
                     window.location.href = `/page/content/?state=home`;
                 } else if (!isAdding && data.book && data.book.coverImage) {

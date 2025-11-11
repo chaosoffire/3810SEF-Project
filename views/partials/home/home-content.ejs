@@ -2,34 +2,39 @@
 
 
 <search id="search-section">
-        <div id="search-category">
-            <select class="filter" id="filter-category" name="category">
-                <option value="any" selected>Category</option>
-                <option value="fiction">Fiction</option>
-                <option value="non-fiction">Non-Fiction</option>
-                <option value="horror">Horror</option>
-            </select>
-            <select class="filter" id="filter-price" name="price">
-                <option value="any" selected>Price</option>
-                <option value="0-5">$5 below</option>
-                <option value="5-10">$5-$10</option>
-                <option value="11-15">$11-$15</option>
-                <option value="15+">$15 above</option>
-            </select>
-
-            <div id="sort-container">
-                <label for="sort">Sort by</label>
-                <select id="sort" name="sort">
-                    <option value="title">Title</option>
-                    <option value="year">Year</option>
-                    <option value="price">Price</option>
+        <form id="search-form">
+            <div id="search-category">
+                <select class="filter" id="filter-category" name="category">
+                    <option value="any" selected>Category</option>
+                    <option value="bestsellers">Best Sellers</option>
+                    <option value="non-fiction">Non-Fiction</option>
+                    <option value="fiction">Fiction</option>
+                    <option value="classics">Classics</option>
+                    <option value="young-adult">Young-Adult</option>
+                    <option value="Children">Children</option>
                 </select>
-            </div>            
-        </div>
-        <div id="search-container">
-            <input id="search-input" type="text" placeholder="Enter Keywords">
-            <input id="search-btn" type="button" value="Search">
-        </div>
+                <select class="filter" id="filter-price" name="price">
+                    <option value="any" selected>Price</option>
+                    <option value="0-5">$0-$5</option>
+                    <option value="5-10">$5-$10</option>
+                    <option value="10-15">$10-$15</option>
+                    <option value="15+">$15 above</option>
+                </select>
+
+                <div id="sort-container">
+                    <label for="sort">Sort by</label>
+                    <select id="sort" name="sort">
+                        <option value="title">Title</option>
+                        <option value="publishedYear">Year</option>
+                        <option value="price">Price</option>
+                    </select>
+                </div>            
+            </div>
+            <div id="search-container">
+                <input id="search-input" name="keyword" type="text" placeholder="Enter Keywords">
+                <input id="search-btn" type="submit" value="Search">
+            </div>
+        </form>
     </search>
 
     <main id="home-content">
@@ -41,9 +46,13 @@
 
             <ul id="book-list">
                 <!-- Books will be dynamically inserted here -->
-                 <% for(var i = 0; i < 10; i++) {%>
-                    <%- include('home-book',{data: i}) %>
-                 <%}%>
+                <% if(typeof books != "undefined") {%>
+                    <% for(var i = 0; i < books.count; i++) {%>
+                    <%- include('home-book',{bookData: books.data[i]}) %>
+                    <%}%>
+                <% } else {%>
+                    <%- include("../loading") %>
+                <% } %>
 
             </ul>
         </div>

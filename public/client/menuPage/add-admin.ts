@@ -33,7 +33,7 @@ addAdminTagEl?.addEventListener('click',async()=>{
             admin:true
         }
 
-        const response: Response = await fetch('/page/signup',{
+        const response: Response = await fetch('/page/adminsignup',{
             method:'POST',
             headers:{'Content-Type': 'application/json'},
             body: JSON.stringify(payload)
@@ -44,7 +44,6 @@ addAdminTagEl?.addEventListener('click',async()=>{
         if(response.status === 201){
             window.alert("new admin account has been created!");
         }else{
-
             const result = await response.json() as signUpError;
 
             throw {
