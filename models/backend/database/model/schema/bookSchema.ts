@@ -1,13 +1,15 @@
-import { Schema, model } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
+
+const BOOK_COLLECTION = 'books';
 
 // Book Collection schema definition
 export const bookSchema = new Schema({
-    
+
     // The "_id": "Object_id" is automatically managed by Mongoose [1]
 
     "genres": {
         // Example genres include "Horror" and "Thriller" [1]
-        type: [String] 
+        type: [String]
     },
 
     "title": {
@@ -41,7 +43,7 @@ export const bookSchema = new Schema({
         // Stores the Base64 encoded cover image string [1]
         type: String
     }
-    
+
     // Note: The source structure for the Book Collection [1] does not explicitly list
     // creation or update timestamps, unlike the discussion regarding the Order model [2] 
     // and User collection [3, 4].
@@ -53,17 +55,11 @@ bookSchema.index({ genres: 1 });
 bookSchema.index({ price: 1 });
 bookSchema.index({ publishedYear: 1 });
 
-export interface IBook {
-    genres?: string[];
-    title: string;
-    author?: string;
-    description?: string;
-    publishedYear?: string;
-    price?: number;
-    coverImage?: string;
-}
+const BookModel = model(BOOK_COLLECTION, bookSchema);
+type BookDocument = mongoose.InferSchemaType<typeof bookSchema> & mongoose.Document;
 
-export interface BookSearchResult {
-    data:IBook[];
-    count:number;
-}
+export type { BookDocument };
+
+// export interface BookDocument extends BookDocument { }
+
+export { BookModel };

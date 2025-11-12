@@ -8,6 +8,7 @@
   "main": "server.ts",
   "scripts": {
     "clean": "rimraf dist",
+    "fmt": "biome check --write .",
     "build:client": "esbuild public/client/**/*.ts --bundle --outdir=dist/public/client --format=esm --target=es2022 --platform=browser",
     "watch:client": "esbuild public/client/**/*.ts --bundle --outdir=dist/public/client --format=esm --target=es2022 --platform=browser --watch",
     "build:ts": "tsc",
@@ -33,9 +34,12 @@
     "morgan": "^1.10.0",
     "multer": "^2.0.2",
     "passport": "^0.7.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@apst/biome": "^0.3.0",
+    "@biomejs/biome": "^2.3.5",
     "@types/bcryptjs": "^2.4.6",
     "@types/compression": "^1.7.5",
     "@types/cookie-parser": "^1.4.7",

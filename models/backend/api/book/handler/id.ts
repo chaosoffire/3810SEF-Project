@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { searchBooksByFields, updateBookById, deleteBookByIds, hasBookById, getBookById } from '../../../database/model/book/book.repository';
-import { IBook } from '../../../database/model/schema/bookSchema';
+import { getBooksByField, updateBookById, deleteBookByIds, hasBookById, getBookById, WithMongoID, WithLimit } from '../../../database/model/book/book.repository';
+import { BookDocument } from '../../../database/model/schema/bookSchema';
 
 // GET /api/:api_version/book/:id
 export async function getBookByIdHandler(req: Request, res: Response) {
@@ -8,7 +8,7 @@ export async function getBookByIdHandler(req: Request, res: Response) {
         const bookId = req.params.id;
 
         // ID format is validated by router middleware; reuse search logic
-        const books = await searchBooksByFields({ bookid: [bookId], limit: 1 });
+        const books = await getBooksByField([WithMongoID(bookId), WithLimit(1)]);
         const book = books?.data && books.data[0];
 
         if (!book) {
@@ -46,7 +46,7 @@ export async function updateBookHandler(req: Request, res: Response) {
             coverImage
         } = req.body;
 
-        const updateData: Partial<IBook> = {};
+        const updateData: Partial<BookDocument> = {};
 
         // Rely on router validators; assign directly
         if (title !== undefined) updateData.title = title;
