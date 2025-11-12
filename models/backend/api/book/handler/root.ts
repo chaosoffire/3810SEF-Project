@@ -1,20 +1,23 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from "express";
+
+import type { BookDocument } from "../../../database/model/schema/bookSchema";
+
+import z from "zod";
+
 import {
     createBook,
     getBooksByField,
-    WithMongoID,
-    WithTitle,
     WithAuthor,
     WithDescription,
     WithGenre,
-    WithPublishedYear,
-    WithPriceRange,
-    WithSkip,
     WithLimit,
-    WithSort
-} from '../../../database/model/book/book.repository';
-import { BookDocument } from '../../../database/model/schema/bookSchema';
-import z from 'zod';
+    WithMongoID,
+    WithPriceRange,
+    WithPublishedYear,
+    WithSkip,
+    WithSort,
+    WithTitle,
+} from "../../../database/model/book/book.repository";
 
 /*
  * DEPRECATED: Legacy sanitizeString helper remains unused; validation middleware already covers these cases.
@@ -33,27 +36,29 @@ function sanitizeString(input: string): string {
 */
 
 export async function rootHandler(req: Request, res: Response) {
-    if (req.method === 'GET') {
+    if (req.method === "GET") {
         return GETrootHandler(req, res);
     }
-    if (req.method === 'POST') {
+    if (req.method === "POST") {
         return POSTrootHandler(req, res);
     }
-    return res.status(405).json({ success: false, error: 'Method Not Allowed' });
+    return res.status(405).json({
+        success: false,
+        error: "Method Not Allowed",
+    });
 }
-
 
 // Helper function to split comma-separated strings and trim elements
 function parseCommaSeparatedString(value: any): string[] {
     if (!value) return [];
 
     // If already an array, join and split to handle arrays with comma-separated elements
-    const stringValue = Array.isArray(value) ? value.join(',') : String(value);
+    const stringValue = Array.isArray(value) ? value.join(",") : String(value);
 
     return stringValue
-        .split(',')
-        .map(item => item.trim())
-        .filter(item => item.length > 0);
+        .split(",")
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0);
 }
 
 // Get all books or search for books based on query parameters
@@ -70,20 +75,46 @@ async function GETrootHandler(req: Request, res: Response) {
         start,
         limit,
         sortBy,
-        sortOrder
+        sortOrder,
     } = req.query;
 
     // Check if there are any query parameters
-    const hasQueryParams = bookid || genres || titleQuery || author || description || publishedYear || minPrice || maxPrice || start || limit || sortBy || sortOrder;
+    const hasQueryParams =
+        bookid ||
+        genres ||
+        titleQuery ||
+        author ||
+        description ||
+        publishedYear ||
+        minPrice ||
+        maxPrice ||
+        start ||
+        limit ||
+        sortBy ||
+        sortOrder;
 
     // If no query parameters, return all books
     if (!hasQueryParams) {
         const books = await getBooksByField([]);
-        return res.json({ success: true, data: books });
+        return res.json({
+            success: true,
+            data: books,
+        });
     }
 
     // Build the query parameters array
-    const params: ReturnType<typeof WithMongoID | typeof WithTitle | typeof WithAuthor | typeof WithDescription | typeof WithGenre | typeof WithPublishedYear | typeof WithPriceRange | typeof WithSkip | typeof WithLimit | typeof WithSort>[] = [];
+    const params: ReturnType<
+        | typeof WithMongoID
+        | typeof WithTitle
+        | typeof WithAuthor
+        | typeof WithDescription
+        | typeof WithGenre
+        | typeof WithPublishedYear
+        | typeof WithPriceRange
+        | typeof WithSkip
+        | typeof WithLimit
+        | typeof WithSort
+    >[] = [];
 
     // Process book IDs - split by comma and trim
     if (bookid) {
@@ -92,7 +123,7 @@ async function GETrootHandler(req: Request, res: Response) {
         for (const id of bookIdsArray) {
             try {
                 params.push(WithMongoID(id));
-            } catch (error) {
+            } catch (_error) {
                 // Skip invalid book IDs silently
                 console.warn(`Skipping invalid book ID: ${id}`);
             }
@@ -106,7 +137,7 @@ async function GETrootHandler(req: Request, res: Response) {
         for (const title of titleArray) {
             try {
                 params.push(WithTitle(title));
-            } catch (error) {
+            } catch (_error) {
                 // Skip invalid titles silently
                 console.warn(`Skipping invalid title: ${title}`);
             }
@@ -120,7 +151,7 @@ async function GETrootHandler(req: Request, res: Response) {
         for (const auth of authorArray) {
             try {
                 params.push(WithAuthor(auth));
-            } catch (error) {
+            } catch (_error) {
                 // Skip invalid authors silently
                 console.warn(`Skipping invalid author: ${auth}`);
             }
@@ -166,12 +197,15 @@ async function GETrootHandler(req: Request, res: Response) {
     if (minPrice !== undefined || maxPrice !== undefined) {
         try {
             const minPriceValue = minPrice !== undefined ? Number(minPrice) : 0;
-            const maxPriceValue = maxPrice !== undefined ? Number(maxPrice) : Number.MAX_SAFE_INTEGER;
+            const maxPriceValue =
+                maxPrice !== undefined
+                    ? Number(maxPrice)
+                    : Number.MAX_SAFE_INTEGER;
 
-            if (!isNaN(minPriceValue) && !isNaN(maxPriceValue)) {
+            if (!Number.isNaN(minPriceValue) && !Number.isNaN(maxPriceValue)) {
                 params.push(WithPriceRange(minPriceValue, maxPriceValue));
             }
-        } catch (error) {
+        } catch (_error) {
             // Skip invalid price range silently
             console.warn(`Skipping invalid price range`);
         }
@@ -181,10 +215,10 @@ async function GETrootHandler(req: Request, res: Response) {
     if (start !== undefined) {
         try {
             const startValue = Number(start);
-            if (!isNaN(startValue) && startValue >= 0) {
+            if (!Number.isNaN(startValue) && startValue >= 0) {
                 params.push(WithSkip(startValue));
             }
-        } catch (error) {
+        } catch (_error) {
             // Skip invalid start value silently
             console.warn(`Skipping invalid start value`);
         }
@@ -194,10 +228,10 @@ async function GETrootHandler(req: Request, res: Response) {
     if (limit !== undefined) {
         try {
             const limitValue = Number(limit);
-            if (!isNaN(limitValue) && limitValue > 0) {
+            if (!Number.isNaN(limitValue) && limitValue > 0) {
                 params.push(WithLimit(limitValue));
             }
-        } catch (error) {
+        } catch (_error) {
             // Skip invalid limit value silently
             console.warn(`Skipping invalid limit value`);
         }
@@ -207,12 +241,25 @@ async function GETrootHandler(req: Request, res: Response) {
     if (sortBy) {
         try {
             const sortByStr = String(sortBy);
-            const sortOrderStr = sortOrder ? String(sortOrder).toLowerCase() as 'asc' | 'desc' : 'asc';
+            const sortOrderStr = sortOrder
+                ? (String(sortOrder).toLowerCase() as "asc" | "desc")
+                : "asc";
 
-            if (['title', 'price', 'publishedYear'].includes(sortByStr)) {
-                params.push(WithSort(sortByStr as 'title' | 'price' | 'publishedYear', sortOrderStr));
+            if (
+                [
+                    "title",
+                    "price",
+                    "publishedYear",
+                ].includes(sortByStr)
+            ) {
+                params.push(
+                    WithSort(
+                        sortByStr as "title" | "price" | "publishedYear",
+                        sortOrderStr,
+                    ),
+                );
             }
-        } catch (error) {
+        } catch (_error) {
             // Skip invalid sort parameters silently
             console.warn(`Skipping invalid sort parameters`);
         }
@@ -222,17 +269,31 @@ async function GETrootHandler(req: Request, res: Response) {
     const result = await getBooksByField(params);
 
     if (!result) {
-        return res.status(404).json({ success: false, error: 'No books found' });
+        return res.status(404).json({
+            success: false,
+            error: "No books found",
+        });
     }
-    return res.json({ success: true, data: result.data, count: result.count });
+    return res.json({
+        success: true,
+        data: result.data,
+        count: result.count,
+    });
 }
-
 
 // POST handler - Create a new book
 async function POSTrootHandler(req: Request, res: Response) {
     try {
         // Values are already validated/sanitized by express-validator in router
-        const { title, genres, author, description, publishedYear, price, coverImage } = req.body as {
+        const {
+            title,
+            genres,
+            author,
+            description,
+            publishedYear,
+            price,
+            coverImage,
+        } = req.body as {
             title: string;
             genres?: string[];
             author?: string;
@@ -249,7 +310,7 @@ async function POSTrootHandler(req: Request, res: Response) {
             description,
             publishedYear,
             price,
-            coverImage
+            coverImage,
         } as BookDocument;
 
         // Call createBook from repository
@@ -257,16 +318,22 @@ async function POSTrootHandler(req: Request, res: Response) {
 
         return res.status(201).json({
             success: true,
-            message: 'Book created successfully',
-            data: newBook
+            message: "Book created successfully",
+            data: newBook,
         });
-
     } catch (error: any) {
         // Handle duplicate title error (unique constraint)
         if (error.code === 11000) {
-            return res.status(409).json({ success: false, error: 'A book with this title already exists' });
+            return res.status(409).json({
+                success: false,
+                error: "A book with this title already exists",
+            });
         }
 
-        return res.status(500).json({ success: false, error: 'Failed to create book', details: error.message });
+        return res.status(500).json({
+            success: false,
+            error: "Failed to create book",
+            details: error.message,
+        });
     }
 }

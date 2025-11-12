@@ -1,6 +1,7 @@
-import path from "path";
-import fs from "fs";
-import { exit } from "process";
+import fs from "node:fs";
+import path from "node:path";
+import { exit } from "node:process";
+
 import dotenv from "dotenv";
 
 interface ConfigManagerInterface {
@@ -14,14 +15,19 @@ class ConfigManager implements ConfigManagerInterface {
     private config: Map<string, string> = new Map<string, string>();
 
     private constructor() {
-        this.configFilePath = path.resolve(process.cwd(), '.env');
+        this.configFilePath = path.resolve(process.cwd(), ".env");
         if (fs.existsSync(this.configFilePath)) {
-            console.info('.env file found. Loading configuration.');
-        } else if (fs.existsSync(path.resolve(process.cwd(), '.env.example'))) {
-            fs.copyFileSync(path.resolve(process.cwd(), '.env.example'), this.configFilePath);
-            console.warn('.env file does not exist. Creating .env from .env.example');
+            console.info(".env file found. Loading configuration.");
+        } else if (fs.existsSync(path.resolve(process.cwd(), ".env.example"))) {
+            fs.copyFileSync(
+                path.resolve(process.cwd(), ".env.example"),
+                this.configFilePath,
+            );
+            console.warn(
+                ".env file does not exist. Creating .env from .env.example",
+            );
         } else {
-            console.error('Both .env and .env.example files are missing.');
+            console.error("Both .env and .env.example files are missing.");
             exit(1);
         }
         this.loadConfig();
@@ -36,7 +42,10 @@ class ConfigManager implements ConfigManagerInterface {
 
     private loadConfig(): void {
         if (fs.existsSync(this.configFilePath)) {
-            const fileContent: string = fs.readFileSync(this.configFilePath, 'utf8');
+            const fileContent: string = fs.readFileSync(
+                this.configFilePath,
+                "utf8",
+            );
             const parsedConfig = dotenv.parse(fileContent);
             this.config = new Map<string, string>(Object.entries(parsedConfig));
         }

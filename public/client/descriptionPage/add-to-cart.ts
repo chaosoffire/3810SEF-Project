@@ -16,7 +16,7 @@ let isInCart: boolean;
 let cart: BookItem[];
 let bookItem: BookItem | undefined;
 
-window.onload = function(): void {
+window.onload = (): void => {
     if (!addBtn || !cover || !title || !author || !price) {
         console.error("One or more required DOM elements not found.");
         return;
@@ -38,11 +38,13 @@ window.onload = function(): void {
         cover: bookCover,
         title: bookTitle,
         author: bookAuthor,
-        price: bookPrice
+        price: bookPrice,
     };
 
     cart = JSON.parse(localStorage.getItem("cart") || "[]") as BookItem[];
-    isInCart = cart.some((item: BookItem) => item.id === (bookItem as BookItem).id);
+    isInCart = cart.some(
+        (item: BookItem) => item.id === (bookItem as BookItem).id,
+    );
 
     if (isInCart) {
         if (!addBtn.classList.contains("disabled")) {
@@ -58,14 +60,14 @@ window.onload = function(): void {
 };
 
 if (addBtn) {
-    addBtn.onclick = function(): void {
+    addBtn.onclick = (): void => {
         if (!bookItem) {
             console.error("Book item not initialized.");
             return;
         }
 
         cart = JSON.parse(localStorage.getItem("cart") || "[]") as BookItem[];
-        isInCart = cart.some((item: BookItem) => item.id === bookItem!.id);
+        isInCart = cart.some((item: BookItem) => item.id === bookItem?.id);
 
         if (isInCart) {
             alert("This book is already in your cart.");

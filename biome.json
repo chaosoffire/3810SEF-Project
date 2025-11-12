@@ -1,6 +1,20 @@
 {
-    "$schema": "https://biomejs.dev/schemas/2.3.5/schema.json",
+    "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
     "extends": [
         "@apst/biome"
-    ]
+    ],
+    "linter": {
+        "rules": {
+            "suspicious": {
+                "noThenProperty": "off",
+                "noAssignInExpressions": "off"
+            },
+            "style": {
+                "noNonNullAssertion": "off"
+            },
+            "a11y": {
+                "useGenericFontNames": "warn"
+            }
+        }
+    }
 }

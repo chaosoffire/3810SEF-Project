@@ -1,163 +1,161 @@
-:root{
-    font-family:'Lora','Roboto';
-    --color--main:#f0ffff;
-    --color--black:#000000;
-    --color--white:#ffffff;
+:root {
+    --color--main: #f0ffff;
+    --color--black: #000000;
+    --color--white: #ffffff;
     --color--darkgreen: #005454;
-    --color--lightred:#ef5454;
-    --light--grey:#f5f5f5;
+    --color--lightred: #ef5454;
+    --light--grey: #f5f5f5;
     --medium-grey: #eaeaea;
     --dark--grey: #767676;
     --color--orange: #f58330;
+    font-family: "Lora", "Roboto", sans-serif;
 }
 
-*{
+* {
+    box-sizing: border-box;
     padding: 0px;
     margin: 0px;
-    box-sizing: border-box;
 }
 
-#main-content #outer-container{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 60%;
-  margin: 50px auto;
-  background-color: var(--color--white);
-  padding-bottom: 50px;
-  color: var(--color--black);
-  border: 2px solid var(--light--grey);
-  border-radius: 15px;
-  font-family: 'Roboto', sans-serif;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+#main-content #outer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    padding-bottom: 50px;
+    margin: 50px auto;
+    font-family: "Roboto", sans-serif;
+    color: var(--color--black);
+    background-color: var(--color--white);
+    border: 2px solid var(--light--grey);
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#main-content #outer-container #upper-container{
-  display: flow-root;
-  gap: 30px;
-  width: 85%;
-  margin: 30px auto;
+#main-content #outer-container #upper-container {
+    display: flow-root;
+    gap: 30px;
+    width: 85%;
+    margin: 30px auto;
 }
 
-#main-content #outer-container #upper-container #book-cover{
-  float: left;
-  width: 100%; 
-  height: auto; 
-  max-width: 235px;
-  max-height: 350px;
-  border-radius: 10px;
-  object-fit: cover;
-  margin-right: 30px;
-  margin-bottom: 10px; 
-  transition: all 0.3s ease;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+#main-content #outer-container #upper-container #book-cover {
+    float: left;
+    width: 100%;
+    max-width: 235px;
+    height: auto;
+    max-height: 350px;
+    margin-right: 30px;
+    margin-bottom: 10px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
-#main-content #outer-container #upper-container #desc-container{
-  font-size: medium;
-  flex: 1;
-  padding-top: 10px;
+#main-content #outer-container #upper-container #desc-container {
+    flex: 1;
+    padding-top: 10px;
+    font-size: medium;
 }
 
-#main-content #outer-container #upper-container #desc-container p{
-  padding-top: 20px;
-  padding-bottom: 15px;
+#main-content #outer-container #upper-container #desc-container p {
+    padding-top: 20px;
+    padding-bottom: 15px;
 }
 
-
-
-#main-content #outer-container #upper-container #desc-container #title{
-  font-family: 'Lora', serif;
-  color: var(--color--black);
-  margin-bottom: 15px;
-  font-size: xx-large;
+#main-content #outer-container #upper-container #desc-container #title {
+    margin-bottom: 15px;
+    font-family: "Lora", serif;
+    font-size: xx-large;
+    color: var(--color--black);
 }
 
-#main-content #outer-container #upper-container #desc-container #categories{
-  font-size: small;
+#main-content #outer-container #upper-container #desc-container #categories {
+    font-size: small;
 }
 
-#main-content #outer-container .line{
-  display: flex;
-  justify-content: center;
-  margin: 5px auto;
-  background-color: var(--light--grey);
-  width: 85%;
-  height: 2px;
+#main-content #outer-container .line {
+    display: flex;
+    justify-content: center;
+    width: 85%;
+    height: 2px;
+    margin: 5px auto;
+    background-color: var(--light--grey);
 }
 
-#main-content #outer-container #lower-container{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+#main-content #outer-container #lower-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-#main-content #outer-container #lower-container #price-label{
-  text-align: center;
-  color: var(--dark--grey);
-  font-size: smaller;
+#main-content #outer-container #lower-container #price-label {
+    font-size: smaller;
+    color: var(--dark--grey);
+    text-align: center;
 }
 
-#main-content #outer-container #lower-container #price{
-  font-size: 25px;
-  font-weight: bold;
-  text-align: center;
-  color: var(--color--lightred);
-  margin-bottom: 15px;
+#main-content #outer-container #lower-container #price {
+    margin-bottom: 15px;
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--color--lightred);
+    text-align: center;
 }
 
-#main-content #outer-container #lower-container #add-btn{
-  background-color: var(--color--lightred);
-  color: var(--color--white);
-  border: none;
-  border-radius: 100px;
-  width: 260px;
-  height: 45px;
-  font-size: large;
-  font-weight: bold;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  cursor: pointer;
-  transition: all 0.2s linear;
+#main-content #outer-container #lower-container #add-btn {
+    width: 260px;
+    height: 45px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bold;
+    color: var(--color--white);
+    cursor: pointer;
+    background-color: var(--color--lightred);
+    border: none;
+    border-radius: 100px;
+    transition: all 0.2s linear;
 }
 
-#main-content #outer-container #lower-container #add-btn:hover{
-  background-color: var(--color-white);
-  color: var(--color--black);
-  border: 2px solid var(--color--lightred);
+#main-content #outer-container #lower-container #add-btn:hover {
+    color: var(--color--black);
+    background-color: var(--color-white);
+    border: 2px solid var(--color--lightred);
 }
 
-#main-content #outer-container #lower-container #add-btn.disabled{
-  background-color: var(--medium-grey);
-  color: var(--dark--grey);
+#main-content #outer-container #lower-container #add-btn.disabled {
+    color: var(--dark--grey);
+    background-color: var(--medium-grey);
 }
 
-#main-content #outer-container #lower-container #add-btn.disabled:hover{
-  background-color: none;
-  color: none;
-  border: none;
+#main-content #outer-container #lower-container #add-btn.disabled:hover {
+    color: none;
+    background-color: none;
+    border: none;
 }
 
-@media (max-width: 1300px){
-  #main-content #outer-container{
-    width: 80%;
-  }
-  #main-content #outer-container #upper-container #book-cover{
-    width: 40%; 
-    height: 40%;
-    margin-right: 20px;
-    margin-bottom: 5px; 
-  }
-  #main-content #outer-container #upper-container #desc-container #title{
-  font-size: x-large;
-}
+@media (max-width: 1300px) {
+    #main-content #outer-container {
+        width: 80%;
+    }
+    #main-content #outer-container #upper-container #book-cover {
+        width: 40%;
+        height: 40%;
+        margin-right: 20px;
+        margin-bottom: 5px;
+    }
+    #main-content #outer-container #upper-container #desc-container #title {
+        font-size: x-large;
+    }
 }
 
-@media (max-width: 870px){
-  #main-content #outer-container{
-    width: 90%;
-  }
+@media (max-width: 870px) {
+    #main-content #outer-container {
+        width: 90%;
+    }
 }
 
 /* Css for page when user is Admin */
@@ -168,126 +166,171 @@
 }
   */
 
-#main-content #outer-container #upper-container #desc-container label{
-  font-size: small;
-  color: var(--dark--grey);
-  margin-top: 5px;
-  margin-bottom: 5px;
+#main-content #outer-container #upper-container #desc-container label {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: small;
+    color: var(--dark--grey);
 }
 
-#main-content #outer-container #upper-container #desc-container input, textarea{
-  background-color: var(--light--grey);
-  border: 1px solid var(--dark--grey);
-  border-radius: 5px;
+#main-content #outer-container #upper-container #desc-container input,
+textarea {
+    background-color: var(--light--grey);
+    border: 1px solid var(--dark--grey);
+    border-radius: 5px;
 }
 
-#main-content #outer-container #upper-container #desc-container #author{
-  margin-bottom: 10px;
+#main-content #outer-container #upper-container #desc-container #author {
+    margin-bottom: 10px;
 }
 
-#main-content #outer-container #lower-container #save-btn{
-  background-color: var(--color--lightred);
-  color: var(--color--white);
-  border: none;
-  border-radius: 100px;
-  width: 260px;
-  height: 45px;
-  font-size: large;
-  font-weight: bold;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  cursor: pointer;
-  transition: all 0.2s linear;
+#main-content #outer-container #lower-container #save-btn {
+    width: 260px;
+    height: 45px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bold;
+    color: var(--color--white);
+    cursor: pointer;
+    background-color: var(--color--lightred);
+    border: none;
+    border-radius: 100px;
+    transition: all 0.2s linear;
 }
 
-#main-content #outer-container #lower-container #save-btn:hover{
-  background-color: var(--color-white);
-  color: var(--color--black);
-  border: 2px solid var(--color--lightred);
+#main-content #outer-container #lower-container #save-btn:hover {
+    color: var(--color--black);
+    background-color: var(--color-white);
+    border: 2px solid var(--color--lightred);
 }
 
-#main-content #outer-container #upper-container #desc-container #categories-container{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 5px;
-  margin-top: 5px;
-  margin-bottom: 15px;
+#main-content
+    #outer-container
+    #upper-container
+    #desc-container
+    #categories-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 5px;
+    margin-top: 5px;
+    margin-bottom: 15px;
 }
 
-#main-content #outer-container #upper-container #desc-container #categories-container .checkbox-item{
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-  padding: 4px;
-  border: none;
+#main-content
+    #outer-container
+    #upper-container
+    #desc-container
+    #categories-container
+    .checkbox-item {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    background-color: transparent;
+    border: none;
 }
 
-#main-content #outer-container #upper-container #desc-container #categories-container .checkbox-item label{
-  margin-left: 8px;
-  font-size: 14px;
-  color: var(--color--black);
+#main-content
+    #outer-container
+    #upper-container
+    #desc-container
+    #categories-container
+    .checkbox-item
+    label {
+    margin-left: 8px;
+    font-size: 14px;
+    color: var(--color--black);
 }
 
-#main-content #outer-container #upper-container #desc-container #categories-container .checkbox-item input[type="checkbox"]{
-  width: 16px;
-  height: 16px;
+#main-content
+    #outer-container
+    #upper-container
+    #desc-container
+    #categories-container
+    .checkbox-item
+    input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
 }
 
-#main-content #outer-container #upper-container #desc-container #categories-container .checkbox-item input[type="checkbox"]:checked{
-  accent-color: var(--color--lightred);
+#main-content
+    #outer-container
+    #upper-container
+    #desc-container
+    #categories-container
+    .checkbox-item
+    input[type="checkbox"]:checked {
+    accent-color: var(--color--lightred);
 }
 
-#main-content #outer-container #upper-container #desc-container input[type="text"],
+#main-content
+    #outer-container
+    #upper-container
+    #desc-container
+    input[type="text"],
 #main-content #outer-container #upper-container #desc-container textarea {
-  width: 100%; 
-  max-width: 900px; 
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box; 
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 900px;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-#main-content #outer-container #lower-container input[type="number"]{
-  max-width: 150px;
-  margin: 0 auto;
-  padding-left: 15px; 
-}
- 
-#main-content #outer-container #upper-container #desc-container textarea{
-  min-height: 100px; 
-  resize: vertical; 
+#main-content #outer-container #lower-container input[type="number"] {
+    max-width: 150px;
+    padding-left: 15px;
+    margin: 0 auto;
 }
 
-#main-content #outer-container #upper-container #book-cover-container{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
+#main-content #outer-container #upper-container #desc-container textarea {
+    min-height: 100px;
+    resize: vertical;
 }
 
-#main-content #outer-container #upper-container #book-cover-container #cover-upload-btn{
-  position: absolute;
-  top: 50%;
-  left: 48.3%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  background-color: var(--color--lightred);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+#main-content #outer-container #upper-container #book-cover-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#main-content #outer-container #upper-container #book-cover-container #cover-upload-btn img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
+#main-content
+    #outer-container
+    #upper-container
+    #book-cover-container
+    #cover-upload-btn {
+    position: absolute;
+    top: 50%;
+    left: 48.3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    background-color: var(--color--lightred);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: background-color 0.3s ease;
 }
 
-#main-content #outer-container #upper-container #book-cover-container #book-cover-upload{
-  display: none;
+#main-content
+    #outer-container
+    #upper-container
+    #book-cover-container
+    #cover-upload-btn
+    img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+#main-content
+    #outer-container
+    #upper-container
+    #book-cover-container
+    #book-cover-upload {
+    display: none;
 }

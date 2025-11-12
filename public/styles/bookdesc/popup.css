@@ -1,126 +1,133 @@
-:root{
-    font-family:'Lora','Roboto';
-    --color--main:#f0ffff;
-    --color--black:#000000;
-    --color--white:#ffffff;
+:root {
+    --color--main: #f0ffff;
+    --color--black: #000000;
+    --color--white: #ffffff;
     --color--darkgreen: #005454;
-    --color--lightred:#ef5454;
-    --light--grey:#f5f5f5;
+    --color--lightred: #ef5454;
+    --light--grey: #f5f5f5;
     --dark--grey: #767676;
+    font-family: "Lora", "Roboto", sans-serif;
 }
 
-#outer-container #popup-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, -50%);
-  background-color: var(--color--white);
-  width: 30%;
-  height: auto;
-  z-index: 1000;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-  border-radius: 15px;
-  visibility: hidden;
-  transition: transform 0.2s ease;
-  transform: translate(-50%, -50%) scale(0.8); 
-  opacity: 0; 
-}
-
-#outer-container #popup-container.active{
-  visibility: visible;
-  opacity: 1; 
-  transform: translate(-50%, -50%) scale(1); 
-}
-
-#outer-container #popup-container #inner-container{
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-}
-
-#outer-container #popup-container .line{
-  width: 100%;
-}
-
-#outer-container #popup-container #inner-container #upper-banner{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-#outer-container #popup-container #inner-container #upper-banner #message-title{
-  margin: 0 auto;
-  padding-top: 20px;
-  padding-left: 45px;
-}
-
-#outer-container #popup-container #inner-container #upper-banner #close-btn{
-  border: none;
-  width: 40px;
-  height: 40px;
-  font-size: large;
-  font-weight: bolder;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-#outer-container #popup-container #inner-container #go-to-cart{
-  background-color: var(--color--lightred);
-  color: var(--color--white);
-  border: none;
-  border-radius: 100px;
-  width: 260px;
-  height: 45px;
-  font-size: large;
-  font-weight: bold;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  cursor: pointer;
-  transition: all 0.2s linear;
-}
-
-#outer-container #popup-container #inner-container #go-to-cart:hover{
-  background-color: var(--color-white);
-  color: var(--color--black);
-  border: 2px solid var(--color--lightred);
-}
-
-#outer-container #popup-container #inner-container #message-container{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-#outer-container #popup-container #inner-container #message-container #tick_icon{
-  width: 35px;
-  height: 35px;
-}
-
-#outer-container #popup-container #inner-container #message-container{
-  font-size: large;
-  padding: 60px;
-}
-
-#outer-container #popup-container #inner-container #btn-container{
-  display: flex;
-  justify-content: center;
-}
-
-@media (max-width: 1300px){
-  #outer-container #popup-container{
-    width: 50%;
+#outer-container #popup-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 1000;
+    display: flex;
+    visibility: hidden;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
     height: auto;
-  }
+    background-color: var(--color--white);
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+    transition: transform 0.2s ease;
 }
 
-@media (max-width: 870px){
-  #outer-container #popup-container{
-    width: 60%;
-  }
+#outer-container #popup-container.active {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#outer-container #popup-container #inner-container {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+#outer-container #popup-container .line {
+    width: 100%;
+}
+
+#outer-container #popup-container #inner-container #upper-banner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#outer-container
+    #popup-container
+    #inner-container
+    #upper-banner
+    #message-title {
+    padding-top: 20px;
+    padding-left: 45px;
+    margin: 0 auto;
+}
+
+#outer-container #popup-container #inner-container #upper-banner #close-btn {
+    width: 40px;
+    height: 40px;
+    font-size: large;
+    font-weight: bolder;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+
+#outer-container #popup-container #inner-container #go-to-cart {
+    width: 260px;
+    height: 45px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bold;
+    color: var(--color--white);
+    cursor: pointer;
+    background-color: var(--color--lightred);
+    border: none;
+    border-radius: 100px;
+    transition: all 0.2s linear;
+}
+
+#outer-container #popup-container #inner-container #go-to-cart:hover {
+    color: var(--color--black);
+    background-color: var(--color-white);
+    border: 2px solid var(--color--lightred);
+}
+
+#outer-container #popup-container #inner-container #message-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+#outer-container
+    #popup-container
+    #inner-container
+    #message-container
+    #tick_icon {
+    width: 35px;
+    height: 35px;
+}
+
+#outer-container #popup-container #inner-container #message-container {
+    padding: 60px;
+    font-size: large;
+}
+
+#outer-container #popup-container #inner-container #btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 1300px) {
+    #outer-container #popup-container {
+        width: 50%;
+        height: auto;
+    }
+}
+
+@media (max-width: 870px) {
+    #outer-container #popup-container {
+        width: 60%;
+    }
 }

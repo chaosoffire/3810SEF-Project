@@ -1,7 +1,9 @@
-import { Mongoose, Model } from "mongoose";
+import { randomInt } from "node:crypto";
+import { exit } from "node:process";
+
+import { type Model, Mongoose } from "mongoose";
+
 import ConfigManager from "../../config/config.manager";
-import { exit } from "process";
-import { randomInt } from "crypto";
 
 class MongoDBManager {
     private static instance: MongoDBManager;
@@ -26,7 +28,9 @@ class MongoDBManager {
         try {
             this.url = await this.configManager.get("MONGODB_URL");
         } catch {
-            console.error("MongoDBManager: MONGODB_URL not found in configuration");
+            console.error(
+                "MongoDBManager: MONGODB_URL not found in configuration",
+            );
             console.error("Exiting...");
             exit(1);
         }
@@ -34,15 +38,19 @@ class MongoDBManager {
         try {
             this.dbName = await this.configManager.get("MONGODB_DB_NAME");
         } catch {
-            console.warn("MongoDBManager: MONGODB_DB_NAME not found in configuration, using random test database");
+            console.warn(
+                "MongoDBManager: MONGODB_DB_NAME not found in configuration, using random test database",
+            );
             const randomNumber: number = randomInt(0, 1000000);
-            const random = randomNumber.toString().padStart(6, '0');
-            this.dbName = "test-" + random;
+            const random = randomNumber.toString().padStart(6, "0");
+            this.dbName = `test-${random}`;
         }
 
         try {
             await this.connectWithTimeout();
-            console.info(`MongoDBManager: Connected to ${this.url}/${this.dbName}`);
+            console.info(
+                `MongoDBManager: Connected to ${this.url}/${this.dbName}`,
+            );
         } catch (err) {
             console.error("MongoDBManager: Failed to connect to MongoDB:", err);
             console.error("Exiting...");
@@ -53,11 +61,17 @@ class MongoDBManager {
     private async connectWithTimeout(timeoutMs = 10000): Promise<void> {
         await new Promise<void>((resolve, reject) => {
             const timeout = setTimeout(() => {
-                reject(new Error("MongoDBManager: Connection to MongoDB timed out"));
+                reject(
+                    new Error(
+                        "MongoDBManager: Connection to MongoDB timed out",
+                    ),
+                );
             }, timeoutMs);
 
             this.mongooseInstance
-                .connect(this.url, { dbName: this.dbName })
+                .connect(this.url, {
+                    dbName: this.dbName,
+                })
                 .then(() => {
                     clearTimeout(timeout);
                     resolve();
@@ -73,21 +87,35 @@ class MongoDBManager {
         await Promise.race([
             this.ready,
             new Promise<void>((_, reject) => {
-                setTimeout(() => reject(new Error("MongoDBManager: waitUntilReady timed out")), timeoutMs);
+                setTimeout(
+                    () =>
+                        reject(
+                            new Error(
+                                "MongoDBManager: waitUntilReady timed out",
+                            ),
+                        ),
+                    timeoutMs,
+                );
             }),
         ]);
 
         const readyState = this.mongooseInstance.connection.readyState;
         if (readyState !== 1) {
-            throw new Error(`MongoDBManager: Connection not ready (state=${readyState})`);
+            throw new Error(
+                `MongoDBManager: Connection not ready (state=${readyState})`,
+            );
         }
     }
 
     public getModel<T = any>(collectionName: string, schema: any): Model<T> {
         if (!this.mongooseInstance) {
-            throw new Error("MongoDBManager: Mongoose instance has not been initialized");
+            throw new Error(
+                "MongoDBManager: Mongoose instance has not been initialized",
+            );
         }
-        const existing = this.mongooseInstance.models[collectionName] as Model<T> | undefined;
+        const existing = this.mongooseInstance.models[collectionName] as
+            | Model<T>
+            | undefined;
         if (existing) {
             return existing;
         }

@@ -1,6 +1,16 @@
-import { Request, Response } from 'express';
-import { getBooksByField, updateBookById, deleteBookByIds, hasBookById, getBookById, WithMongoID, WithLimit } from '../../../database/model/book/book.repository';
-import { BookDocument } from '../../../database/model/schema/bookSchema';
+import type { Request, Response } from "express";
+
+import type { BookDocument } from "../../../database/model/schema/bookSchema";
+
+import {
+    deleteBookByIds,
+    getBookById,
+    getBooksByField,
+    hasBookById,
+    updateBookById,
+    WithLimit,
+    WithMongoID,
+} from "../../../database/model/book/book.repository";
 
 // GET /api/:api_version/book/:id
 export async function getBookByIdHandler(req: Request, res: Response) {
@@ -8,21 +18,36 @@ export async function getBookByIdHandler(req: Request, res: Response) {
         const bookId = req.params.id;
 
         // ID format is validated by router middleware; reuse search logic
-        const books = await getBooksByField([WithMongoID(bookId), WithLimit(1)]);
-        const book = books?.data && books.data[0];
+        const books = await getBooksByField([
+            WithMongoID(bookId),
+            WithLimit(1),
+        ]);
+        const book = books?.data?.[0];
 
         if (!book) {
-            return res.status(404).json({ success: false, error: 'Book not found' });
+            return res.status(404).json({
+                success: false,
+                error: "Book not found",
+            });
         }
 
-        return res.status(200).json({ success: true, data: book });
-
+        return res.status(200).json({
+            success: true,
+            data: book,
+        });
     } catch (error: any) {
-        if (error.name === 'CastError') {
-            return res.status(400).json({ success: false, error: 'Invalid book ID format' });
+        if (error.name === "CastError") {
+            return res.status(400).json({
+                success: false,
+                error: "Invalid book ID format",
+            });
         }
-        console.error('Error getting book:', error);
-        return res.status(500).json({ success: false, error: 'Failed to get book', details: error.message });
+        console.error("Error getting book:", error);
+        return res.status(500).json({
+            success: false,
+            error: "Failed to get book",
+            details: error.message,
+        });
     }
 }
 
@@ -33,7 +58,10 @@ export async function updateBookHandler(req: Request, res: Response) {
 
         const bookExists = await hasBookById(bookId);
         if (!bookExists) {
-            return res.status(404).json({ success: false, error: 'Book not found' });
+            return res.status(404).json({
+                success: false,
+                error: "Book not found",
+            });
         }
 
         const {
@@ -43,7 +71,7 @@ export async function updateBookHandler(req: Request, res: Response) {
             description,
             publishedYear,
             price,
-            coverImage
+            coverImage,
         } = req.body;
 
         const updateData: Partial<BookDocument> = {};
@@ -53,12 +81,17 @@ export async function updateBookHandler(req: Request, res: Response) {
         if (Array.isArray(genres)) updateData.genres = genres;
         if (author !== undefined) updateData.author = author;
         if (description !== undefined) updateData.description = description;
-        if (publishedYear !== undefined) updateData.publishedYear = String(publishedYear);
+        if (publishedYear !== undefined)
+            updateData.publishedYear = String(publishedYear);
         if (price !== undefined) updateData.price = Number(price);
-        if (coverImage !== undefined) updateData.coverImage = String(coverImage);
+        if (coverImage !== undefined)
+            updateData.coverImage = String(coverImage);
 
         if (Object.keys(updateData).length === 0) {
-            return res.status(400).json({ success: false, error: 'No valid fields provided for update' });
+            return res.status(400).json({
+                success: false,
+                error: "No valid fields provided for update",
+            });
         }
 
         await updateBookById(bookId, updateData);
@@ -67,18 +100,27 @@ export async function updateBookHandler(req: Request, res: Response) {
         return res.status(200).json({
             success: true,
             message: `Book ${bookId} updated successfully`,
-            data: updatedBook
+            data: updatedBook,
         });
-
     } catch (error: any) {
         if (error.code === 11000) {
-            return res.status(409).json({ success: false, error: 'A book with this title already exists' });
+            return res.status(409).json({
+                success: false,
+                error: "A book with this title already exists",
+            });
         }
-        if (error.name === 'CastError') {
-            return res.status(400).json({ success: false, error: 'Invalid book ID format' });
+        if (error.name === "CastError") {
+            return res.status(400).json({
+                success: false,
+                error: "Invalid book ID format",
+            });
         }
-        console.error('Error updating book:', error);
-        return res.status(500).json({ success: false, error: 'Failed to update book', details: error.message });
+        console.error("Error updating book:", error);
+        return res.status(500).json({
+            success: false,
+            error: "Failed to update book",
+            details: error.message,
+        });
     }
 }
 
@@ -89,21 +131,32 @@ export async function deleteBookHandler(req: Request, res: Response) {
 
         const bookExists = await hasBookById(bookId);
         if (!bookExists) {
-            return res.status(404).json({ success: false, error: 'Book not found' });
+            return res.status(404).json({
+                success: false,
+                error: "Book not found",
+            });
         }
 
-        await deleteBookByIds([bookId]);
+        await deleteBookByIds([
+            bookId,
+        ]);
 
         return res.status(200).json({
             success: true,
-            message: `Book ${bookId} deleted successfully`
+            message: `Book ${bookId} deleted successfully`,
         });
-
     } catch (error: any) {
-        if (error.name === 'CastError') {
-            return res.status(400).json({ success: false, error: 'Invalid book ID format' });
+        if (error.name === "CastError") {
+            return res.status(400).json({
+                success: false,
+                error: "Invalid book ID format",
+            });
         }
-        console.error('Error deleting book:', error);
-        return res.status(500).json({ success: false, error: 'Failed to delete book', details: error.message });
+        console.error("Error deleting book:", error);
+        return res.status(500).json({
+            success: false,
+            error: "Failed to delete book",
+            details: error.message,
+        });
     }
 }

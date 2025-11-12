@@ -1,121 +1,119 @@
-:root{
-    font-family:'Lora','Roboto';
-    --color--main:#f0ffff;
-    --color--black:#000000;
-    --color--white:#ffffff;
+:root {
+    --color--main: #f0ffff;
+    --color--black: #000000;
+    --color--white: #ffffff;
     --color--darkgreen: #013030;
-    --color--lightred:#ef5454;
-    --light--grey:#f5f5f5;
+    --color--lightred: #ef5454;
+    --light--grey: #f5f5f5;
+    font-family: "Lora", "Roboto", sans-serif;
 }
 
-*{
+* {
+    box-sizing: border-box;
     padding: 0px;
     margin: 0px;
-    box-sizing: border-box;
 }
 
-#search-section{
-    height: 200px;
+#search-section {
+    box-sizing: border-box;
     width: 100%;
-    background-color: var(--color--darkgreen);
-    box-sizing: border-box;
+    height: 200px;
     padding: 10px;
-
+    background-color: var(--color--darkgreen);
 }
-#search-section #search-form{
-    width:100%;
-    height: 100%;
+#search-section #search-form {
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-content: center;
     align-items: center;
     justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    align-content: center;
+    width: 100%;
+    height: 100%;
 }
-#search-section #search-form #search-category{
+#search-section #search-form #search-category {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
     width: object-fit;
     min-width: 400px;
     height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
 }
 
-#search-section #search-form #search-container{
+#search-section #search-form #search-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
     height: 40px;
-    /* width: 80%; */
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
-#search-section #search-form #search-container #search-input{
+#search-section #search-form #search-container #search-input {
     width: 200px;
     height: 100%;
-    border-radius: 5px;
-    border: none;
     padding: 0px 20px;
     font-size: 16px;
     outline: none;
-}
-
-#search-section #search-form #search-container #search-btn{
-    width: 100px;
-    background-color: var(--color--lightred);
-    color: var(--color--white);
     border: none;
     border-radius: 5px;
+}
+
+#search-section #search-form #search-container #search-btn {
+    width: 100px;
     font-size: 16px;
     font-weight: 500;
-    transition: all 0.2s linear;
+    color: var(--color--white);
     cursor: pointer;
+    background-color: var(--color--lightred);
+    border: none;
+    border-radius: 5px;
+    transition: all 0.2s linear;
 }
 
-#search-section #search-form #search-container #search-btn:hover{
-    background-color: var(--color--white);
+#search-section #search-form #search-container #search-btn:hover {
     color: var(--color--darkgreen);
+    background-color: var(--color--white);
 }
 
-#search-section #search-form #search-category .filter{
+#search-section #search-form #search-category .filter {
     width: 150px;
     height: 100%;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
+    font-family: "Roboto", sans-serif;
     font-size: 14px;
     font-weight: 500;
-    font-family: "Roboto", sans-serif;
+    cursor: pointer;
     outline: none;
+    border: none;
+    border-radius: 5px;
 }
 
-#search-section #search-form #search-category #sort-container{
+#search-section #search-form #search-category #sort-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100%;
+    justify-content: center;
     width: 120px;
-    font-weight: 500;
+    height: 100%;
     font-family: "Roboto", sans-serif;
     font-size: 14px;
+    font-weight: 500;
     background-color: var(--color--white);
     border-radius: 5px;
 }
 
-#search-section #search-form #search-category #sort-container label{
-    width: 50px;
-    height: 100%;
+#search-section #search-form #search-category #sort-container label {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 50px;
+    height: 100%;
 }
 
-#search-section #search-form #search-category #sort-container #sort{
-    height: 100%;
+#search-section #search-form #search-category #sort-container #sort {
     width: 70px;
-    border: none;
-    border-radius: 5px;
+    height: 100%;
     cursor: pointer;
     outline: none;
+    border: none;
+    border-radius: 5px;
 }

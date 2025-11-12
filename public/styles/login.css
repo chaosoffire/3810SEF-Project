@@ -1,254 +1,249 @@
-*{
+* {
     /* font-family: "Oswald", sans-serif; */
-    font-family: 'Lora','Roboto';
+    box-sizing: border-box;
     padding: 0px;
     margin: 0px;
-    box-sizing: border-box;
+    /* font-family: "Oswald", sans-serif; */
+    font-family: "Lora", "Roboto", sans-serif;
 }
 
-body{
-    height: 100vh;
+body {
     width: 100vw;
+    height: 100vh;
     overflow: hidden;
 }
 
-
-
-.sign-in,.sign-up{
-    margin: 20px;
-    padding: 10px;
-    width: 95%;
-    height: 50px;
+.sign-in,
+.sign-up {
     display: flex;
     align-items: center;
-    border-radius: 5px;
+    width: 95%;
+    height: 50px;
+    padding: 10px;
+    margin: 20px;
     background-color: #f5f5f5;
     border: 2px solid black;
+    border-radius: 5px;
 }
 
-#sign-in input,#sign-up input{
+#sign-in input,
+#sign-up input {
     width: 100%;
     height: 40px;
-    font-size: 1.5em;
     margin-left: 5px;
+    font-size: 1.5em;
     background-color: transparent;
     border: transparent;
 }
 
-#sign-in input:focus,#sign-up input:focus{
+#sign-in input:focus,
+#sign-up input:focus {
     outline: none;
     /* box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2); */
 }
 
-.icon-container{
-    margin:10px 20px;
+.icon-container {
+    margin: 10px 20px;
     text-align: center;
 }
-.icon-container a{
+.icon-container a {
     display: inline-flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 40px;
     height: 40px;
     font-size: 20px;
     color: black;
+    text-decoration: none;
     border: 2px solid black;
     border-radius: 50px;
-    text-decoration: none;
     transition: all 0.3s ease-in;
 }
 
-.icon-container a:hover{
+.icon-container a:hover {
     color: #f5f5f5;
     background-color: black;
     border: 2px solid #f5f5f5;
 }
 
-.btnDiv{
-    width: 100%;
+.btnDiv {
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 
-button{
+button {
     width: 130px;
     height: 40px;
     font-size: 1.5em;
-    border-radius: 20px;
-    border:2px solid black;
     cursor: pointer;
+    border: 2px solid black;
+    border-radius: 20px;
     transition: all 0.1s ease-in;
 }
 
-button:hover{
+button:hover {
     color: #f5f5f5;
     background-color: black;
     border: #f5f5f5;
 }
 
-
-#fgpw{
-    text-decoration: none;
+#fgpw {
     color: black;
-    transition: all 0.3s ease-in;
+    text-decoration: none;
     border-bottom: 2px solid transparent;
+    transition: all 0.3s ease-in;
 }
-#fgpw:hover{
+#fgpw:hover {
     border-bottom: 2px solid black;
 }
 
-.Container{
-    height: 100%;
+.Container {
     width: 100%;
-    background-color: azure;
+    height: 100%;
     overflow: hidden;
+    background-color: azure;
 }
 
-.formContainer{
-    height: 100%;
-    width: 60%;
-    text-align: center;
-    display: grid;
-    grid-template-columns:1fr;
-    grid-template-rows: 1fr;
-    background-color: azure;
+.formContainer {
     position: relative;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    width: 60%;
+    height: 100%;
+    text-align: center;
+    background-color: azure;
     transition: all 0.6s ease-out;
 }
 
-
-
-#sign-in,#sign-up{
-    height: 100%;
-    width: 60%;
-    display: flex;
-    background-color: azure;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-    grid-row: 1/2;
-    grid-column: 1/2;
+#sign-in,
+#sign-up {
     position: absolute;
     left: 50%;
+    display: flex;
+    flex-direction: column;
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    justify-content: center;
+    width: 60%;
+    height: 100%;
+    text-align: center;
+    background-color: azure;
     transform: translateX(-50%);
 }
 
-#sign-in,.overlayRight{
+#sign-in,
+.overlayRight {
     z-index: 2;
     opacity: 1;
     transition: all 0.4s linear;
 }
-#sign-up,.overlayLeft{
+#sign-up,
+.overlayLeft {
     z-index: 1;
     opacity: 0;
     transition: all 0.4s linear;
 }
 
-.switchContainer{
-    width: 40%;
-    height: 100%;
+.switchContainer {
+    position: absolute;
+    top: 0%;
+    right: -1%;
+    z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    right: -1%;
-    top: 0%;
-    z-index: 10;
-    border-radius: 15px;
+    width: 40%;
+    height: 100%;
     color: white;
-    background: linear-gradient(to right,rgb(74, 77, 77) 10%,black 90%);
+    background: linear-gradient(to right, rgb(74, 77, 77) 10%, black 90%);
+    border-radius: 15px;
     transition: all 0.5s ease-out;
 }
 
-.overlay-container{
+.overlay-container {
     display: grid;
-    grid-template-columns: 1fr;
     grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
 }
 
-.overlayLeft,.overlayRight{
+.overlayLeft,
+.overlayRight {
     display: flex;
     flex-direction: column;
-    background-color: transparent;
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
     text-align: center;
-    grid-column: 1/2;
-    grid-row: 1/2;
+    background-color: transparent;
 }
-.overlayLeft *,.overlayRight *{
+.overlayLeft *,
+.overlayRight * {
     margin-top: 10px;
 }
 
-#left{
+#left {
     transform: translateX(-80%);
 }
 
-
-.switchContainer.changed{
+.switchContainer.changed {
+    background: linear-gradient(to left, rgb(74, 77, 77) 10%, black 90%);
     transform: translateX(-155%);
-    background: linear-gradient(to left,rgb(74, 77, 77) 10%,black 90%);
 }
 
-.changed #right{
-    transform: translateX(80%);
+.changed #right {
     opacity: 0;
+    transform: translateX(80%);
 }
 
-.changed #left{
-    transform: translateX(0%);
+.changed #left {
     z-index: 3;
     opacity: 1;
+    transform: translateX(0%);
 }
 
-.formContainer.changed{
+.formContainer.changed {
     transform: translateX(65%);
 }
 
-.changed #sign-in{
+.changed #sign-in {
     opacity: 0;
 }
 
-.changed #sign-up{
-    opacity: 1;
+.changed #sign-up {
     z-index: 3;
+    opacity: 1;
     animation: show 0.6s;
 }
 
-#sign-in-status, #sign-up-status{
-    font-family: 'Roboto';
-    font-size: 15px;
+#sign-in-status,
+#sign-up-status {
     margin-bottom: 10px;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
 }
 
-#id-criteria, #pw-criteria{
+#id-criteria,
+#pw-criteria {
     width: 100%;
     padding-left: 20px;
-
 }
 
 #id-criteria .criteria,
-#pw-criteria .criteria{
+#pw-criteria .criteria {
     width: 100%;
-    text-align: left
+    text-align: left;
 }
 
-@keyframes show{
-    0%,50%{
+@keyframes show {
+    0%,
+    50% {
         z-index: 1;
         opacity: 0;
     }
-    50.1%,100%{
+    50.1%,
+    100% {
         z-index: 3;
         opacity: 1;
     }
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -1,21 +1,21 @@
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "commonjs",
-    "rootDir": "",
-    "outDir": "dist",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": false,
-    "strict": true,
-    "skipLibCheck": true,
-    "typeRoots": [
-      "./models/types",
-      "./node_modules/@types"
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "commonjs",
+        "rootDir": "",
+        "outDir": "dist",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": false,
+        "strict": true,
+        "skipLibCheck": true,
+        "typeRoots": [
+            "./models/types",
+            "./node_modules/@types"
+        ]
+    },
+    "include": [
+        "models/**/*",
+        "server.ts",
+        "public/frontend/**/*"
     ]
-  },
-  "include": [
-    "models/**/*",
-    "server.ts",
-    "public/frontend/**/*"
-  ]
 }
