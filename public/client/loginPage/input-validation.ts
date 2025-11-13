@@ -41,13 +41,15 @@ signInFormEl?.addEventListener("submit", (e: SubmitEvent) => {
 
 function signInValidation(e: SubmitEvent): void {
     e.preventDefault();
-    const id: string = signInIDEl?.value.trim();
-    const password: string = signInPasswordEl?.value.trim();
+    const id: string = signInIDEl?.value.trim() ?? "";
+    const password: string = signInPasswordEl?.value.trim() ?? "";
     // check credential all typed in
     if (id === "" || password === "") {
         signInStatusEl_v!.innerText =
             "Please type in all the required credentials.";
-        signInStatusEl_v?.style.color = "#8B0000";
+        if (signInStatusEl_v) {
+            signInStatusEl_v.style.color = "#8B0000";
+        }
         return;
     }
 
@@ -59,10 +61,12 @@ function signInValidation(e: SubmitEvent): void {
 
 function signUpValidation(e: SubmitEvent): void {
     e.preventDefault();
-    const id: string = signUpIDEl?.value.trim();
-    const password: string = signUpPasswordEl?.value.trim();
+    const id: string = signUpIDEl?.value.trim() ?? "";
+    const password: string = signUpPasswordEl?.value.trim() ?? "";
     // check credential all typed in
-    signUpStatusEl_v?.style.color = "#8B0000";
+    if (signUpStatusEl_v) {
+        signUpStatusEl_v.style.color = "#8B0000";
+    }
     if (id === "" || password === "") {
         signUpStatusEl_v!.innerText =
             "Please type in all the required credentials.";

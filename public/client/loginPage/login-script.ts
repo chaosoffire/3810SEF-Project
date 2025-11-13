@@ -41,17 +41,25 @@ export function alt(): void {
     overlayLeftEl?.classList.toggle("changed");
     overlayRightEl?.classList.toggle("changed");
 
-    signInEl?.classList.contains("changed")
-        ? (signInEl.style.pointerEvents = "none")
-        : (signInEl?.style.pointerEvents = "auto");
-    signUpEl?.classList.contains("changed")
-        ? (signUpEl.style.pointerEvents = "auto")
-        : (signUpEl?.style.pointerEvents = "none");
+    if (signInEl) {
+        signInEl.style.pointerEvents = signInEl.classList.contains("changed")
+            ? "none"
+            : "auto";
+    }
+    if (signUpEl) {
+        signUpEl.style.pointerEvents = signUpEl.classList.contains("changed")
+            ? "auto"
+            : "none";
+    }
 
-    overlayLeftEl?.classList.contains("changed")
-        ? (overlayLeftEl.style.pointerEvents = "auto")
-        : (overlayLeftEl?.style.pointerEvents = "none");
-    overlayRightEl?.classList.contains("changed")
-        ? (overlayRightEl.style.pointerEvents = "none")
-        : (overlayRightEl?.style.pointerEvents = "auto");
+    if (overlayLeftEl) {
+        overlayLeftEl.style.pointerEvents = overlayLeftEl.classList.contains("changed")
+            ? "auto"
+            : "none";
+    }
+    if (overlayRightEl) {
+        overlayRightEl.style.pointerEvents = overlayRightEl.classList.contains("changed")
+            ? "none"
+            : "auto";
+    }
 }
