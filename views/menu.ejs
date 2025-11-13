@@ -65,7 +65,7 @@
 
     <%if(state === 'home'){%>
         <% if( typeof books != "undefined") {%>
-        <%- include('partials/home/home-content',{role:role,books:books.data}) %>
+        <%- include('partials/home/home-content',{role:role,books:books,previousQuery:previousQuery}) %>
         <% } else{%>
         <%- include('partials/home/home-content',{role:role}) %>
         <% } %>

@@ -55,4 +55,5 @@ export interface book {
 export interface bookResult {
     success: boolean;
     data: book[];
+    count: number;
 }

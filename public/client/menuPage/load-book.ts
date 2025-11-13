@@ -48,7 +48,7 @@ searchFormEl?.addEventListener("submit", async (e: SubmitEvent) => {
 
     // set & to | and = to . to prevent query set them apart
     // set a frontend api to get book with completed url with query in req
-    const query: string = `sortBy.${sortBy}${keywordString}${categoryString}${priceRangestring}|sortOrder.asc`;
+    const query: string = `sortBy.${sortBy}${keywordString}${categoryString}${priceRangestring}|sortOrder.asc|limit.10|start.0`;
     try {
         window.location.href = `/page/content?state=home&requestQuery=${query}`;
     } catch (e: any) {

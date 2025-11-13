@@ -8,7 +8,7 @@ export const showBook = async (req: express.Request, res: express.Response) => {
     try {
         const str = req.query.requestQuery
             ? (req.query.requestQuery as string)
-            : "sortBy.title|sortOrder.asc";
+            : "sortBy.title|sortOrder.asc|limit.10";
         const andChar = str.replaceAll("|", "&");
         const equalChar = andChar.replaceAll(".", "=");
         const response: Response = await fetch(
