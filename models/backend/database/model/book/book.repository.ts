@@ -41,7 +41,10 @@ export interface BookResult {
 export async function getBooksByField(
     params: BookParam[],
 ): Promise<BookResult | null> {
-    const model = BookModel;
+    const model = MongoDBManager.getInstance().getModel<BookDocument>(
+        BOOK_COLLECTION,
+        bookSchema,
+    );
     const searchConfig: Partial<SearchQuery> = {};
     try {
         for (const param of params) {
@@ -73,7 +76,7 @@ export async function getBooksByField(
 
     if (searchConfig.title && searchConfig.title.length > 0) {
         const titleOrConditions = searchConfig.title.map((title) => {
-            const sanitized = title.replace(/[^0-9A-Za-z]/g, "").trim();
+            const sanitized = title.replace(/[^0-9A-Za-z\s]/g, "").trim();
             return {
                 title: {
                     $regex: sanitized,
@@ -90,7 +93,7 @@ export async function getBooksByField(
 
     if (searchConfig.author && searchConfig.author.length > 0) {
         const authorOrConditions = searchConfig.author.map((author) => {
-            const sanitized = author.replace(/[^0-9A-Za-z]/g, "").trim();
+            const sanitized = author.replace(/[^0-9A-Za-z\s]/g, "").trim();
             return {
                 author: {
                     $regex: sanitized,
@@ -107,7 +110,7 @@ export async function getBooksByField(
 
     if (searchConfig.description && searchConfig.description.length > 0) {
         const descriptionOrConditions = searchConfig.description.map((desc) => {
-            const sanitized = desc.replace(/[^0-9A-Za-z]/g, "").trim();
+            const sanitized = desc.replace(/[^0-9A-Za-z\s]/g, "").trim();
             return {
                 description: {
                     $regex: sanitized,

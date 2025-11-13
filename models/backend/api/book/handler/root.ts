@@ -180,12 +180,13 @@ async function GETrootHandler(req: Request, res: Response) {
     if (publishedYear) {
         const yearArray = parseCommaSeparatedString(publishedYear);
         for (const year of yearArray) {
+            const yearNum = Number(year);
             const result = z
                 .number()
                 .int()
                 .min(1000)
                 .max(new Date().getFullYear())
-                .safeParse(year);
+                .safeParse(yearNum);
             if (!result.success) {
                 continue;
             }
@@ -239,29 +240,27 @@ async function GETrootHandler(req: Request, res: Response) {
 
     // Process sorting
     if (sortBy) {
-        try {
-            const sortByStr = String(sortBy);
-            const sortOrderStr = sortOrder
-                ? (String(sortOrder).toLowerCase() as "asc" | "desc")
-                : "asc";
+        const sortByStr = z
+            .enum([
+                "title",
+                "price",
+                "publishedYear",
+            ])
+            .safeParse(sortBy);
+        if (!sortByStr.success) {
+            console.warn(`Skipping invalid sortBy value`);
+        } else {
+            try {
+                // const sortByStr = String(sortBy);
+                const sortOrderStr = sortOrder
+                    ? (String(sortOrder).toLowerCase() as "asc" | "desc")
+                    : "asc";
 
-            if (
-                [
-                    "title",
-                    "price",
-                    "publishedYear",
-                ].includes(sortByStr)
-            ) {
-                params.push(
-                    WithSort(
-                        sortByStr as "title" | "price" | "publishedYear",
-                        sortOrderStr,
-                    ),
-                );
+                params.push(WithSort(sortByStr.data, sortOrderStr));
+            } catch (_error) {
+                // Skip invalid sort parameters silently
+                console.warn(`Skipping invalid sort parameters`);
             }
-        } catch (_error) {
-            // Skip invalid sort parameters silently
-            console.warn(`Skipping invalid sort parameters`);
         }
     }
 
