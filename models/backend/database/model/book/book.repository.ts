@@ -64,10 +64,10 @@ export async function getBooksByField(
             : null;
     }
 
-    const andConditions: any[] = [];
+    const orConditions: any[] = [];
 
     if (searchConfig._id && searchConfig._id.length > 0) {
-        andConditions.push({
+        orConditions.push({
             _id: {
                 $in: searchConfig._id,
             },
@@ -89,7 +89,7 @@ export async function getBooksByField(
             };
         });
         if (titleOrConditions.length > 0) {
-            andConditions.push({
+            orConditions.push({
                 $or: titleOrConditions,
             });
         }
@@ -109,7 +109,7 @@ export async function getBooksByField(
             };
         });
         if (authorOrConditions.length > 0) {
-            andConditions.push({
+            orConditions.push({
                 $or: authorOrConditions,
             });
         }
@@ -129,14 +129,14 @@ export async function getBooksByField(
             };
         });
         if (descriptionOrConditions.length > 0) {
-            andConditions.push({
+            orConditions.push({
                 $or: descriptionOrConditions,
             });
         }
     }
 
     if (searchConfig.genres && searchConfig.genres.length > 0) {
-        andConditions.push({
+        orConditions.push({
             genres: {
                 $in: searchConfig.genres,
             },
@@ -144,7 +144,7 @@ export async function getBooksByField(
     }
 
     if (searchConfig.publishedYear && searchConfig.publishedYear.length > 0) {
-        andConditions.push({
+        orConditions.push({
             publishedYear: {
                 $in: searchConfig.publishedYear,
             },
@@ -162,15 +162,15 @@ export async function getBooksByField(
         if (searchConfig.maxPrice !== undefined) {
             priceQuery.$lte = searchConfig.maxPrice;
         }
-        andConditions.push({
+        orConditions.push({
             price: priceQuery,
         });
     }
 
     const query =
-        andConditions.length > 0
+        orConditions.length > 0
             ? {
-                  $and: andConditions,
+                  $or: orConditions,
               }
             : {};
 
