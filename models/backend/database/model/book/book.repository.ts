@@ -76,7 +76,11 @@ export async function getBooksByField(
 
     if (searchConfig.title && searchConfig.title.length > 0) {
         const titleOrConditions = searchConfig.title.map((title) => {
-            const sanitized = title.replace(/[^0-9A-Za-z\s]/g, "").trim();
+            // Only remove potentially dangerous MongoDB operators, keep apostrophes and common punctuation
+            // This allows searches like "Harry Potter and the Philosopher's Stone"
+            const sanitized = title
+                .replace(/[\$\[\]\{\}]/g, "") // Only remove: $ [ ] { }
+                .trim();
             return {
                 title: {
                     $regex: sanitized,
@@ -93,7 +97,10 @@ export async function getBooksByField(
 
     if (searchConfig.author && searchConfig.author.length > 0) {
         const authorOrConditions = searchConfig.author.map((author) => {
-            const sanitized = author.replace(/[^0-9A-Za-z\s]/g, "").trim();
+            // Only remove potentially dangerous MongoDB operators
+            const sanitized = author
+                .replace(/[\$\[\]\{\}]/g, "") // Only remove: $ [ ] { }
+                .trim();
             return {
                 author: {
                     $regex: sanitized,
@@ -110,7 +117,10 @@ export async function getBooksByField(
 
     if (searchConfig.description && searchConfig.description.length > 0) {
         const descriptionOrConditions = searchConfig.description.map((desc) => {
-            const sanitized = desc.replace(/[^0-9A-Za-z\s]/g, "").trim();
+            // Only remove potentially dangerous MongoDB operators
+            const sanitized = desc
+                .replace(/[\$\[\]\{\}]/g, "") // Only remove: $ [ ] { }
+                .trim();
             return {
                 description: {
                     $regex: sanitized,
@@ -178,6 +188,7 @@ export async function getBooksByField(
     if (searchConfig.start !== undefined && searchConfig.start > 0) {
         mongooseQuery = mongooseQuery.skip(searchConfig.start);
     }
+    
     if (searchConfig.limit !== undefined && searchConfig.limit > 0) {
         mongooseQuery = mongooseQuery.limit(searchConfig.limit);
     }

@@ -26,10 +26,10 @@ class MongoDBManager {
 
     private async initialize(): Promise<void> {
         try {
-            this.url = await this.configManager.get("MONGODB_URL");
+            this.url = await this.configManager.get("MONGODB_URI");
         } catch {
             console.error(
-                "MongoDBManager: MONGODB_URL not found in configuration",
+                "MongoDBManager: MONGODB_URI not found in configuration",
             );
             console.error("Exiting...");
             exit(1);

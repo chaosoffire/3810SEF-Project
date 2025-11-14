@@ -41,6 +41,7 @@ class ConfigManager implements ConfigManagerInterface {
     }
 
     private loadConfig(): void {
+        // Load from .env file first
         if (fs.existsSync(this.configFilePath)) {
             const fileContent: string = fs.readFileSync(
                 this.configFilePath,
@@ -48,6 +49,13 @@ class ConfigManager implements ConfigManagerInterface {
             );
             const parsedConfig = dotenv.parse(fileContent);
             this.config = new Map<string, string>(Object.entries(parsedConfig));
+        }
+
+        // Override with process.env variables
+        for (const [key, value] of Object.entries(process.env)) {
+            if (value !== undefined) {
+                this.config.set(key, value);
+            }
         }
     }
 

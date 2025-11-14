@@ -30,7 +30,7 @@ All configuration is provided through environment variables. The application wil
 
 | Variable | Description | Notes |
 | --- | --- | --- |
-| `MONGODB_URL` | MongoDB connection URI | required |
+| `MONGODB_URI` | MongoDB connection URI | required |
 | `MONGODB_DB_NAME` | Database name | defaults to random `test-xxxxxx` if absent |
 | `PORT` | HTTP server port | defaults to 3000 |
 | `NODE_ENV` | runtime environment | `development` by default |
@@ -75,7 +75,7 @@ Detailed endpoint documentation, including request/response examples, is maintai
 | Startup exits with bootstrap admin errors | Verify `INIT_ADMIN_*` values meet length requirements and target username does not already belong to a non-admin user. |
 | `API version mismatch` responses | Ensure client requests use `/api/<API_VERSION_NO>/...` with the exact value from configuration. |
 | `Session expired` or `Missing session` | Confirm cookies are being sent. Refresh tokens via `/user/refresh-cookie`. |
-| Mongo connection failures | Validate `MONGODB_URL`, confirm MongoDB is running, and confirm network accessibility. |
+| Mongo connection failures | Validate `MONGODB_URI`, confirm MongoDB is running, and confirm network accessibility. |
 
 ## Contributing
 

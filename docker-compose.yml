@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 3810sef-app
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - MONGODB_URI=mongodb://mongodb:27017
+      - MONGODB_DB_NAME=bookstore
+      - NODE_ENV=development
+      - SESSION_SECRET=docker-dev-secret-key
+      - INIT_ADMIN_USERNAME=admin1234
+      - INIT_ADMIN_PASSWORD=adminpassword
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    restart: unless-stopped
+    volumes:
+      - ./.env:/app/.env:ro
+
+  mongodb:
+    image: mongo:8.2.1
+    container_name: 3810sef-mongodb
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  mongodb_data:
+    driver: local
