@@ -50,10 +50,25 @@ export interface book {
     price: number;
     genres: string[];
     publishedYear: string;
+    coverImage: string;
 }
 
 export interface bookResult {
     success: boolean;
     data: book[];
     count: number;
+}
+
+export interface singleBook {
+    success:boolean;
+    data:{
+        _id: string;
+        title: string;
+        author: string;
+        description: string;
+        price: number;
+        genres: string[];
+        publishedYear: string;
+        coverImage: string;
+    }
 }

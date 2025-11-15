@@ -29,13 +29,19 @@
         <script src="/menuPage/add-admin.js" type="module" defer></script>
     <% } %>
     <!--use when content is addbook -->
-    <% if(state === "addbook") {%>
+    <% if(state === "addbook" && role === "admin") {%>
         <script src="/descriptionPage/image-preview.js" type="module" defer></script>
         <script src="/descriptionPage/update-book.js" type="module" defer></script>
     <% } %>
+    <% if(state === "description" && role === "user") {%>
+        <script src="/descriptionPage/add-to-cart.js" type="module" defer></script>    
+        <script src="/descriptionPage/back-to-menu.js" type="module" defer></script>    
+    <% } %>
+
     <% if(state === "home") {%>
         <script src="/menuPage/pagination.js" type="module" defer></script>
         <script src="/menuPage/load-book.js" type="module" defer></script>
+        <script src="/menuPage/book-click.js" type="module" defer></script> 
     <% } %>
 </head>
 
@@ -73,6 +79,8 @@
     <!-- cart -->
     <% }else if(state === 'mybooks' && role === 'user') {%>
         <%- include('partials/mybook/mybook-content') %>
+    <% }else if(state === 'description' && role === 'user') {%>
+        <%- include('partials/bookinfo/book-description',{role:role,book:book}) %>
     <% } else if(state === 'addbook' && role === 'admin') {%>
         <%- include('partials/bookinfo/book-description',{role:role}) %>
     <% } else if(state === 'order' && role === 'admin') {%>

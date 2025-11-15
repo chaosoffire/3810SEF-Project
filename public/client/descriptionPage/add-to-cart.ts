@@ -22,7 +22,9 @@ window.onload = (): void => {
         return;
     }
 
-    const bookId = addBtn.getAttribute("book-id");
+    // call api to check of book owned
+
+    const bookId = addBtn.getAttribute("currentBook-id");
     const bookCover = cover.getAttribute("src");
     const bookTitle = title.innerText;
     const bookAuthor = author.innerText;

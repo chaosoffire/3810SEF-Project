@@ -1,6 +1,6 @@
 <!-- partials/home/home-book.ejs -->
 
-<li class="book">
+<li class="book" id="<%= bookData._id %>" data-book-id="<%=bookData._id%>" data-role="<%= role %>">
     <div class="cover">
         <img class="book-cover" src="data:image/jpeg;base64,<%=bookData.coverImage%>" alt="Book Cover">
     </div>

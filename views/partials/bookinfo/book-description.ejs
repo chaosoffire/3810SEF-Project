@@ -3,15 +3,27 @@
  
 <div id="main-content">
     <div id="outer-container">
+        <div id="back-btn-div">
+            <form id="back-to-menu-form" action="#" method="#">
+                <input type="submit" id="back-to-menu" value="Back">
+            </form>
+        </div>
 
-        <% const currentBook = (typeof book !== "undefined")? book:{
-            title: "",
-            author: "",
-            description: "",
-            genres: [],
-            publishedYear: "2025",
-            price: 0,
-            coverImage: ""} 
+        <% 
+            let currentBook;
+            if(state === "addbook" && role ==="admin"){
+                currentBook = {
+                    title: "",
+                    author: "",
+                    description: "",
+                    genres: [],
+                    publishedYear: "2025",
+                    price: 0,
+                    coverImage: ""
+                } 
+            }else if(state === "description" && role === "user"){
+                currentBook = book
+            }
         %>
 
 

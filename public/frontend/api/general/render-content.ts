@@ -9,6 +9,7 @@ export const renderContent = async (
     res: express.Response,
 ) => {
     if (req.query.state === "home") {
+        // home page
         const str:string = req.query.requestQuery
             ? (req.query.requestQuery as string)
             : "sortBy.title|sortOrder.asc|limit.10|start.0"; 
@@ -35,7 +36,6 @@ export const renderContent = async (
         if (response.ok) {
             const bookData: interfaces.bookResult = await response.json();
             const totalPages:number = Math.ceil((bookData.count || 0) / 10);
-
             let startPage: number;
             
             if (totalPages <= 3 || currentPage <= 2) {
@@ -48,7 +48,7 @@ export const renderContent = async (
             startPage = Math.max(1, startPage);
             const endPage:number = Math.min(totalPages, startPage + 2);
             
-
+            console.log(bookData);
             res.status(200).render("menu", {
                 state: req.query.state,
                 role: req.role,
@@ -59,7 +59,6 @@ export const renderContent = async (
                 endPage: endPage,       
             });
         } else {
-
             res.status(404).render("menu", {
                 state: req.query.state,
                 role: req.role,
@@ -70,8 +69,41 @@ export const renderContent = async (
                 endPage: 1,
             });
         }
-    } else {
 
+    } else if(req.query.state === "description"){
+        console.log(req.query.id);
+        const response: Response = await fetch(`${req.protocol}://${req.get("host")}/api/${apiVersion}/book/${req.query.id}`,{
+            method:"GET",
+            headers:{
+                "Content-Type": "application/json",
+                "Cookie": req.headers.cookie||""
+            }
+        });
+
+        if(response.ok){
+            const result = await response.json() as interfaces.singleBook;
+            console.log(result);
+            res.status(200).render("menu",{
+                state: req.query.state,
+                role: req.role,
+                book: {
+                    _id:req.query.id,
+                    title: result.data.title,
+                    author: result.data.author,
+                    description: result.data.description,
+                    genres: result.data.genres,
+                    publishedYear: result.data.publishedYear,
+                    price: result.data.price,
+                    coverImage: result.data.coverImage
+                }
+            });
+        }else{
+            const q = document.querySelector("#base-book-query") as HTMLInputElement;
+            window.alert("Failed to fetch book data");
+            window.location.href = `${req.protocol}://${req.get("host")}/page/content?state=home&requestQuery=${q.value}`;
+        }
+    } else{
+        // other pages
         res.status(200).render("menu", {
             state: req.query.state,
             role: req.role,
