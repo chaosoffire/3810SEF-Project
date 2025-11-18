@@ -1,3 +1,4 @@
+import type * as interfaces from "../../frontend/Interface/interface";
 interface BookItem {
     id: string;
     cover: string;
@@ -15,8 +16,9 @@ const price = document.getElementById("price") as HTMLElement | null;
 let isInCart: boolean;
 let cart: BookItem[];
 let bookItem: BookItem | undefined;
+let owned:boolean = false;
 
-window.onload = (): void => {
+window.onload = async() => {
     if (!addBtn || !cover || !title || !author || !price) {
         console.error("One or more required DOM elements not found.");
         return;
@@ -35,6 +37,18 @@ window.onload = (): void => {
         return;
     }
 
+
+    const response:Response = await fetch(`/page/ownedbook`,{
+        method:"GET"
+    });
+
+    if(response.ok){
+        const result: interfaces.ownBookResult = await response.json();
+        if(result.books.includes(bookId)){
+            owned = true;
+        }
+    }
+
     bookItem = {
         id: bookId,
         cover: bookCover,
@@ -48,12 +62,17 @@ window.onload = (): void => {
         (item: BookItem) => item.id === (bookItem as BookItem).id,
     );
 
-    if (isInCart) {
+    if (owned) {
+        if (addBtn.classList.contains("disabled")) {
+            addBtn.classList.remove("disabled");
+        }
+        addBtn.innerText = "Read Book";
+    } else if(isInCart){
         if (!addBtn.classList.contains("disabled")) {
             addBtn.classList.add("disabled");
             addBtn.innerText = "Already In Cart";
         }
-    } else {
+    } else{
         if (addBtn.classList.contains("disabled")) {
             addBtn.classList.remove("disabled");
             addBtn.innerText = "Add to Cart";
@@ -61,7 +80,7 @@ window.onload = (): void => {
     }
 };
 
-if (addBtn) {
+if (addBtn && !owned) {
     addBtn.onclick = (): void => {
         if (!bookItem) {
             console.error("Book item not initialized.");
@@ -76,7 +95,7 @@ if (addBtn) {
         } else {
             cart.push(bookItem);
             localStorage.setItem("cart", JSON.stringify(cart));
-            alert("Added to Cart.");
+            window.showPopup();
 
             if (!addBtn.classList.contains("disabled")) {
                 addBtn.classList.add("disabled");
@@ -85,3 +104,5 @@ if (addBtn) {
         }
     };
 }
+
+

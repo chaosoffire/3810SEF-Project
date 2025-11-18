@@ -72,3 +72,8 @@ export interface singleBook {
         coverImage: string;
     }
 }
+
+export interface ownBookResult{
+    success:boolean;
+    books:string[];
+}

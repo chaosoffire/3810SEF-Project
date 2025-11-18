@@ -102,7 +102,13 @@ export const renderContent = async (
             window.alert("Failed to fetch book data");
             window.location.href = `${req.protocol}://${req.get("host")}/page/content?state=home&requestQuery=${q.value}`;
         }
-    } else{
+    }else if(req.query.state === "mybooks"){
+        res.status(200).render("menu",{
+                state: req.query.state,
+                role: req.role,
+                books: []
+            });
+    }else{
         // other pages
         res.status(200).render("menu", {
             state: req.query.state,

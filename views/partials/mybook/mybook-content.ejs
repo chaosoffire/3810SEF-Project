@@ -6,13 +6,21 @@
         <div id="divider-line"></div>
         <div id="mybook-list-container">
             <!-- if own book count is 0 generate message -->
-             <%#if(items.length == 0)%>
-                <!-- <h2>There are no books here.</h2> -->
-            <%#} else{%>
+             <%if(books.length == 0) {%>
+                <div id="mybook-empty-container">
+                    <img src="/img/cart_empty_icon.png">
+                    <h3>There is no item here</h3>
+                    <div id="btn-container">
+                        <a href="/page/content/?state=home" id="show-now-link">
+                            <button id="shop-now">Shop Now</button>
+                        </a>
+                    </div>
+                </div>
+            <%} else{%>
                 <ul id="mybook-list">
                     <%- include('mybook-book') %>
                 </ul>
-            <%#}%>
+            <%}%>
         </div>
     </div>
 </div>

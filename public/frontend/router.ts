@@ -10,6 +10,8 @@ import { renderContent } from "./api/general/render-content";
 import { checkAdmin } from "./middleware/check-admin";
 import { checkRole } from "./middleware/check-role";
 import { validateSession } from "./middleware/validate-session";
+import { getOwnBook } from "./api/user/get-owned-book";
+import { checkout } from "./api/user/checkout";
 
 export const pageRouter = express.Router({
     mergeParams: true,
@@ -29,6 +31,12 @@ pageRouter.get(
         res.status(200).render("login");
     },
 );
+
+pageRouter.get(
+    "/ownedbook",
+    validateSession,
+    getOwnBook
+)
 
 // send api get book for starting menu
 pageRouter.get(
@@ -67,3 +75,9 @@ pageRouter.post(
     upload.single("book-cover-upload"),
     addBook,
 );
+
+pageRouter.post(
+    "/checkout",
+    validateSession,
+    checkout
+)

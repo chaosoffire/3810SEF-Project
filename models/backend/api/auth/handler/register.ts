@@ -36,8 +36,8 @@ export async function registerHandler(req: Request, res: Response) {
         });
     }
 
-    if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[_!@#$%&*]).{12,64}$/)) {
-        return res.status(400).json({ success: false, error: 'Invalid password format, password must include at least one lowercase letter, one uppercase letter, one number, and one special character' });
+    if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{12,64}$/)) {
+        return res.status(400).json({ success: false, error: 'Invalid password format, password must include at least one lowercase letter, one uppercase letter and one number' });
     }
 
     try {

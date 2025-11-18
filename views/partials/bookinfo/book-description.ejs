@@ -21,8 +21,9 @@
                     price: 0,
                     coverImage: ""
                 } 
-            }else if(state === "description" && role === "user"){
+            }else if(state === "description" && (role === "user" || role === "admin")){
                 currentBook = book
+                console.log(currentBook);
             }
         %>
 
@@ -42,7 +43,7 @@
                                 <img src="/img/upload_icon.png" alt="Upload Icon" id="upload-icon">
                             </label>
                             <input type="file" id="book-cover-upload" name="book-cover-upload" accept="image/*">
-                            <img id="book-cover" src="data:image/jpeg;base64,<%= currentBook.coverImage %>" alt="Book Cover" hidden>
+                            <img id="book-cover" src="data:image/jpeg;base64,<%= currentBook.coverImage %>" alt="Book Cover" <%= currentBook.coverImage? "":"hidden"%>>
                         </div>
 
                         <div id="desc-container">
@@ -137,7 +138,7 @@
                     <p id="message">Added to Cart</p>
                 </div>
                 <div id="btn-container">
-                    <a href="/cart" id="go-to-cart-link">
+                    <a href="/page/content/?state=cart" id="go-to-cart-link">
                         <button id="go-to-cart">Go to Cart</button>
                     </a>
                 </div>
