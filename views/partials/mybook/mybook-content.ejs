@@ -18,9 +18,40 @@
                 </div>
             <%} else{%>
                 <ul id="mybook-list">
-                    <%- include('mybook-book') %>
+                    <% for(var i = 0; i < books.length; i++) {%>
+                        <%- include('mybook-book',{book:books[i]}) %>
+                    <% } %>
                 </ul>
             <%}%>
         </div>
+        <% if(totalPage > 0) {%>
+
+            <nav class="mybook-pagination-container" aria-label="Page navigation">
+                <ul class="mybook-pagination"  
+                    data-total-page="<%= totalPage %>" 
+                    data-start-page="<%= startPage || 1%>" 
+                    data-end-page="<%= endPage || 1%>"
+                >
+                    <li class="mybook-page-item-previous">Previous</li>
+
+                        <% 
+                            const totalPages = totalPage;
+                            for (let pageNum = startPage; pageNum <= endPage; pageNum++) { 
+                        %>
+                            <% if (pageNum <= totalPages) { %>
+                                <li 
+                                    class="mybook-page-item <%= pageNum === currentPage ? 'active' : '' %>" 
+                                    data-page-index="<%= pageNum %>"
+                                >
+                                    <%= pageNum %>
+                                </li>
+                            <% } %>
+                        <% } %>
+                        
+                    <li class="mybook-page-item-next">Next</li>
+                </ul>
+            </nav>
+        <%}%>
     </div>
+
 </div>

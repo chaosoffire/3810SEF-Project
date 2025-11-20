@@ -1,12 +1,12 @@
 <!-- partials/mybook/mybook-book -->
 
-<li class="mybook">
+<li class="mybook" data-id=<%= book._id  %>>
     <div class="mybook-cover-container">
-        <img class="mybook-cover" src="/img/images.jpg" alt="Book Cover">
+        <img class="mybook-cover" src="data:image/jpeg;base64,<%=book.coverImage%>" alt="Book Cover">
     </div>
     <div class="mybook-details">
-        <h3 class="mybook-title">The Sample Book</h3>
-        <p class="mybook-author">by Author </p>
+        <h3 class="mybook-title"><%=book.title%></h3>
+        <p class="mybook-author"><%=book.author%></p>
         <div class="btn-container">
             <input class="mybook-read-btn" type="button" value="Read">
             <input class="mybook-refund-btn" type="button" value="Refund">

@@ -78,31 +78,40 @@ window.onload = async() => {
             addBtn.innerText = "Add to Cart";
         }
     }
+    
+    if(addBtn && owned){
+        addBtn.onclick = ():void => {
+            const bookTitle = title?.innerText as string;
+            const url: string = `${window.location.origin}/page/bookcontent?title=${bookTitle}`;
+            window.open(url,'_blank');
+        }
+    }
+    
+    if (addBtn && !owned) {
+        addBtn.onclick = (): void => {
+            if (!bookItem) {
+                console.error("Book item not initialized.");
+                return;
+            }
+    
+            cart = JSON.parse(localStorage.getItem("cart") || "[]") as BookItem[];
+            isInCart = cart.some((item: BookItem) => item.id === bookItem?.id);
+    
+            if (isInCart) {
+                alert("This book is already in your cart.");
+            } else {
+                cart.push(bookItem);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                window.showPopup();
+    
+                if (!addBtn.classList.contains("disabled")) {
+                    addBtn.classList.add("disabled");
+                    addBtn.innerText = "Already In Cart";
+                }
+            }
+        };
+    }
 };
 
-if (addBtn && !owned) {
-    addBtn.onclick = (): void => {
-        if (!bookItem) {
-            console.error("Book item not initialized.");
-            return;
-        }
-
-        cart = JSON.parse(localStorage.getItem("cart") || "[]") as BookItem[];
-        isInCart = cart.some((item: BookItem) => item.id === bookItem?.id);
-
-        if (isInCart) {
-            alert("This book is already in your cart.");
-        } else {
-            cart.push(bookItem);
-            localStorage.setItem("cart", JSON.stringify(cart));
-            window.showPopup();
-
-            if (!addBtn.classList.contains("disabled")) {
-                addBtn.classList.add("disabled");
-                addBtn.innerText = "Already In Cart";
-            }
-        }
-    };
-}
 
 

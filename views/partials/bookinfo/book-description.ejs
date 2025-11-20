@@ -49,13 +49,21 @@
                         <div id="desc-container">
                             <!-- Book details -->
                             <label>Title</label>
-                            <input type="text" name="title" id="title" value="<%= currentBook.title %>" />
+                            <div class="input-container">
+                                <input type="text" name="title" id="title" value="<%= currentBook.title %>" />
+                            </div>
                             <label>Author</label>
-                            <input type="text" name="author" id="author" value="<%= currentBook.author %>" />
+                            <div class="input-container">
+                                <input type="text" name="author" id="author" value="<%= currentBook.author %>" />
+                            </div>
                             <label>Description</label>
-                            <textarea name="description" id="description"><%= currentBook.description %></textarea>
+                            <div class="input-container">
+                                <textarea name="description" id="description"><%= currentBook.description %></textarea>
+                            </div>
                             <label>Published Year</label>
-                            <input type="text" name="publishedYear" id="publishedYear" value="<%= currentBook.publishedYear || '2025' %>" />
+                            <div class="input-container">
+                                <input type="text" name="publishedYear" id="publishedYear" value="<%= currentBook.publishedYear || '2025' %>" />
+                            </div>
                             <label>Categories</label>
                             <div id="categories-container">
                                 <div class="checkbox-item">

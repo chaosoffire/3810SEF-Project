@@ -103,11 +103,74 @@ export const renderContent = async (
             window.location.href = `${req.protocol}://${req.get("host")}/page/content?state=home&requestQuery=${q.value}`;
         }
     }else if(req.query.state === "mybooks"){
-        res.status(200).render("menu",{
+        try{
+            const ownBookListResponse:Response = await fetch(`${req.protocol}://${req.get("host")}/api/${apiVersion}/user/ownbooks`,{
+                method:"GET",
+                headers: {
+                    "Cookie": req.headers.cookie||"",
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if(ownBookListResponse.ok){
+                const ownbooks:interfaces.ownBookResult = await ownBookListResponse.json();
+                if(ownbooks.books.length > 0){
+                    const total:number = ownbooks.books.length;
+                    const totalPage:number = Math.ceil(total/10);
+                    const currentPage:number = req.query.current? parseInt(req.query.current as string): 1;
+                    
+                    let startPage;
+
+                    if(currentPage <= 2){
+                        startPage = 1;
+                    }else if(currentPage >= totalPage - 1){
+                        startPage = Math.max(1,totalPage - 2);
+                    }else{
+                        startPage = currentPage - 1;
+                    }
+                    let endPage = Math.min(totalPage, startPage + 2);
+                    
+                    const query:string = `bookid=${ownbooks.books.slice(10*(currentPage-1),10*(currentPage-1)+10)}`;
+
+                    const booksDetailsResponse: Response = await fetch(`${req.protocol}://${req.get("host")}/api/${apiVersion}/book?${query}`,{
+                        method:"GET",
+                        headers: {
+                            "Cookie": req.headers.cookie||"",
+                            "Content-Type": "application/json"
+                        }   
+                    });
+                    if(booksDetailsResponse.ok){
+                        const booksDetails: interfaces.bookResult = await booksDetailsResponse.json();
+                        console.log(booksDetails);
+                        res.status(200).render("menu",{
+                            state: req.query.state,
+                            role: req.role,
+                            books: booksDetails.data,
+                            totalPage:totalPage,
+                            currentPage: currentPage,   
+                            startPage: startPage,       
+                            endPage: endPage, 
+                        });
+                    }else{
+                        throw {};
+                    }
+                }else{
+                    throw {};
+                }
+            }else{
+                throw {};
+            }
+        }catch(e:unknown){
+            res.status(200).render("menu",{
                 state: req.query.state,
                 role: req.role,
-                books: []
+                books: [],
+                totalPage: 0,
+                currentPage: 0,   
+                startPage: 0,       
+                endPage: 0, 
             });
+        }
     }else{
         // other pages
         res.status(200).render("menu", {

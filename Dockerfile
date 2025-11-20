@@ -3,9 +3,9 @@ WORKDIR /app
 
 ENV CI=true
 
-COPY package.json package-lock.json ./
+COPY package.json ./
 
-RUN npm ci --frozen-lockfile
+RUN npm ci
 
 COPY . .
 

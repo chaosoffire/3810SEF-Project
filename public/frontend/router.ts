@@ -12,6 +12,7 @@ import { checkRole } from "./middleware/check-role";
 import { validateSession } from "./middleware/validate-session";
 import { getOwnBook } from "./api/user/get-owned-book";
 import { checkout } from "./api/user/checkout";
+import { bookContent } from "./api/user/book-content";
 
 export const pageRouter = express.Router({
     mergeParams: true,
@@ -44,6 +45,12 @@ pageRouter.get(
     validateSession, 
     checkRole, 
     renderContent
+);
+
+pageRouter.get(
+    "/bookcontent",
+    validateSession,
+    bookContent
 );
 
 pageRouter.post(

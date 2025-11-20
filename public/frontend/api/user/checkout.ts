@@ -26,7 +26,7 @@ export const checkout = async(req:express.Request, res:express.Response) => {
         );
 
         if (response.ok) {
-            return res.json({ success: true });
+            return res.status(200).json({ success: true });
         } else {
             return res.status(400).json({ success: false, message: "Order placement failed" });
         }

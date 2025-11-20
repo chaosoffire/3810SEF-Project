@@ -15,6 +15,10 @@
     box-sizing: border-box;
 }
 
+#main-content{
+  width: 100%;
+}
+
 #main-content #outer-container{
   display: flex;
   flex-direction: column;

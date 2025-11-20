@@ -11,17 +11,6 @@
     <link rel="stylesheet" href="/navbar.css" type="text/css">
     <link rel="stylesheet" href="/footer.css" type="text/css">
 
-    <link rel="stylesheet" href="/home/home-search.css" type="text/css">
-    <link rel="stylesheet" href="/home/home-header.css" type="text/css">
-    <link rel="stylesheet" href="/home/home-body.css" type="text/css">
-
-    <link rel="stylesheet" href="/mybook/mybook-content.css" type="text/css">
-
-    <link rel="stylesheet" href="/bookdesc/bookdesc.css" type="text/css">
-    <link rel="stylesheet" href="/bookdesc/popup.css" type="text/css">
-
-    <link rel="stylesheet" href="/cart/cart.css" type="text/css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -34,10 +23,15 @@
     <% } %>
         
     <% if(state === "addbook" && role === "admin") {%>
+        <link rel="stylesheet" href="/bookdesc/bookdesc.css" type="text/css">
+        <link rel="stylesheet" href="/bookdesc/popup.css" type="text/css">
         <script src="/descriptionPage/image-preview.js" type="module" defer></script>
         <script src="/descriptionPage/update-book.js" type="module" defer></script>
+        <script src="/descriptionPage/back-to-menu.js" type="module" defer></script>    
     <% } %>
     <% if(state === "description" && role === "user") {%>
+        <link rel="stylesheet" href="/bookdesc/bookdesc.css" type="text/css">
+        <link rel="stylesheet" href="/bookdesc/popup.css" type="text/css">
         <script src="/descriptionPage/popup.js" type="module" defer></script>    
         <script src="/descriptionPage/add-to-cart.js" type="module" defer></script>    
         <script src="/descriptionPage/back-to-menu.js" type="module" defer></script>    
@@ -50,12 +44,18 @@
         <script src="/descriptionPage/back-to-menu.js" type="module" defer></script>    
     <% } %>
     <% if(state === "cart" && role === "user") {%>
+        <link rel="stylesheet" href="/cart/cart.css" type="text/css">
         <script src="/cartPage/cart.js" type="module" defer></script>
     <% } %>
     <% if(state === "mybooks" && role === "user") {%>
-        
+        <link rel="stylesheet" href="/mybook/mybook-content.css" type="text/css">
+        <script src="/mybookPage/pagination.js" type="module" defer></script>
+        <script src="/mybookPage/mybook-operation.js" type="module" defer></script>
     <% } %>
     <% if(state === "home") {%>
+        <link rel="stylesheet" href="/home/home-search.css" type="text/css">
+        <link rel="stylesheet" href="/home/home-header.css" type="text/css">
+        <link rel="stylesheet" href="/home/home-body.css" type="text/css">
         <script src="/menuPage/pagination.js" type="module" defer></script>
         <script src="/menuPage/load-book.js" type="module" defer></script>
         <script src="/menuPage/book-click.js" type="module" defer></script> 
@@ -76,7 +76,6 @@
                 <%}else if(role === 'admin'){%>
                     <li class="<%= state === 'addbook'? 'active':''%>"><a href="/page/content?state=addbook">Add Book</a></li>
                     <li><a id="add-admin-tag" href="#">Add Admin</a></li>
-                    <li class="<%= state === 'order'? 'active':''%>"><a href="/page/content?state=order">Order</a></li>
                 <%}%>
             </ul>
         </div>
@@ -87,10 +86,10 @@
         </div>
     </nav>
 
-
+<!-- ,startPage:startPage,endPage:endPage,currentPage:currentPage -->
     <%if(state === 'home'){%>
         <% if( typeof books != "undefined") {%>
-        <%- include('partials/home/home-content',{role:role,books:books,previousQuery:previousQuery}) %>
+        <%- include('partials/home/home-content',{role:role,books:books,previousQuery:previousQuery,currentPage,startPage:startPage,endPage:endPage}) %>
         <% } else{%>
         <%- include('partials/home/home-content',{role:role}) %>
         <% } %>
@@ -99,13 +98,11 @@
     <% }else if(state === 'ordersuccess' && role === 'user') {%>
         <%- include('partials/cart/orderSuccess') %>
     <% }else if(state === 'mybooks' && role === 'user') {%>
-        <%- include('partials/mybook/mybook-content',{books:books}) %>
+        <%- include('partials/mybook/mybook-content',{books:books,currentPage:currentPage,startPage:startPage,endPage:endPage,totalPage:totalPage}) %>
     <% }else if(state === 'description') {%>
         <%- include('partials/bookinfo/book-description',{role:role,book:book}) %>
     <% } else if(state === 'addbook' && role === 'admin') {%>
         <%- include('partials/bookinfo/book-description',{role:role}) %>
-    <% } else if(state === 'order' && role === 'admin') {%>
-    <!-- order page -->
     <% } else {%>
         <%- include('partials/not-found') %>
     <% } %>   

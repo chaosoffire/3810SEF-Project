@@ -305,3 +305,47 @@
     color: var(--color--black);
     border: 2px solid var(--color--lightred);
 }
+
+
+#mybook-container #mybook-content .mybook-pagination-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    background-color: transparent;
+}
+
+#mybook-container #mybook-content .mybook-pagination-container .mybook-pagination {
+    display: flex;
+    gap: 8px;
+    padding: 0;
+    list-style-type: none;
+}
+
+#mybook-container #mybook-content .mybook-pagination-container .mybook-page-item,
+#mybook-container #mybook-content .mybook-pagination-container .mybook-page-item-previous,
+#mybook-container #mybook-content .mybook-pagination-container .mybook-page-item-next{
+    display: block;
+    padding: 8px 16px;
+    color: var(--color--darkgreen);
+    text-decoration: none;
+    border: 1px solid var(--light--grey);
+    cursor:pointer;
+    border-radius: 5px;
+    transition:
+        background-color 0.3s,
+        color 0.3s;
+}
+
+#mybook-container #mybook-content .mybook-pagination-container .mybook-page-item:hover,
+#mybook-container #mybook-content .mybook-pagination-container .mybook-page-item-previous:hover,
+#mybook-container #mybook-content .mybook-pagination-container .mybook-page-item-next:hover{
+    color: var(--color--black);
+    background-color: var(--light--grey);
+}
+
+#mybook-container #mybook-content .mybook-pagination-container .mybook-page-item.active{
+    font-weight: bold;
+    color: var(--color--white);
+    background-color: var(--color--darkgreen);
+    border-color: var(--color--darkgreen);
+}

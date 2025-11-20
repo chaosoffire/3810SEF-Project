@@ -51,7 +51,7 @@
         "@types/passport-local": "^1.0.38",
         "copyfiles": "^2.4.1",
         "esbuild": "^0.25.12",
-        "rimraf": "^6.0.1",
+        "rimraf": "^6.1.0",
         "ts-node": "^10.9.2",
         "typescript": "^5.9.3"
     }
