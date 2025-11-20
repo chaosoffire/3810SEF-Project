@@ -6,7 +6,11 @@ document.addEventListener("DOMContentLoaded", (): void => {
         "book-cover",
     ) as HTMLImageElement | null;
 
-    if (bookCoverUpload && bookCover) {
+    const previous = document.getElementById(
+        "previous-img",
+    ) as HTMLInputElement | null;
+
+    if (bookCoverUpload && bookCover && previous) {
         bookCoverUpload.addEventListener("change", (event: Event): void => {
             bookCover.hidden = false;
             const target = event.target as HTMLInputElement;
@@ -17,6 +21,7 @@ document.addEventListener("DOMContentLoaded", (): void => {
                 reader.onload = (e: ProgressEvent<FileReader>): void => {
                     if (e.target && typeof e.target.result === "string") {
                         bookCover.src = e.target.result;
+                        previous.value = (e.target.result).split(",")[1];
                     }
                 };
                 reader.readAsDataURL(file);

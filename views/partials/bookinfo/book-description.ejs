@@ -32,7 +32,7 @@
         <% if (typeof role !== "undefined" && role === "admin") { %>
             <!-- Form action depends on whether there is book._id -->
             <% if (currentBook._id) { %>
-                <form id="update-form" action="<%= '/page/update/' + currentBook._id %>" method="PUT" enctype="multipart/form-data">
+                <form id="update-form" action="/page/update/<%=currentBook._id %>" method="POST" enctype="multipart/form-data">
             <% } else { %>
                 <form id="add-form" action="/page/add" method="POST" enctype="multipart/form-data">
             <% } %>
@@ -44,6 +44,7 @@
                             </label>
                             <input type="file" id="book-cover-upload" name="book-cover-upload" accept="image/*">
                             <img id="book-cover" src="data:image/jpeg;base64,<%= currentBook.coverImage %>" alt="Book Cover" <%= currentBook.coverImage? "":"hidden"%>>
+                            <input type="text" name="previous" id="previous-img" value="<%= currentBook.coverImage %>" hidden>
                         </div>
 
                         <div id="desc-container">
@@ -100,6 +101,7 @@
                     <div id="lower-container">
                         <span id="price-label">Price</span>
                         <input type="number" name="price" id="price" value="<%= currentBook.price %>" step="0.01" min="0"/>
+                        <button id="delete-btn" type="button">Delete Book</button>
                         <button id="save-btn" type="submit">Save Changes</button>
                     </div>
                 </form>

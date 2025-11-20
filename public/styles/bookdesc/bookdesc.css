@@ -227,7 +227,7 @@ textarea {
     margin-bottom: 10px;
 }
 
-#main-content #outer-container #lower-container #save-btn {
+#main-content #outer-container #lower-container #save-btn{
     width: 260px;
     height: 45px;
     margin: 0 auto;
@@ -242,10 +242,30 @@ textarea {
     transition: all 0.2s linear;
 }
 
-#main-content #outer-container #lower-container #save-btn:hover {
+#main-content #outer-container #lower-container #delete-btn {
+    width: 260px;
+    height: 45px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    font-size: large;
+    font-weight: bold;
+    color: var(--color--white);
+    cursor: pointer;
+    background-color: var(--color--orange);
+    border: none;
+    border-radius: 100px;
+    transition: all 0.2s linear;
+}
+
+#main-content #outer-container #lower-container #save-btn:hover{
     color: var(--color--black);
     background-color: var(--color-white);
     border: 2px solid var(--color--lightred);
+}
+#main-content #outer-container #lower-container #delete-btn:hover {
+    color: var(--color--black);
+    background-color: var(--color-white);
+    border: 2px solid var(--color--orange);
 }
 
 #main-content

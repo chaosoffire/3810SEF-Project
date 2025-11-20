@@ -77,3 +77,8 @@ export interface ownBookResult{
     success:boolean;
     books:string[];
 }
+
+export interface resetPasswordError{
+    success:boolean;
+    error:string;
+}

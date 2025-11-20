@@ -13,12 +13,16 @@ import { validateSession } from "./middleware/validate-session";
 import { getOwnBook } from "./api/user/get-owned-book";
 import { checkout } from "./api/user/checkout";
 import { bookContent } from "./api/user/book-content";
+import { resetPassword } from "./api/auth/reset-password";
+import { deleteBook } from "./api/admin/delete-book";
+import { updateBook } from "./api/admin/update-book";
 
 export const pageRouter = express.Router({
     mergeParams: true,
 });
-//
-const _apiVersion = process.env.API_VERSION_NO as string | null;
+
+const apiVersion = process.env.API_VERSION_NO as string | null;
+const testPath = process.env.TEST_PATH as string | null;
 
 pageRouter.get(
     "/", 
@@ -53,6 +57,27 @@ pageRouter.get(
     bookContent
 );
 
+// ----------------------------LIST USER
+// pageRouter.get(
+//     "/users",
+//     validateSession,
+//     checkAdmin,
+//     async(req:express.Request,res:express.Response) => {
+//         const response:Response = await fetch(`/api/${apiVersion}/test/${testPath}/users`,{
+//             method:"GET"
+//         })
+
+//         if(response.ok){
+//             const result:any = await response.json();
+//             console.log(result);
+//             res.status(200).json({result});
+//         }
+
+//     }
+// )
+
+// -------------------------------------------
+
 pageRouter.post(
     "/signup", 
     signUp
@@ -84,7 +109,27 @@ pageRouter.post(
 );
 
 pageRouter.post(
+    "/update/:id",
+    validateSession,
+    checkAdmin,
+    updateBook
+)
+
+pageRouter.post(
     "/checkout",
     validateSession,
     checkout
+)
+
+pageRouter.put(
+    "/reset",
+    validateSession,
+    resetPassword
+)
+
+
+pageRouter.delete(
+    "/delete/:id",
+    validateSession,
+    deleteBook
 )

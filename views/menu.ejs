@@ -17,11 +17,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     
     <script src="/menuPage/sign-out.js" type="module" defer></script>
+    <script src="/menuPage/reset-password.js" type="module" defer></script>
     
     <% if(role === "admin") {%>
+        <script src="/menuPage/list-user.js" type="module" defer></script>
         <script src="/menuPage/add-admin.js" type="module" defer></script>
     <% } %>
-        
     <% if(state === "addbook" && role === "admin") {%>
         <link rel="stylesheet" href="/bookdesc/bookdesc.css" type="text/css">
         <link rel="stylesheet" href="/bookdesc/popup.css" type="text/css">
@@ -29,6 +30,14 @@
         <script src="/descriptionPage/update-book.js" type="module" defer></script>
         <script src="/descriptionPage/back-to-menu.js" type="module" defer></script>    
     <% } %>
+    <% if(state === "description" && role === "admin") {%>
+        <link rel="stylesheet" href="/bookdesc/bookdesc.css" type="text/css">
+        <link rel="stylesheet" href="/bookdesc/popup.css" type="text/css">
+        <script src="/descriptionPage/image-preview.js" type="module" defer></script>
+        <script src="/descriptionPage/back-to-menu.js" type="module" defer></script> 
+        <script src="/descriptionPage/edit-book.js" type="module" defer></script>    
+    <% } %>
+    <!-- --------------------------------------------- -->
     <% if(state === "description" && role === "user") {%>
         <link rel="stylesheet" href="/bookdesc/bookdesc.css" type="text/css">
         <link rel="stylesheet" href="/bookdesc/popup.css" type="text/css">
@@ -39,10 +48,6 @@
     <% if(state === "ordersuccess" && role === "user") {%>
         <link rel="stylesheet" href="/cart/order-success.css" type="text/css">
     <%}%>
-                
-    <% if(state === "description" && role === "admin") {%>
-        <script src="/descriptionPage/back-to-menu.js" type="module" defer></script>    
-    <% } %>
     <% if(state === "cart" && role === "user") {%>
         <link rel="stylesheet" href="/cart/cart.css" type="text/css">
         <script src="/cartPage/cart.js" type="module" defer></script>
@@ -76,10 +81,14 @@
                 <%}else if(role === 'admin'){%>
                     <li class="<%= state === 'addbook'? 'active':''%>"><a href="/page/content?state=addbook">Add Book</a></li>
                     <li><a id="add-admin-tag" href="#">Add Admin</a></li>
+                    <!-- <li><a id="list-user" href="#">List User</a></li> -->
                 <%}%>
             </ul>
         </div>
         <div id="nav-right">
+            <form id="reset-form" action="#" method="#">
+                <input id="reset" type="submit" value="Reset Password">
+            </form>
             <form id="sign-out-form" action="/page/signout" method="post">
                 <input id="sign-out" type="submit" value="Sign out">
             </form>

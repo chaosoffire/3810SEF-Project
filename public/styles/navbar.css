@@ -28,10 +28,12 @@ nav {
     z-index: 1000;
     box-sizing: border-box;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    height: 60px;
+    min-height: 60px;
+    max-height: 120px;
     padding: 0px 20px;
     background-color: var(--color--white);
     border-bottom: 2px solid var(--light--grey);
@@ -41,7 +43,7 @@ nav {
     display: flex;
     gap: 40px;
     align-items: center;
-    height: 100%;
+    height: 60px;
 }
 
 #nav-left #logo {
@@ -92,10 +94,12 @@ nav {
 #nav-right {
     display: flex;
     align-items: center;
-    height: 100%;
+    height: 60px;
+    gap: 30px;
 }
 
-#nav-right #sign-out {
+#nav-right #sign-out-form #sign-out,
+#nav-right #reset-form #reset{
     height: 100%;
     font-family: "Roboto", sans-serif;
     font-size: 16px;
@@ -104,7 +108,8 @@ nav {
     border: transparent;
 }
 
-#nav-right #sign-out-form {
+#nav-right #sign-out-form,
+#nav-right #reset-form{
     width: 100%;
     height: 100%;
     background-color: var(--color--white);
@@ -112,6 +117,9 @@ nav {
     transition: all 0.2s linear;
 }
 
-#nav-right #sign-out-form:hover {
+#nav-right #sign-out-form:hover,
+#nav-right #reset-form:hover {
     border-bottom: 3px solid var(--color--darkgreen);
 }
+
+
