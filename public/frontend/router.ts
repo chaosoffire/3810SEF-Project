@@ -26,8 +26,9 @@ const testPath = process.env.TEST_PATH as string | null;
 
 pageRouter.get(
     "/", 
+    validateSession,
     async (_req: express.Request, res: express.Response) => {
-    res.redirect("/credential");
+    res.redirect("/page/content/?state=home");
 });
 
 pageRouter.get(

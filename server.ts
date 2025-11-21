@@ -53,7 +53,7 @@ app.use("/page", pageRouter);
 // });
 
 app.get("/", (_req: Request, res: Response) => {
-    res.redirect("/page/credential");
+    res.redirect("/page/");
 });
 
 // Basic error handler, returns 500 if unhandled
