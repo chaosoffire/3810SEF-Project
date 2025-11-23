@@ -30,7 +30,7 @@ app.use(
         extended: true,
     }),
 );
-app.use(express.json());
+app.use(express.json({ limit: '10MB' }));
 app.use(cookieParser());
 
 // set view engine

@@ -101,7 +101,9 @@
                     <div id="lower-container">
                         <span id="price-label">Price</span>
                         <input type="number" name="price" id="price" value="<%= currentBook.price %>" step="0.01" min="0"/>
-                        <button id="delete-btn" type="button">Delete Book</button>
+                        <% if(state === "description" && role === "admin") {%>
+                            <button id="delete-btn" type="button">Delete Book</button>
+                        <% } %>
                         <button id="save-btn" type="submit">Save Changes</button>
                     </div>
                 </form>
