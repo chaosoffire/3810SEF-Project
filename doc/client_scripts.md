@@ -1,3 +1,4 @@
+[Back](README.md)
 # Client-Side Scripts
 
 This document details the TypeScript files located in `public/client/`. These scripts are compiled and served to the browser to handle UI interactions, form submissions, and API calls on specific pages.
