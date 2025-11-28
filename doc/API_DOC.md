@@ -4,6 +4,30 @@ All endpoints are prefixed with `/api/<API_VERSION_NO>/`. Replace `<API_VERSION_
 
 Authentication is handled through the `x-session` HTTP-only cookie set by the login endpoint. Include this cookie in subsequent requests that require authentication.
 
+## Table of Contents
+
+- [Authentication](#authentication)
+    - [Register User](#register-user)
+    - [Login](#login)
+    - [Logout](#logout)
+    - [Change Password](#change-password)
+    - [Refresh Session Cookie](#refresh-session-cookie)
+    - [Check Admin Status](#check-admin-status)
+- [Books](#books)
+    - [List or Search Books](#list-or-search-books)
+    - [Get Book by ID](#get-book-by-id)
+    - [Create Book (Admin Only)](#create-book-admin-only)
+    - [Update Book (Admin Only)](#update-book-admin-only)
+    - [Delete Book (Admin Only)](#delete-book-admin-only)
+- [Orders and Ownership](#orders-and-ownership)
+    - [List Owned Books](#list-owned-books)
+    - [List Orders](#list-orders)
+    - [Get Order Details](#get-order-details)
+    - [Create Order](#create-order)
+    - [Delete Order (Admin Only)](#delete-order-admin-only)
+- [Session Test Utilities](#session-test-utilities)
+- [Health](#health)
+
 ### Authentication
 
 #### Register User
