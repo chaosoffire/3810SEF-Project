@@ -1,4 +1,4 @@
-[Back](README.md)
+[Back](../README.md#-documentation-hub)
 ## API Reference
 
 All endpoints are prefixed with `/api/<API_VERSION_NO>/`. Replace `<API_VERSION_NO>` with the value configured in the environment (default `v1`). Unless stated otherwise, requests and responses use JSON and require the `Content-Type: application/json` header for bodies.

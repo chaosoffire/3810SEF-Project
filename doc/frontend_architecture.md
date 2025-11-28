@@ -1,4 +1,4 @@
-[Back](README.md)
+[Back](../README.md#-documentation-hub)
 # Frontend Architecture (Express)
 
 This document explains the "frontend" logic served by Express. Note that this project uses a server-side rendering approach where Express serves HTML pages (via EJS or static files) and provides a dedicated router for page navigation.

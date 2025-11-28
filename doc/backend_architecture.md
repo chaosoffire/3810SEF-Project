@@ -1,4 +1,4 @@
-[Back](README.md)
+[Back](../README.md#-documentation-hub)
 # Backend Architecture
 
 This document explains the core components of the backend infrastructure, including the server entry point, configuration management, and database connectivity.
