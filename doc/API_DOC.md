@@ -48,7 +48,7 @@ Authentication is handled through the `x-session` HTTP-only cookie set by the lo
 - **Notes**:  
 1. `admin` defaults to `false`. When set to `true`, the caller must already be authenticated as an admin.
 2. username must be 8-32 characters long, the first character must be a letter, and can only contain letters, numbers, and underscores.
-3. password must be 12-64 characters long and include at least one lowercase letter, one uppercase letter, one number, and one special character.
+3. password must be 12-64 characters long and include at least one lowercase letter, one uppercase letter, and one number.
 - **Responses**
 	- `201 Created` `{ "success": true }`
 	- `403 Forbidden` when a non-admin attempts to create an admin
@@ -122,7 +122,7 @@ Authentication is handled through the `x-session` HTTP-only cookie set by the lo
 	- `bookid`: comma-delimited list of IDs
 	- `minPrice`, `maxPrice`: numeric filters
 	- `start`, `limit`: pagination (numbers)
-	- `sortBy`: `title`, `price`, `publishedYear`
+	- `publishedYear`: comma-delimited list of years (e.g., `1999,2020`)
 	- `sortOrder`: `asc` or `desc`
 - **Example**
 
@@ -144,7 +144,8 @@ GET /api/v1/book?title=foundation&sortBy=price&sortOrder=asc&limit=5
 			"genres": ["Science Fiction"],
 			"publishedYear": "1951"
 		}
-	]
+	],
+	"count": 1
 }
 ```
 
