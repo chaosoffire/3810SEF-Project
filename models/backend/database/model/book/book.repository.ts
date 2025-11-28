@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import z from "zod";
 
 import { MongoDBManager } from "../../mongodb.manager";
-import { type BookDocument, BookModel, bookSchema } from "../schema/bookSchema";
+import { type BookDocument, bookSchema } from "../schema/bookSchema";
 
 export const BOOK_COLLECTION = "books";
 
@@ -58,16 +58,17 @@ export async function getBooksByField(
         const books = await model.find().lean();
         return books
             ? {
-                  data: JSON.parse(JSON.stringify(books)),
-                  count: books.length,
-              }
+                data: JSON.parse(JSON.stringify(books)),
+                count: books.length,
+            }
             : null;
     }
 
+    const andConditions: any[] = [];
     const orConditions: any[] = [];
 
     if (searchConfig._id && searchConfig._id.length > 0) {
-        orConditions.push({
+        andConditions.push({
             _id: {
                 $in: searchConfig._id,
             },
@@ -76,11 +77,7 @@ export async function getBooksByField(
 
     if (searchConfig.title && searchConfig.title.length > 0) {
         const titleOrConditions = searchConfig.title.map((title) => {
-            // Only remove potentially dangerous MongoDB operators, keep apostrophes and common punctuation
-            // This allows searches like "Harry Potter and the Philosopher's Stone"
-            const sanitized = title
-                .replace(/[\$\[\]\{\}]/g, "") // Only remove: $ [ ] { }
-                .trim();
+            const sanitized = title.replace(/[$[\]{}]/g, "").trim();
             return {
                 title: {
                     $regex: sanitized,
@@ -89,18 +86,13 @@ export async function getBooksByField(
             };
         });
         if (titleOrConditions.length > 0) {
-            orConditions.push({
-                $or: titleOrConditions,
-            });
+            orConditions.push(...titleOrConditions);
         }
     }
 
     if (searchConfig.author && searchConfig.author.length > 0) {
         const authorOrConditions = searchConfig.author.map((author) => {
-            // Only remove potentially dangerous MongoDB operators
-            const sanitized = author
-                .replace(/[\$\[\]\{\}]/g, "") // Only remove: $ [ ] { }
-                .trim();
+            const sanitized = author.replace(/[$[\]{}]/g, "").trim();
             return {
                 author: {
                     $regex: sanitized,
@@ -109,18 +101,13 @@ export async function getBooksByField(
             };
         });
         if (authorOrConditions.length > 0) {
-            orConditions.push({
-                $or: authorOrConditions,
-            });
+            orConditions.push(...authorOrConditions);
         }
     }
 
     if (searchConfig.description && searchConfig.description.length > 0) {
         const descriptionOrConditions = searchConfig.description.map((desc) => {
-            // Only remove potentially dangerous MongoDB operators
-            const sanitized = desc
-                .replace(/[\$\[\]\{\}]/g, "") // Only remove: $ [ ] { }
-                .trim();
+            const sanitized = desc.replace(/[$[\]{}]/g, "").trim();
             return {
                 description: {
                     $regex: sanitized,
@@ -129,14 +116,12 @@ export async function getBooksByField(
             };
         });
         if (descriptionOrConditions.length > 0) {
-            orConditions.push({
-                $or: descriptionOrConditions,
-            });
+            orConditions.push(...descriptionOrConditions);
         }
     }
 
     if (searchConfig.genres && searchConfig.genres.length > 0) {
-        orConditions.push({
+        andConditions.push({
             genres: {
                 $in: searchConfig.genres,
             },
@@ -144,7 +129,7 @@ export async function getBooksByField(
     }
 
     if (searchConfig.publishedYear && searchConfig.publishedYear.length > 0) {
-        orConditions.push({
+        andConditions.push({
             publishedYear: {
                 $in: searchConfig.publishedYear,
             },
@@ -162,16 +147,22 @@ export async function getBooksByField(
         if (searchConfig.maxPrice !== undefined) {
             priceQuery.$lte = searchConfig.maxPrice;
         }
-        orConditions.push({
+        andConditions.push({
             price: priceQuery,
         });
     }
 
+    if (orConditions.length > 0) {
+        andConditions.push({
+            $or: orConditions,
+        });
+    }
+
     const query =
-        orConditions.length > 0
+        andConditions.length > 0
             ? {
-                  $or: orConditions,
-              }
+                $and: andConditions,
+            }
             : {};
 
     const totalCount = await model.countDocuments(query);
@@ -188,7 +179,7 @@ export async function getBooksByField(
     if (searchConfig.start !== undefined && searchConfig.start > 0) {
         mongooseQuery = mongooseQuery.skip(searchConfig.start);
     }
-    
+
     if (searchConfig.limit !== undefined && searchConfig.limit > 0) {
         mongooseQuery = mongooseQuery.limit(searchConfig.limit);
     }
@@ -203,9 +194,7 @@ export async function getBooksByField(
 export async function getBookById(
     bookId: string,
 ): Promise<BookDocument | null> {
-    return getBooksByIds([
-        bookId,
-    ]).then((books) => (books ? books[0] : null));
+    return getBooksByIds([bookId]).then((books) => (books ? books[0] : null));
 }
 
 export async function getBooksByIds(
