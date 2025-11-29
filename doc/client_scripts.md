@@ -16,7 +16,7 @@ This document details the TypeScript files located in `public/client/`. These sc
 - **`pagination.ts`**: Manages the pagination state (current page, items per page) and updates the UI accordingly.
 - **`book-click.ts`**: Handles clicks on book cards, redirecting the user to the book description page.
 - **`add-admin.ts`**: Logic for the "Add Admin" modal (admin-only).
-- **`list-user.ts`**: Fetches and displays a list of users (admin-only feature).
+- **`list-user.ts`**: (Disabled) Intended to fetch and display a list of users for admins, but the code is currently commented out.
 - **`reset-password.ts`**: Handles the password reset flow.
 - **`sign-out.ts`**: Handles the logout button click.
 
