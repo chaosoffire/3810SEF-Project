@@ -2,6 +2,55 @@
 # Frontend Architecture (Express)
 
 This document explains the "frontend" logic served by Express. Note that this project uses a server-side rendering approach where Express serves HTML pages (via EJS or static files) and provides a dedicated router for page navigation.
+## UI
+
+### `views/menu.ejs`
+**Role**: The Main ejs for the website
+- Consist of the Nav bar and Footer
+- Render different partials according to the given param
+
+### `views/login.ejs`
+**Role**: The Page for Login and Sign up
+
+### `views/book-content.ejs`
+**Role**: The dummy book content for all books
+
+## Path: `views/partials/`
+### `loading.ejs`
+**Role**: A body for when page is loading 
+
+### `not-found.ejs`
+**Role**: A body for when url content is not found
+
+## Path: `views/partials/bookinfo/`
+### `book-description.ejs`
+**Role**: Handle all the UI related to book description
+- description for user
+- edit description function for admin
+- add book function for admin
+
+## Path: `views/partials/cart/`
+### `cart.ejs`
+**Role**: Handle cart UI for user
+
+### `orderSuccess.ejs`
+**Role**: A UI for notifying successful purchase
+
+## Path: `views/partials/home/`
+### `home-book.ejs`
+**Role**: A partial for a book in the Main Menu
+
+### `home-content.ejs`
+**Role**: The Body for Main Menu
+- Load 10 home-book partials with different book data each time as a book
+
+## Path: `views/partials/mybook/`
+### `mybook-book.ejs`
+**Role**: A partial for a book in the mybook page
+
+### `mybook-content.ejs`
+**Role**: The Body for mybook page
+- Load 10 mybook-book partials with different book data each time as an owned book
 
 ## Router
 
@@ -71,7 +120,7 @@ These files act as intermediaries between the frontend router and the backend AP
 ### User (`api/user/`)
 - **`checkout.ts`**: Processes the shopping cart checkout. Sends a `POST` request to create an order.
 - **`get-owned-book.ts`**: Fetches the list of books owned by the user.
-- **`book-content.ts`**: Renders the detailed view of a book.
+- **`book-content.ts`**: Renders the content of a book.
 
 ## Utilities
 
