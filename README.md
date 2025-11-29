@@ -8,7 +8,7 @@ The documentation is split into detailed guides for each part of the system:
 
 - **[Backend Architecture](doc/backend_architecture.md)**: Explains the server setup, configuration (`ConfigManager`), database connection (`MongoDBManager`), and data models.
 - **[API Handlers & Services](doc/api_handlers.md)**: Details the implementation of API routes, controllers, and business logic services.
-- **[Frontend Architecture](doc/frontend_architecture.md)**: Covers the Express frontend router, session middleware, and shared interfaces.
+- **[Frontend Architecture](doc/frontend_architecture.md)**: Covers the frontend EJS, Express frontend router, session middleware, and shared interfaces.
 - **[Client-Side Scripts](doc/client_scripts.md)**: Explains the TypeScript logic running in the browser for each page (Login, Menu, Cart, etc.).
 - **[API Reference](doc/API_DOC.md)**: The public API specification with endpoints, request/response examples, and error codes.
 
