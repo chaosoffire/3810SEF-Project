@@ -6,12 +6,12 @@ import { type IUser, userSchema } from "../schema/userSchema";
 export const USER_COLLECTION = "users";
 
 export async function createUser(userData: IUser): Promise<true> {
-    const model = MongoDBManager.getInstance().getModel<IUser>(
-        USER_COLLECTION,
-        userSchema,
-    );
-    await model.create(userData);
-    return true;
+	const model = MongoDBManager.getInstance().getModel<IUser>(
+		USER_COLLECTION,
+		userSchema,
+	);
+	await model.create(userData);
+	return true;
 }
 
 /*
@@ -24,51 +24,51 @@ export async function hasUserById(userId: string): Promise<boolean> {
 */
 
 export async function hasUserByUsername(username: string): Promise<boolean> {
-    const model = MongoDBManager.getInstance().getModel(
-        USER_COLLECTION,
-        userSchema,
-    );
-    const user = await model
-        .findOne({
-            "credential.username": username,
-        })
-        .lean();
-    return !!user;
+	const model = MongoDBManager.getInstance().getModel(
+		USER_COLLECTION,
+		userSchema,
+	);
+	const user = await model
+		.findOne({
+			"credential.username": username,
+		})
+		.lean();
+	return !!user;
 }
 
 export async function getAllUsers(): Promise<FlattenMaps<string>[]> {
-    const model = MongoDBManager.getInstance().getModel(
-        USER_COLLECTION,
-        userSchema,
-    );
-    const users = await model.find({}).lean();
-    return users.map((u) => JSON.parse(JSON.stringify(u)));
+	const model = MongoDBManager.getInstance().getModel(
+		USER_COLLECTION,
+		userSchema,
+	);
+	const users = await model.find({}).lean();
+	return users.map((u) => JSON.parse(JSON.stringify(u)));
 }
 
 export async function hasAdminUser(): Promise<boolean> {
-    const model = MongoDBManager.getInstance().getModel(
-        USER_COLLECTION,
-        userSchema,
-    );
-    const exists = await model.exists({
-        role: "admin",
-    });
-    return !!exists;
+	const model = MongoDBManager.getInstance().getModel(
+		USER_COLLECTION,
+		userSchema,
+	);
+	const exists = await model.exists({
+		role: "admin",
+	});
+	return !!exists;
 }
 
 export async function getUserByUsername(
-    username: string,
+	username: string,
 ): Promise<FlattenMaps<string> | null> {
-    const model = MongoDBManager.getInstance().getModel(
-        USER_COLLECTION,
-        userSchema,
-    );
-    const user = await model
-        .findOne({
-            "credential.username": username,
-        })
-        .lean();
-    return user ? JSON.parse(JSON.stringify(user)) : null;
+	const model = MongoDBManager.getInstance().getModel(
+		USER_COLLECTION,
+		userSchema,
+	);
+	const user = await model
+		.findOne({
+			"credential.username": username,
+		})
+		.lean();
+	return user ? JSON.parse(JSON.stringify(user)) : null;
 }
 
 /*
@@ -90,21 +90,21 @@ export async function logoutUserById(userId: string): Promise<true> {
 */
 
 export async function logoutUserByUsername(username: string): Promise<true> {
-    const model = MongoDBManager.getInstance().getModel(
-        USER_COLLECTION,
-        userSchema,
-    );
-    await model.updateOne(
-        {
-            "credential.username": username,
-        },
-        {
-            $set: {
-                "session.lastLogoutAt": Date.now(),
-            },
-        },
-    );
-    return true;
+	const model = MongoDBManager.getInstance().getModel(
+		USER_COLLECTION,
+		userSchema,
+	);
+	await model.updateOne(
+		{
+			"credential.username": username,
+		},
+		{
+			$set: {
+				"session.lastLogoutAt": Date.now(),
+			},
+		},
+	);
+	return true;
 }
 
 /*
@@ -126,48 +126,48 @@ export async function deleteUserById(userId: string): Promise<true> {
 */
 
 export async function deleteUserByUsername(username: string): Promise<true> {
-    const model = MongoDBManager.getInstance().getModel(
-        USER_COLLECTION,
-        userSchema,
-    );
-    await model.deleteOne({
-        "credential.username": username,
-    });
-    return true;
+	const model = MongoDBManager.getInstance().getModel(
+		USER_COLLECTION,
+		userSchema,
+	);
+	await model.deleteOne({
+		"credential.username": username,
+	});
+	return true;
 }
 
 export async function updateUserPasswordHashByUsername(
-    username: string,
-    passwordHash: string,
+	username: string,
+	passwordHash: string,
 ): Promise<true> {
-    const model = MongoDBManager.getInstance().getModel(
-        USER_COLLECTION,
-        userSchema,
-    );
-    await model.updateOne(
-        {
-            "credential.username": username,
-        },
-        {
-            $set: {
-                "credential.passwordHash": passwordHash,
-            },
-        },
-    );
-    return true;
+	const model = MongoDBManager.getInstance().getModel(
+		USER_COLLECTION,
+		userSchema,
+	);
+	await model.updateOne(
+		{
+			"credential.username": username,
+		},
+		{
+			$set: {
+				"credential.passwordHash": passwordHash,
+			},
+		},
+	);
+	return true;
 }
 
 export async function getUserOrdersByUsername(
-    username: string,
+	username: string,
 ): Promise<string[] | null> {
-    const model = MongoDBManager.getInstance().getModel<IUser>(
-        USER_COLLECTION,
-        userSchema,
-    );
-    const user = await model
-        .findOne({
-            "credential.username": username,
-        })
-        .lean();
-    return user ? JSON.parse(JSON.stringify(user.orders)) : null;
+	const model = MongoDBManager.getInstance().getModel<IUser>(
+		USER_COLLECTION,
+		userSchema,
+	);
+	const user = await model
+		.findOne({
+			"credential.username": username,
+		})
+		.lean();
+	return user ? JSON.parse(JSON.stringify(user.orders)) : null;
 }

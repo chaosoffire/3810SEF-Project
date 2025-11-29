@@ -1,352 +1,375 @@
 :root {
-    --color--main: #f0ffff;
-    --color--black: #000000;
-    --color--white: #ffffff;
-    --color--darkgreen: #013030;
-    --color--orange: #f58330;
-    --color--lightred: #ef5454;
-    --light--grey: #f5f5f5;
-    font-family: "Lora", "Roboto", "sans-serif";
+	--color--main: #f0ffff;
+	--color--black: #000000;
+	--color--white: #ffffff;
+	--color--darkgreen: #013030;
+	--color--orange: #f58330;
+	--color--lightred: #ef5454;
+	--light--grey: #f5f5f5;
+	font-family: "Lora", "Roboto", "sans-serif";
 }
 
 * {
-    box-sizing: border-box;
-    padding: 0px;
-    margin: 0px;
+	box-sizing: border-box;
+	padding: 0px;
+	margin: 0px;
 }
 
 #mybook-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    min-height: 100%;
-    padding: 50px 0px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	min-height: 100%;
+	padding: 50px 0px;
 }
 
 #mybook-container #mybook-content {
-    width: 60%;
-    min-width: 450px;
-    min-height: 500px;
-    padding: 30px 70px;
-    background-color: var(--color--white);
-    border: 2px solid var(--light--grey);
-    border-radius: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+	width: 60%;
+	min-width: 450px;
+	min-height: 500px;
+	padding: 30px 70px;
+	background-color: var(--color--white);
+	border: 2px solid var(--light--grey);
+	border-radius: 15px;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #mybook-container #mybook-content #mybook-page-title {
-    font-family: "Lora", serif;
-    font-size: xx-large;
-    color: var(--color--black);
+	font-family: "Lora", serif;
+	font-size: xx-large;
+	color: var(--color--black);
 }
 
 #mybook-container #mybook-content #divider-line {
-    width: 100%;
-    height: 2px;
-    margin: 5px 0px 30px 0px;
-    background-color: var(--light--grey);
+	width: 100%;
+	height: 2px;
+	margin: 5px 0px 30px 0px;
+	background-color: var(--light--grey);
 }
 
 #mybook-container #mybook-content #mybook-list-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
 }
 
 #mybook-container #mybook-content #mybook-list-container #mybook-list {
-    width: 100%;
-    height: 100%;
-    padding: 0px;
-    list-style-type: none;
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+	list-style-type: none;
 }
 
 #mybook-container #mybook-content #mybook-list-container #mybook-list .mybook {
-    position: relative;
-    display: flex;
-    /* flex-wrap: wrap; */
-    gap: 20px;
-    justify-content: center;
-    width: 100%;
-    height: 260px;
-    margin-bottom: 40px;
+	position: relative;
+	display: flex;
+	/* flex-wrap: wrap; */
+	gap: 20px;
+	justify-content: center;
+	width: 100%;
+	height: 260px;
+	margin-bottom: 40px;
 }
 
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-list
-    .mybook
-    .mybook-cover-container {
-    width: 20%;
-    min-width: 180px;
-    max-width: fit-content;
-    height: 100%;
-    overflow: hidden;
-    border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+	#mybook-content
+	#mybook-list-container
+	#mybook-list
+	.mybook
+	.mybook-cover-container {
+	width: 20%;
+	min-width: 180px;
+	max-width: fit-content;
+	height: 100%;
+	overflow: hidden;
+	border-radius: 5px;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-list
-    .mybook
-    .mybook-cover-container
-    .mybook-cover {
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-    object-position: center;
+	#mybook-content
+	#mybook-list-container
+	#mybook-list
+	.mybook
+	.mybook-cover-container
+	.mybook-cover {
+	width: 100%;
+	height: 100%;
+	object-fit: fill;
+	object-position: center;
 }
 
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-list
-    .mybook
-    .mybook-details {
-    width: 60%;
+	#mybook-content
+	#mybook-list-container
+	#mybook-list
+	.mybook
+	.mybook-details {
+	width: 60%;
 }
 
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-list
-    .mybook
-    .mybook-details
-    .mybook-title {
-    width: 100%;
-    margin-bottom: 20px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-family: "Lora", serif;
-    font-size: 24px;
-    color: var(--color--black);
-    white-space: nowrap;
+	#mybook-content
+	#mybook-list-container
+	#mybook-list
+	.mybook
+	.mybook-details
+	.mybook-title {
+	width: 100%;
+	margin-bottom: 20px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: "Lora", serif;
+	font-size: 24px;
+	color: var(--color--black);
+	white-space: nowrap;
 }
 
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-list
-    .mybook
-    .mybook-details
-    .mybook-author {
-    width: 100%;
-    margin-bottom: 90px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
-    color: var(--color--black);
-    white-space: nowrap;
+	#mybook-content
+	#mybook-list-container
+	#mybook-list
+	.mybook
+	.mybook-details
+	.mybook-author {
+	width: 100%;
+	margin-bottom: 90px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: "Roboto", sans-serif;
+	font-size: 16px;
+	color: var(--color--black);
+	white-space: nowrap;
 }
 
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-list
-    .mybook
-    .mybook-details
-    .btn-container {
-    display: flex;
-    flex-wrap: wrap;
-    row-gap: 20px;
-    justify-content: space-between;
-    width: 60%;
+	#mybook-content
+	#mybook-list-container
+	#mybook-list
+	.mybook
+	.mybook-details
+	.btn-container {
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: 20px;
+	justify-content: space-between;
+	width: 60%;
 }
 
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-list
-    .mybook
-    .mybook-details
-    .mybook-read-btn,
+	#mybook-content
+	#mybook-list-container
+	#mybook-list
+	.mybook
+	.mybook-details
+	.mybook-read-btn,
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-list
-    .mybook
-    .mybook-details
-    .mybook-refund-btn {
-    width: 100px;
-    height: 40px;
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--color--white);
-    cursor: pointer;
-    border: none;
-    border-radius: 20px;
-    transition: all 0.2s linear;
+	#mybook-content
+	#mybook-list-container
+	#mybook-list
+	.mybook
+	.mybook-details
+	.mybook-refund-btn {
+	width: 100px;
+	height: 40px;
+	font-family: "Roboto", sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--color--white);
+	cursor: pointer;
+	border: none;
+	border-radius: 20px;
+	transition: all 0.2s linear;
 }
 
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-list
-    .mybook
-    .mybook-details
-    .btn-container
-    .mybook-read-btn {
-    background-color: var(--color--orange);
+	#mybook-content
+	#mybook-list-container
+	#mybook-list
+	.mybook
+	.mybook-details
+	.btn-container
+	.mybook-read-btn {
+	background-color: var(--color--orange);
 }
 
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-list
-    .mybook
-    .mybook-details
-    .btn-container
-    .mybook-refund-btn {
-    background-color: var(--color--lightred);
+	#mybook-content
+	#mybook-list-container
+	#mybook-list
+	.mybook
+	.mybook-details
+	.btn-container
+	.mybook-refund-btn {
+	background-color: var(--color--lightred);
 }
 
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-list
-    .mybook
-    .mybook-details
-    .btn-container
-    .mybook-read-btn:hover,
+	#mybook-content
+	#mybook-list-container
+	#mybook-list
+	.mybook
+	.mybook-details
+	.btn-container
+	.mybook-read-btn:hover,
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-list
-    .mybook
-    .mybook-details
-    .btn-container
-    .mybook-refund-btn:hover {
-    color: var(--color--black);
-    background-color: var(--color--white);
+	#mybook-content
+	#mybook-list-container
+	#mybook-list
+	.mybook
+	.mybook-details
+	.btn-container
+	.mybook-refund-btn:hover {
+	color: var(--color--black);
+	background-color: var(--color--white);
 }
 
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-list
-    .mybook
-    .mybook-details
-    .btn-container
-    .mybook-read-btn:hover {
-    border: 2px solid var(--color--orange);
+	#mybook-content
+	#mybook-list-container
+	#mybook-list
+	.mybook
+	.mybook-details
+	.btn-container
+	.mybook-read-btn:hover {
+	border: 2px solid var(--color--orange);
 }
 
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-list
-    .mybook
-    .mybook-details
-    .btn-container
-    .mybook-refund-btn:hover {
-    border: 2px solid var(--color--lightred);
+	#mybook-content
+	#mybook-list-container
+	#mybook-list
+	.mybook
+	.mybook-details
+	.btn-container
+	.mybook-refund-btn:hover {
+	border: 2px solid var(--color--lightred);
 }
 
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-empty-container{
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
-    }
-
-#mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-empty-container
-    #shop-now{
-    background-color: var(--color--lightred);
-    color: var(--color--white);
-    border: none;
-    border-radius: 100px;
-    width: 160px;
-    height: 45px;
-    font-size: large;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s linear;
-    margin: auto 0;
-    margin-bottom: 30px;
-}
-#mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-empty-container
-    img{
-    width: 150px;
+	#mybook-content
+	#mybook-list-container
+	#mybook-empty-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
 }
 
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-empty-container
-    h3{
-    font-family: 'Roboto','san-serif';
-    font-size: 20px;
+	#mybook-content
+	#mybook-list-container
+	#mybook-empty-container
+	#shop-now {
+	background-color: var(--color--lightred);
+	color: var(--color--white);
+	border: none;
+	border-radius: 100px;
+	width: 160px;
+	height: 45px;
+	font-size: large;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.2s linear;
+	margin: auto 0;
+	margin-bottom: 30px;
+}
+#mybook-container
+	#mybook-content
+	#mybook-list-container
+	#mybook-empty-container
+	img {
+	width: 150px;
 }
 
 #mybook-container
-    #mybook-content
-    #mybook-list-container
-    #mybook-empty-container
-    #shop-now:hover{
-    background-color: var(--color-white);
-    color: var(--color--black);
-    border: 2px solid var(--color--lightred);
+	#mybook-content
+	#mybook-list-container
+	#mybook-empty-container
+	h3 {
+	font-family: "Roboto", "san-serif";
+	font-size: 20px;
 }
 
+#mybook-container
+	#mybook-content
+	#mybook-list-container
+	#mybook-empty-container
+	#shop-now:hover {
+	background-color: var(--color-white);
+	color: var(--color--black);
+	border: 2px solid var(--color--lightred);
+}
 
 #mybook-container #mybook-content .mybook-pagination-container {
-    display: flex;
-    justify-content: center;
-    padding: 20px 0;
-    z-index: 1;
-    background-color: transparent;
+	display: flex;
+	justify-content: center;
+	padding: 20px 0;
+	z-index: 1;
+	background-color: transparent;
 }
 
-#mybook-container #mybook-content .mybook-pagination-container .mybook-pagination {
-    display: flex;
-    gap: 8px;
-    padding: 0;
-    list-style-type: none;
+#mybook-container
+	#mybook-content
+	.mybook-pagination-container
+	.mybook-pagination {
+	display: flex;
+	gap: 8px;
+	padding: 0;
+	list-style-type: none;
 }
 
-#mybook-container #mybook-content .mybook-pagination-container .mybook-page-item,
-#mybook-container #mybook-content .mybook-pagination-container .mybook-page-item-previous,
-#mybook-container #mybook-content .mybook-pagination-container .mybook-page-item-next{
-    display: block;
-    padding: 8px 16px;
-    color: var(--color--darkgreen);
-    text-decoration: none;
-    border: 1px solid var(--light--grey);
-    cursor:pointer;
-    border-radius: 5px;
-    transition:
-        background-color 0.3s,
-        color 0.3s;
+#mybook-container
+	#mybook-content
+	.mybook-pagination-container
+	.mybook-page-item,
+#mybook-container
+	#mybook-content
+	.mybook-pagination-container
+	.mybook-page-item-previous,
+#mybook-container
+	#mybook-content
+	.mybook-pagination-container
+	.mybook-page-item-next {
+	display: block;
+	padding: 8px 16px;
+	color: var(--color--darkgreen);
+	text-decoration: none;
+	border: 1px solid var(--light--grey);
+	cursor: pointer;
+	border-radius: 5px;
+	transition:
+		background-color 0.3s,
+		color 0.3s;
 }
 
-#mybook-container #mybook-content .mybook-pagination-container .mybook-page-item:hover,
-#mybook-container #mybook-content .mybook-pagination-container .mybook-page-item-previous:hover,
-#mybook-container #mybook-content .mybook-pagination-container .mybook-page-item-next:hover{
-    color: var(--color--black);
-    background-color: var(--light--grey);
+#mybook-container
+	#mybook-content
+	.mybook-pagination-container
+	.mybook-page-item:hover,
+#mybook-container
+	#mybook-content
+	.mybook-pagination-container
+	.mybook-page-item-previous:hover,
+#mybook-container
+	#mybook-content
+	.mybook-pagination-container
+	.mybook-page-item-next:hover {
+	color: var(--color--black);
+	background-color: var(--light--grey);
 }
 
-#mybook-container #mybook-content .mybook-pagination-container .mybook-page-item.active{
-    font-weight: bold;
-    color: var(--color--white);
-    background-color: var(--color--darkgreen);
-    border-color: var(--color--darkgreen);
+#mybook-container
+	#mybook-content
+	.mybook-pagination-container
+	.mybook-page-item.active {
+	font-weight: bold;
+	color: var(--color--white);
+	background-color: var(--color--darkgreen);
+	border-color: var(--color--darkgreen);
 }

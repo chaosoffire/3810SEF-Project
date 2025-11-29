@@ -1,62 +1,50 @@
 import express from "express";
 import "dotenv/config";
-import { upload } from "./multer";
 
 import { addBook } from "./api/admin/add-book";
+import { deleteBook } from "./api/admin/delete-book";
+import { updateBook } from "./api/admin/update-book";
+import { resetPassword } from "./api/auth/reset-password";
 import { signIn } from "./api/auth/sign-in";
 import { signOut } from "./api/auth/sign-out";
 import { signUp } from "./api/auth/sign-up";
 import { renderContent } from "./api/general/render-content";
+import { bookContent } from "./api/user/book-content";
+import { checkout } from "./api/user/checkout";
+import { getOwnBook } from "./api/user/get-owned-book";
 import { checkAdmin } from "./middleware/check-admin";
 import { checkRole } from "./middleware/check-role";
 import { validateSession } from "./middleware/validate-session";
-import { getOwnBook } from "./api/user/get-owned-book";
-import { checkout } from "./api/user/checkout";
-import { bookContent } from "./api/user/book-content";
-import { resetPassword } from "./api/auth/reset-password";
-import { deleteBook } from "./api/admin/delete-book";
-import { updateBook } from "./api/admin/update-book";
+import { upload } from "./multer";
 
 export const pageRouter = express.Router({
-    mergeParams: true,
+	mergeParams: true,
 });
 
 const apiVersion = process.env.API_VERSION_NO as string | null;
 const testPath = process.env.TEST_PATH as string | null;
 
 pageRouter.get(
-    "/", 
-    validateSession,
-    async (_req: express.Request, res: express.Response) => {
-    res.redirect("/page/content/?state=home");
-});
-
-pageRouter.get(
-    "/credential",
-    async (_req: express.Request, res: express.Response) => {
-        res.status(200).render("login");
-    },
+	"/",
+	validateSession,
+	async (_req: express.Request, res: express.Response) => {
+		res.redirect("/page/content/?state=home");
+	},
 );
 
 pageRouter.get(
-    "/ownedbook",
-    validateSession,
-    getOwnBook
-)
+	"/credential",
+	async (_req: express.Request, res: express.Response) => {
+		res.status(200).render("login");
+	},
+);
+
+pageRouter.get("/ownedbook", validateSession, getOwnBook);
 
 // send api get book for starting menu
-pageRouter.get(
-    "/content", 
-    validateSession, 
-    checkRole, 
-    renderContent
-);
+pageRouter.get("/content", validateSession, checkRole, renderContent);
 
-pageRouter.get(
-    "/bookcontent",
-    validateSession,
-    bookContent
-);
+pageRouter.get("/bookcontent", validateSession, bookContent);
 
 // ----------------------------LIST USER
 // pageRouter.get(
@@ -79,58 +67,26 @@ pageRouter.get(
 
 // -------------------------------------------
 
+pageRouter.post("/signup", signUp);
+
+pageRouter.post("/adminsignup", validateSession, signUp);
+
+pageRouter.post("/signin", signIn);
+
+pageRouter.post("/signout", validateSession, signOut);
+
 pageRouter.post(
-    "/signup", 
-    signUp
+	"/add",
+	validateSession,
+	checkAdmin,
+	upload.single("book-cover-upload"),
+	addBook,
 );
 
-pageRouter.post(
-    "/adminsignup", 
-    validateSession, 
-    signUp
-);
+pageRouter.post("/update/:id", validateSession, checkAdmin, updateBook);
 
-pageRouter.post(
-    "/signin", 
-    signIn
-);
+pageRouter.post("/checkout", validateSession, checkout);
 
-pageRouter.post(
-    "/signout", 
-    validateSession, 
-    signOut
-);
+pageRouter.put("/reset", validateSession, resetPassword);
 
-pageRouter.post(
-    "/add",
-    validateSession,
-    checkAdmin,
-    upload.single("book-cover-upload"),
-    addBook,
-);
-
-pageRouter.post(
-    "/update/:id",
-    validateSession,
-    checkAdmin,
-    updateBook
-)
-
-pageRouter.post(
-    "/checkout",
-    validateSession,
-    checkout
-)
-
-pageRouter.put(
-    "/reset",
-    validateSession,
-    resetPassword
-)
-
-
-pageRouter.delete(
-    "/delete/:id",
-    validateSession,
-    deleteBook
-)
+pageRouter.delete("/delete/:id", validateSession, deleteBook);

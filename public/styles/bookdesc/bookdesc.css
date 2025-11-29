@@ -1,195 +1,195 @@
 :root {
-    --color--main: #f0ffff;
-    --color--black: #000000;
-    --color--white: #ffffff;
-    --color--darkgreen: #005454;
-    --color--lightred: #ef5454;
-    --light--grey: #f5f5f5;
-    --medium-grey: #eaeaea;
-    --dark--grey: #767676;
-    --color--orange: #f58330;
-    font-family: "Lora", "Roboto", sans-serif;
+	--color--main: #f0ffff;
+	--color--black: #000000;
+	--color--white: #ffffff;
+	--color--darkgreen: #005454;
+	--color--lightred: #ef5454;
+	--light--grey: #f5f5f5;
+	--medium-grey: #eaeaea;
+	--dark--grey: #767676;
+	--color--orange: #f58330;
+	font-family: "Lora", "Roboto", sans-serif;
 }
 
 * {
-    box-sizing: border-box;
-    padding: 0px;
-    margin: 0px;
+	box-sizing: border-box;
+	padding: 0px;
+	margin: 0px;
 }
 
-#main-content{
-    width: 100%;
+#main-content {
+	width: 100%;
 }
 
 #main-content #outer-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 60%;
-    padding-bottom: 50px;
-    margin: 50px auto;
-    font-family: "Roboto", sans-serif;
-    color: var(--color--black);
-    background-color: var(--color--white);
-    border: 2px solid var(--light--grey);
-    border-radius: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 60%;
+	padding-bottom: 50px;
+	margin: 50px auto;
+	font-family: "Roboto", sans-serif;
+	color: var(--color--black);
+	background-color: var(--color--white);
+	border: 2px solid var(--light--grey);
+	border-radius: 15px;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #main-content #outer-container #upper-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    width: 85%;
-    margin: 30px auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 30px;
+	width: 85%;
+	margin: 30px auto;
 }
 
 #main-content #outer-container #upper-container #book-cover {
-    max-width: 235px;
-    height: auto;
-    max-height: 350px;
-    margin-bottom: 10px;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
+	max-width: 235px;
+	height: auto;
+	max-height: 350px;
+	margin-bottom: 10px;
+	object-fit: cover;
+	border-radius: 10px;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+	transition: all 0.3s ease;
 }
 
 #main-content #outer-container #upper-container #desc-container {
-    flex: 1;
-    padding-top: 10px;
-    font-size: medium;
+	flex: 1;
+	padding-top: 10px;
+	font-size: medium;
 }
 
 #main-content #outer-container #upper-container #desc-container p {
-    padding-top: 20px;
-    padding-bottom: 15px;
+	padding-top: 20px;
+	padding-bottom: 15px;
 }
 
 #main-content #outer-container #upper-container #desc-container #title {
-    margin-bottom: 15px;
-    font-family: "Lora", serif;
-    font-size: xx-large;
-    color: var(--color--black);
+	margin-bottom: 15px;
+	font-family: "Lora", serif;
+	font-size: xx-large;
+	color: var(--color--black);
 }
 
 #main-content #outer-container #upper-container #desc-container #categories {
-    font-size: small;
+	font-size: small;
 }
 
 #main-content #outer-container .line {
-    display: flex;
-    justify-content: center;
-    width: 85%;
-    height: 2px;
-    margin: 5px auto;
-    background-color: var(--light--grey);
+	display: flex;
+	justify-content: center;
+	width: 85%;
+	height: 2px;
+	margin: 5px auto;
+	background-color: var(--light--grey);
 }
 
 #main-content #outer-container #lower-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 #main-content #outer-container #lower-container #price-label {
-    font-size: smaller;
-    color: var(--dark--grey);
-    text-align: center;
+	font-size: smaller;
+	color: var(--dark--grey);
+	text-align: center;
 }
 
 #main-content #outer-container #lower-container #price {
-    margin-bottom: 15px;
-    font-size: 25px;
-    font-weight: bold;
-    color: var(--color--lightred);
-    text-align: center;
+	margin-bottom: 15px;
+	font-size: 25px;
+	font-weight: bold;
+	color: var(--color--lightred);
+	text-align: center;
 }
 
-#main-content #outer-container #lower-container #add-btn{
-    width: 260px;
-    height: 45px;
-    margin: 0 auto;
-    margin-bottom: 20px;
-    font-size: large;
-    font-weight: bold;
-    color: var(--color--white);
-    cursor: pointer;
-    background-color: var(--color--lightred);
-    border: none;
-    border-radius: 100px;
-    transition: all 0.2s linear;
+#main-content #outer-container #lower-container #add-btn {
+	width: 260px;
+	height: 45px;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	font-size: large;
+	font-weight: bold;
+	color: var(--color--white);
+	cursor: pointer;
+	background-color: var(--color--lightred);
+	border: none;
+	border-radius: 100px;
+	transition: all 0.2s linear;
 }
 
-#main-content #outer-container #back-btn-div{
-    width: 100%;
-    display: flex;
-    box-sizing: border-box;
-    padding: 20px;
-    align-items: center;
-    justify-content: flex-start;
+#main-content #outer-container #back-btn-div {
+	width: 100%;
+	display: flex;
+	box-sizing: border-box;
+	padding: 20px;
+	align-items: center;
+	justify-content: flex-start;
 }
 
-#main-content #outer-container #back-to-menu-form #back-to-menu{
-    width: 100px;
-    height: 45px;
-    margin: 0 auto;
-    margin-bottom: 20px;
-    font-size: large;
-    font-weight: bold;
-    color: var(--color--white);
-    cursor: pointer;
-    background-color: var(--color--lightred);
-    border: none;
-    border-radius: 100px;
-    transition: all 0.2s linear;
+#main-content #outer-container #back-to-menu-form #back-to-menu {
+	width: 100px;
+	height: 45px;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	font-size: large;
+	font-weight: bold;
+	color: var(--color--white);
+	cursor: pointer;
+	background-color: var(--color--lightred);
+	border: none;
+	border-radius: 100px;
+	transition: all 0.2s linear;
 }
 
 #main-content #outer-container #lower-container #add-btn:hover,
-#main-content #outer-container #back-to-menu-form #back-to-menu:hover{
-    color: var(--color--black);
-    background-color: var(--color-white);
-    border: 2px solid var(--color--lightred);
+#main-content #outer-container #back-to-menu-form #back-to-menu:hover {
+	color: var(--color--black);
+	background-color: var(--color-white);
+	border: 2px solid var(--color--lightred);
 }
 
 #main-content #outer-container #lower-container #add-btn.disabled {
-    color: var(--dark--grey);
-    background-color: var(--medium-grey);
+	color: var(--dark--grey);
+	background-color: var(--medium-grey);
 }
 
 #main-content #outer-container #lower-container #add-btn.disabled:hover {
-    color: none;
-    background-color: none;
-    border: none;
+	color: none;
+	background-color: none;
+	border: none;
 }
 
 @media (max-width: 1300px) {
-    #main-content #outer-container {
-        width: 80%;
-    }
-    #main-content #outer-container #upper-container #book-cover {
-        width: 40%;
-        height: 40%;
-        margin-right: 20px;
-        margin-bottom: 5px;
-    }
-    #main-content #outer-container #upper-container #desc-container #title {
-        font-size: x-large;
-    }
+	#main-content #outer-container {
+		width: 80%;
+	}
+	#main-content #outer-container #upper-container #book-cover {
+		width: 40%;
+		height: 40%;
+		margin-right: 20px;
+		margin-bottom: 5px;
+	}
+	#main-content #outer-container #upper-container #desc-container #title {
+		font-size: x-large;
+	}
 }
 
 @media (max-width: 870px) {
-    #main-content #outer-container #upper-container #book-cover {
-        width: 40%;
-        height: 40%;
-        margin-right: 20px;
-        margin-bottom: 5px;
-    }
-    #main-content #outer-container {
-        width: 90%;
-    }
+	#main-content #outer-container #upper-container #book-cover {
+		width: 40%;
+		height: 40%;
+		margin-right: 20px;
+		margin-bottom: 5px;
+	}
+	#main-content #outer-container {
+		width: 90%;
+	}
 }
 
 /* Css for page when user is Admin */
@@ -201,199 +201,199 @@
   */
 
 #main-content #outer-container #update-form,
-#main-content #outer-container #add-form{
-    width: 100%;
+#main-content #outer-container #add-form {
+	width: 100%;
 }
 
-#main-content #outer-container #upper-container #desc-container{
-    width: 100%;
+#main-content #outer-container #upper-container #desc-container {
+	width: 100%;
 }
 
 #main-content #outer-container #upper-container #desc-container label {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    font-size: small;
-    color: var(--dark--grey);
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size: small;
+	color: var(--dark--grey);
 }
 
 #main-content #outer-container #upper-container #desc-container input,
 textarea {
-    background-color: var(--light--grey);
-    border: 1px solid var(--dark--grey);
-    border-radius: 5px;
+	background-color: var(--light--grey);
+	border: 1px solid var(--dark--grey);
+	border-radius: 5px;
 }
 
 #main-content #outer-container #upper-container #desc-container #author {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
-#main-content #outer-container #lower-container #save-btn{
-    width: 260px;
-    height: 45px;
-    margin: 0 auto;
-    margin-bottom: 20px;
-    font-size: large;
-    font-weight: bold;
-    color: var(--color--white);
-    cursor: pointer;
-    background-color: var(--color--lightred);
-    border: none;
-    border-radius: 100px;
-    transition: all 0.2s linear;
+#main-content #outer-container #lower-container #save-btn {
+	width: 260px;
+	height: 45px;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	font-size: large;
+	font-weight: bold;
+	color: var(--color--white);
+	cursor: pointer;
+	background-color: var(--color--lightred);
+	border: none;
+	border-radius: 100px;
+	transition: all 0.2s linear;
 }
 
 #main-content #outer-container #lower-container #delete-btn {
-    width: 260px;
-    height: 45px;
-    margin: 0 auto;
-    margin-bottom: 20px;
-    font-size: large;
-    font-weight: bold;
-    color: var(--color--white);
-    cursor: pointer;
-    background-color: var(--color--orange);
-    border: none;
-    border-radius: 100px;
-    transition: all 0.2s linear;
+	width: 260px;
+	height: 45px;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	font-size: large;
+	font-weight: bold;
+	color: var(--color--white);
+	cursor: pointer;
+	background-color: var(--color--orange);
+	border: none;
+	border-radius: 100px;
+	transition: all 0.2s linear;
 }
 
-#main-content #outer-container #lower-container #save-btn:hover{
-    color: var(--color--black);
-    background-color: var(--color-white);
-    border: 2px solid var(--color--lightred);
+#main-content #outer-container #lower-container #save-btn:hover {
+	color: var(--color--black);
+	background-color: var(--color-white);
+	border: 2px solid var(--color--lightred);
 }
 #main-content #outer-container #lower-container #delete-btn:hover {
-    color: var(--color--black);
-    background-color: var(--color-white);
-    border: 2px solid var(--color--orange);
+	color: var(--color--black);
+	background-color: var(--color-white);
+	border: 2px solid var(--color--orange);
 }
 
 #main-content
-    #outer-container
-    #upper-container
-    #desc-container
-    #categories-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 5px;
-    margin-top: 5px;
-    margin-bottom: 15px;
+	#outer-container
+	#upper-container
+	#desc-container
+	#categories-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+	gap: 5px;
+	margin-top: 5px;
+	margin-bottom: 15px;
 }
 
 #main-content
-    #outer-container
-    #upper-container
-    #desc-container
-    #categories-container
-    .checkbox-item {
-    display: flex;
-    align-items: center;
-    padding: 4px;
-    background-color: transparent;
-    border: none;
+	#outer-container
+	#upper-container
+	#desc-container
+	#categories-container
+	.checkbox-item {
+	display: flex;
+	align-items: center;
+	padding: 4px;
+	background-color: transparent;
+	border: none;
 }
 
 #main-content
-    #outer-container
-    #upper-container
-    #desc-container
-    #categories-container
-    .checkbox-item
-    label {
-    margin-left: 8px;
-    font-size: 14px;
-    color: var(--color--black);
+	#outer-container
+	#upper-container
+	#desc-container
+	#categories-container
+	.checkbox-item
+	label {
+	margin-left: 8px;
+	font-size: 14px;
+	color: var(--color--black);
 }
 
 #main-content
-    #outer-container
-    #upper-container
-    #desc-container
-    #categories-container
-    .checkbox-item
-    input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
+	#outer-container
+	#upper-container
+	#desc-container
+	#categories-container
+	.checkbox-item
+	input[type="checkbox"] {
+	width: 16px;
+	height: 16px;
 }
 
 #main-content
-    #outer-container
-    #upper-container
-    #desc-container
-    #categories-container
-    .checkbox-item
-    input[type="checkbox"]:checked {
-    accent-color: var(--color--lightred);
+	#outer-container
+	#upper-container
+	#desc-container
+	#categories-container
+	.checkbox-item
+	input[type="checkbox"]:checked {
+	accent-color: var(--color--lightred);
 }
 
 #main-content
-    #outer-container
-    #upper-container
-    #desc-container
-    input[type="text"],
+	#outer-container
+	#upper-container
+	#desc-container
+	input[type="text"],
 #main-content #outer-container #upper-container #desc-container textarea {
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 900px;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 900px;
+	padding: 8px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
 }
 
 #main-content #outer-container #lower-container input[type="number"] {
-    max-width: 150px;
-    padding-left: 15px;
-    margin: 0 auto;
+	max-width: 150px;
+	padding-left: 15px;
+	margin: 0 auto;
 }
 
 #main-content #outer-container #upper-container #desc-container textarea {
-    min-height: 100px;
-    resize: vertical;
+	min-height: 100px;
+	resize: vertical;
 }
 
 #main-content #outer-container #upper-container #book-cover-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #main-content
-    #outer-container
-    #upper-container
-    #book-cover-container
-    #cover-upload-btn {
-    position: absolute;
-    top: 50%;
-    left: 48.3%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    cursor: pointer;
-    background-color: var(--color--lightred);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: background-color 0.3s ease;
+	#outer-container
+	#upper-container
+	#book-cover-container
+	#cover-upload-btn {
+	position: absolute;
+	top: 50%;
+	left: 48.3%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 60px;
+	height: 60px;
+	cursor: pointer;
+	background-color: var(--color--lightred);
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	transition: background-color 0.3s ease;
 }
 
 #main-content
-    #outer-container
-    #upper-container
-    #book-cover-container
-    #cover-upload-btn
-    img {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
+	#outer-container
+	#upper-container
+	#book-cover-container
+	#cover-upload-btn
+	img {
+	width: 40px;
+	height: 40px;
+	object-fit: contain;
 }
 
 #main-content
-    #outer-container
-    #upper-container
-    #book-cover-container
-    #book-cover-upload {
-    display: none;
+	#outer-container
+	#upper-container
+	#book-cover-container
+	#book-cover-upload {
+	display: none;
 }
